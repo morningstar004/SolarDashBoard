@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --background: #FBF9F5;
+  --foreground: #1C1613;
 }
 
 .dark {
-  --background: #090e17;
-  --foreground: #f8fafc;
+  --background: #120F0D;
+  --foreground: #F7F4EF;
 }
 
 body {
@@ -17,9 +17,10 @@ body {
   color: var(--foreground);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   overflow-x: hidden;
+  letter-spacing: -0.01em;
 }
 
-/* Custom delicate scrollbars */
+/* Custom warm clay scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -28,11 +29,11 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #DBD5C8;
   border-radius: 9999px;
 }
 .dark ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #38302A;
 }
 
 /* Print manifest styling */
@@ -48,4 +49,3 @@ body {
     display: block !important;
   }
 }
-

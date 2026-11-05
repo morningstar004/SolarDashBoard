@@ -63,26 +63,26 @@ export const TeamModule: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Top Header & View Mode Switcher */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 rounded-3xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)]">
         <div>
-          <h2 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <Users className="w-5 h-5 text-amber-500" />
+          <h2 className="text-base font-black text-[#1C1613] dark:text-[#F7F4EF] flex items-center gap-2">
+            <Users className="w-5 h-5 text-[#A87208] dark:text-[#FCD34D]" />
             <span>Team Management & Floor Operations Roster</span>
           </h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+          <p className="text-xs text-[#7D756D] dark:text-[#A89F95] mt-0.5">
             Internal warehouse team, duty check-in logs, and on-demand certified solar drivers & contractors.
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
           {/* View Mode Toggle */}
-          <div className="flex items-center p-1 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+          <div className="flex items-center p-1 rounded-2xl bg-[#F4F0E8] dark:bg-[#241E19] border border-[#EBE7DF] dark:border-[#352B24]">
             <button
               onClick={() => setViewMode('simple')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
                 viewMode === 'simple'
-                  ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm'
-                  : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-200'
+                  ? 'bg-[#1C1613] dark:bg-[#FCD34D] text-white dark:text-[#1C1613] shadow-xs'
+                  : 'text-[#6B635B] dark:text-[#A89F95] hover:text-[#1C1613]'
               }`}
             >
               <Grid className="w-3.5 h-3.5" />
@@ -91,10 +91,10 @@ export const TeamModule: React.FC = () => {
 
             <button
               onClick={() => setViewMode('hierarchical')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
                 viewMode === 'hierarchical'
-                  ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm'
-                  : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-200'
+                  ? 'bg-[#1C1613] dark:bg-[#FCD34D] text-white dark:text-[#1C1613] shadow-xs'
+                  : 'text-[#6B635B] dark:text-[#A89F95] hover:text-[#1C1613]'
               }`}
             >
               <Network className="w-3.5 h-3.5" />
@@ -104,9 +104,9 @@ export const TeamModule: React.FC = () => {
 
           <button
             onClick={() => setShowAssignModal(true)}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-amber-500 hover:bg-amber-600 text-white shadow-sm transition-all"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold bg-[#FCD34D] hover:bg-[#fbbf24] text-[#1C1613] shadow-md shadow-[#FCD34D]/20 transition-all"
           >
-            <UserCheck className="w-3.5 h-3.5" />
+            <UserCheck className="w-3.5 h-3.5 stroke-[2.5]" />
             <span>Reassign Orders</span>
           </button>
         </div>
@@ -118,23 +118,23 @@ export const TeamModule: React.FC = () => {
           {employees.map((emp) => {
             const statusColor =
               emp.status === 'Active on Dock'
-                ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border-emerald-300'
+                ? 'bg-[#E8F8F0] text-[#168051] border-[#C6EED8] dark:bg-[#1A2D22] dark:text-[#78E0A9]'
                 : emp.status === 'Reviewing POs'
-                ? 'bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border-blue-300'
+                ? 'bg-[#EEF4FF] text-[#2E5AAC] border-[#CCDDFE] dark:bg-[#1E2638] dark:text-[#93B4F5]'
                 : emp.status === 'On Break'
-                ? 'bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 border-amber-300'
-                : 'bg-slate-50 text-slate-600 dark:bg-slate-800 dark:text-slate-400 border-slate-300';
+                ? 'bg-[#FEF6E6] text-[#A6680C] border-[#FDE3B2] dark:bg-[#2D2115] dark:text-[#FCD34D]'
+                : 'bg-[#F4F0E8] text-[#5C5247] border-[#E5DFD4] dark:bg-[#2A221C] dark:text-[#D4CCC0]';
 
             return (
               <div
                 key={emp.id}
-                className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-4 hover:border-amber-400/50 transition-all flex flex-col justify-between"
+                className="p-5 rounded-3xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] space-y-4 hover:border-[#FCD34D]/60 transition-all flex flex-col justify-between"
               >
                 <div>
                   {/* Top Avatar & Status */}
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-2xl overflow-hidden border-2 border-amber-500/30 shrink-0">
+                      <div className="w-12 h-12 rounded-2xl overflow-hidden border-2 border-[#FCD34D]/60 shrink-0">
                         <img
                           src={emp.avatarUrl}
                           alt={emp.name}
@@ -142,20 +142,20 @@ export const TeamModule: React.FC = () => {
                         />
                       </div>
                       <div>
-                        <h3 className="text-sm font-bold text-slate-900 dark:text-white leading-tight">
+                        <h3 className="text-sm font-bold text-[#1C1613] dark:text-white leading-tight">
                           {emp.name}
                         </h3>
-                        <p className="text-xs text-amber-600 dark:text-amber-400 font-medium">
+                        <p className="text-xs text-[#A87208] dark:text-[#FCD34D] font-semibold">
                           {emp.role}
                         </p>
-                        <p className="text-[10px] text-slate-400">{emp.department}</p>
+                        <p className="text-[10px] text-[#8F867C]">{emp.department}</p>
                       </div>
                     </div>
 
                     <select
                       value={emp.status}
                       onChange={(e) => updateEmployeeStatus(emp.id, e.target.value as WorkloadStatus)}
-                      className={`text-[10px] font-bold px-2 py-0.5 rounded-full border cursor-pointer ${statusColor}`}
+                      className={`text-[10px] font-bold px-2.5 py-1 rounded-full border cursor-pointer outline-none ${statusColor}`}
                     >
                       <option value="Active on Dock">Active on Dock</option>
                       <option value="Reviewing POs">Reviewing POs</option>
@@ -165,27 +165,27 @@ export const TeamModule: React.FC = () => {
                   </div>
 
                   {/* Current Work & Check-in Time */}
-                  <div className="mt-4 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-750 text-xs space-y-1.5">
+                  <div className="mt-4 p-3 rounded-2xl bg-[#FBF9F5] dark:bg-[#201A16] border border-[#EBE7DF] dark:border-[#2D2520] text-xs space-y-1.5">
                     <div className="flex items-center justify-between">
-                      <span className="text-slate-400 flex items-center gap-1 text-[11px]">
-                        <Clock className="w-3 h-3 text-amber-500" />
+                      <span className="text-[#8F867C] flex items-center gap-1 text-[11px]">
+                        <Clock className="w-3 h-3 text-[#A87208] dark:text-[#FCD34D]" />
                         Today Check-in:
                       </span>
-                      <span className="font-semibold text-slate-800 dark:text-slate-200">
+                      <span className="font-semibold text-[#1C1613] dark:text-[#FAF7F2]">
                         {emp.checkInTime}
                       </span>
                     </div>
 
                     <div className="flex items-center justify-between">
-                      <span className="text-slate-400 text-[11px]">Shift:</span>
-                      <span className="text-slate-700 dark:text-slate-300 text-[11px] font-mono">
+                      <span className="text-[#8F867C] text-[11px]">Shift:</span>
+                      <span className="text-[#5C5247] dark:text-[#D4CCC0] text-[11px] font-mono">
                         {emp.shift.split(' ')[0]}
                       </span>
                     </div>
 
                     <div className="flex items-center justify-between">
-                      <span className="text-slate-400 text-[11px]">Active Orders Assigned:</span>
-                      <span className="font-bold text-slate-900 dark:text-white">
+                      <span className="text-[#8F867C] text-[11px]">Active Orders Assigned:</span>
+                      <span className="font-bold text-[#1C1613] dark:text-white">
                         {emp.activeOrdersCount} orders
                       </span>
                     </div>
@@ -196,7 +196,7 @@ export const TeamModule: React.FC = () => {
                     {emp.certifications.map((c, i) => (
                       <span
                         key={i}
-                        className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+                        className="px-2 py-0.5 rounded-lg text-[10px] font-semibold bg-[#F4F0E8] dark:bg-[#241E19] text-[#5C5247] dark:text-[#D4CCC0] border border-[#E8E3DA] dark:border-[#352B24]"
                       >
                         {c}
                       </span>
@@ -205,14 +205,14 @@ export const TeamModule: React.FC = () => {
                 </div>
 
                 {/* Bottom Card Actions: Extend / Manage Employee */}
-                <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                  <div className="text-[11px] text-slate-400">
-                    Rating: <strong className="text-amber-500">{emp.rating} ★</strong>
+                <div className="pt-3 border-t border-[#EBE7DF] dark:border-[#2D2520] flex items-center justify-between">
+                  <div className="text-[11px] text-[#8F867C]">
+                    Rating: <strong className="text-[#A87208] dark:text-[#FCD34D]">{emp.rating} ★</strong>
                   </div>
 
                   <button
                     onClick={() => setSelectedEmployeeForModal(emp)}
-                    className="flex items-center gap-1 text-xs font-semibold text-amber-600 dark:text-amber-400 hover:text-amber-700"
+                    className="flex items-center gap-1 text-xs font-bold text-[#A87208] dark:text-[#FCD34D] hover:text-[#8C5D04] transition-colors"
                   >
                     <span>Extend & Manage</span>
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -226,33 +226,33 @@ export const TeamModule: React.FC = () => {
 
       {/* 2. HIERARCHICAL ORG VIEW */}
       {viewMode === 'hierarchical' && (
-        <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-6">
+        <div className="p-6 rounded-3xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] space-y-6">
           <div className="text-center max-w-sm mx-auto">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[#8F867C]">
               Operations Leadership
             </span>
-            <div className="mt-2 p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border-2 border-amber-500 shadow-sm text-center">
-              <div className="w-14 h-14 rounded-full overflow-hidden mx-auto border-2 border-amber-500">
+            <div className="mt-2 p-4 rounded-3xl bg-[#FEF6E6] dark:bg-[#2D2115] border-2 border-[#FCD34D] shadow-xs text-center">
+              <div className="w-14 h-14 rounded-full overflow-hidden mx-auto border-2 border-[#FCD34D]">
                 <img
                   src={employees[0].avatarUrl}
                   alt={employees[0].name}
                   className="w-full h-full object-cover"
                 />
               </div>
-              <h4 className="text-sm font-bold text-slate-900 dark:text-white mt-2">
+              <h4 className="text-sm font-bold text-[#1C1613] dark:text-white mt-2">
                 {employees[0].name}
               </h4>
-              <p className="text-xs font-medium text-amber-600">{employees[0].role}</p>
-              <p className="text-[10px] text-slate-400">{employees[0].department}</p>
+              <p className="text-xs font-semibold text-[#A87208] dark:text-[#FCD34D]">{employees[0].role}</p>
+              <p className="text-[10px] text-[#8F867C]">{employees[0].department}</p>
             </div>
-            <div className="w-0.5 h-8 bg-amber-400 mx-auto"></div>
+            <div className="w-0.5 h-8 bg-[#FCD34D] mx-auto"></div>
           </div>
 
           {/* Departmental Branches */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
             {/* Branch 1: Quality Control & Inspection */}
-            <div className="space-y-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700">
-              <h4 className="text-xs font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider">
+            <div className="space-y-3 p-4 rounded-2xl bg-[#FBF9F5] dark:bg-[#201A16] border border-[#EBE7DF] dark:border-[#2D2520]">
+              <h4 className="text-xs font-bold text-[#2E5AAC] dark:text-[#93B4F5] uppercase tracking-wider">
                 Quality Control Division
               </h4>
               {employees
@@ -261,13 +261,13 @@ export const TeamModule: React.FC = () => {
                   <div
                     key={emp.id}
                     onClick={() => setSelectedEmployeeForModal(emp)}
-                    className="cursor-pointer p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-amber-400 transition-colors"
+                    className="cursor-pointer p-3 rounded-xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] hover:border-[#FCD34D] transition-colors"
                   >
                     <div className="flex items-center gap-2.5">
                       <img src={emp.avatarUrl} alt={emp.name} className="w-8 h-8 rounded-full object-cover" />
                       <div>
-                        <p className="text-xs font-bold text-slate-900 dark:text-white">{emp.name}</p>
-                        <p className="text-[10px] text-slate-500">{emp.role}</p>
+                        <p className="text-xs font-bold text-[#1C1613] dark:text-white">{emp.name}</p>
+                        <p className="text-[10px] text-[#8F867C]">{emp.role}</p>
                       </div>
                     </div>
                   </div>
@@ -275,8 +275,8 @@ export const TeamModule: React.FC = () => {
             </div>
 
             {/* Branch 2: Warehouse Dock & Dispatch */}
-            <div className="space-y-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700">
-              <h4 className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+            <div className="space-y-3 p-4 rounded-2xl bg-[#FBF9F5] dark:bg-[#201A16] border border-[#EBE7DF] dark:border-[#2D2520]">
+              <h4 className="text-xs font-bold text-[#168051] dark:text-[#78E0A9] uppercase tracking-wider">
                 Warehouse & Staging Dock
               </h4>
               {employees
@@ -285,13 +285,13 @@ export const TeamModule: React.FC = () => {
                   <div
                     key={emp.id}
                     onClick={() => setSelectedEmployeeForModal(emp)}
-                    className="cursor-pointer p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-amber-400 transition-colors"
+                    className="cursor-pointer p-3 rounded-xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] hover:border-[#FCD34D] transition-colors"
                   >
                     <div className="flex items-center gap-2.5">
                       <img src={emp.avatarUrl} alt={emp.name} className="w-8 h-8 rounded-full object-cover" />
                       <div>
-                        <p className="text-xs font-bold text-slate-900 dark:text-white">{emp.name}</p>
-                        <p className="text-[10px] text-slate-500">{emp.role}</p>
+                        <p className="text-xs font-bold text-[#1C1613] dark:text-white">{emp.name}</p>
+                        <p className="text-[10px] text-[#8F867C]">{emp.role}</p>
                       </div>
                     </div>
                   </div>
@@ -299,8 +299,8 @@ export const TeamModule: React.FC = () => {
             </div>
 
             {/* Branch 3: Solar Trading & Procurement */}
-            <div className="space-y-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700">
-              <h4 className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">
+            <div className="space-y-3 p-4 rounded-2xl bg-[#FBF9F5] dark:bg-[#201A16] border border-[#EBE7DF] dark:border-[#2D2520]">
+              <h4 className="text-xs font-bold text-[#A87208] dark:text-[#FCD34D] uppercase tracking-wider">
                 Trading, Sales & Procurement
               </h4>
               {employees
@@ -309,13 +309,13 @@ export const TeamModule: React.FC = () => {
                   <div
                     key={emp.id}
                     onClick={() => setSelectedEmployeeForModal(emp)}
-                    className="cursor-pointer p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-amber-400 transition-colors"
+                    className="cursor-pointer p-3 rounded-xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] hover:border-[#FCD34D] transition-colors"
                   >
                     <div className="flex items-center gap-2.5">
                       <img src={emp.avatarUrl} alt={emp.name} className="w-8 h-8 rounded-full object-cover" />
                       <div>
-                        <p className="text-xs font-bold text-slate-900 dark:text-white">{emp.name}</p>
-                        <p className="text-[10px] text-slate-500">{emp.role}</p>
+                        <p className="text-xs font-bold text-[#1C1613] dark:text-white">{emp.name}</p>
+                        <p className="text-[10px] text-[#8F867C]">{emp.role}</p>
                       </div>
                     </div>
                   </div>
@@ -326,13 +326,13 @@ export const TeamModule: React.FC = () => {
       )}
 
       {/* 3. NON-PERMANENT & CONTRACT WORKFORCE SECTION (Requested by User) */}
-      <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-4">
+      <div className="p-6 rounded-3xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] space-y-4">
         <div>
-          <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <Truck className="w-4 h-4 text-sky-500" />
+          <h3 className="text-sm font-black text-[#1C1613] dark:text-white flex items-center gap-2">
+            <Truck className="w-4 h-4 text-[#A87208] dark:text-[#FCD34D]" />
             <span>On-Demand Non-Permanent Personnel (Delivery Drivers & Solar Installers)</span>
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+          <p className="text-xs text-[#7D756D] dark:text-[#A89F95] mt-0.5">
             Verified contract heavy vehicle drivers, certified rooftop technicians, and crane specialists with instant booking.
           </p>
         </div>
@@ -341,45 +341,45 @@ export const TeamModule: React.FC = () => {
           {contractors.map((cont) => {
             const statusBg =
               cont.status === 'Available'
-                ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300'
-                : 'bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300';
+                ? 'bg-[#E8F8F0] text-[#168051] border-[#C6EED8] dark:bg-[#1A2D22] dark:text-[#78E0A9]'
+                : 'bg-[#FEF6E6] text-[#A6680C] border-[#FDE3B2] dark:bg-[#2D2115] dark:text-[#FCD34D]';
 
             return (
               <div
                 key={cont.id}
-                className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-850/50 space-y-3"
+                className="p-5 rounded-2xl border border-[#EBE7DF] dark:border-[#2D2520] bg-[#FBF9F5] dark:bg-[#201A16] space-y-3"
               >
                 <div className="flex items-start justify-between">
                   <div>
                     <div className="flex items-center gap-2">
-                      <h4 className="text-sm font-bold text-slate-900 dark:text-white">{cont.name}</h4>
-                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${statusBg}`}>
-                        {cont.status}
+                      <h4 className="text-sm font-bold text-[#1C1613] dark:text-white">{cont.name}</h4>
+                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${statusBg}`}>
+                        ● {cont.status}
                       </span>
                     </div>
-                    <p className="text-xs text-sky-600 dark:text-sky-400 font-medium">{cont.type}</p>
-                    <p className="text-[10px] text-slate-400">{cont.agencyOrFleet}</p>
+                    <p className="text-xs text-[#A87208] dark:text-[#FCD34D] font-semibold">{cont.type}</p>
+                    <p className="text-[10px] text-[#8F867C]">{cont.agencyOrFleet}</p>
                   </div>
 
                   <div className="text-right">
-                    <span className="flex items-center justify-end gap-1 text-xs font-bold text-amber-500">
-                      <Star className="w-3.5 h-3.5 fill-amber-500" />
+                    <span className="flex items-center justify-end gap-1 text-xs font-bold text-[#A87208] dark:text-[#FCD34D]">
+                      <Star className="w-3.5 h-3.5 fill-[#FCD34D] text-[#A87208]" />
                       {cont.rating} ({cont.completedJobsCount} jobs)
                     </span>
-                    <span className="text-[11px] font-bold text-slate-800 dark:text-slate-200 mt-0.5 block">
+                    <span className="text-[11px] font-black text-[#1C1613] dark:text-[#FAF7F2] mt-0.5 block">
                       ₹{cont.ratePerDayINR.toLocaleString('en-IN')}/day
                     </span>
                   </div>
                 </div>
 
-                <div className="text-xs text-slate-600 dark:text-slate-300 space-y-1">
+                <div className="text-xs text-[#5C5247] dark:text-[#D4CCC0] space-y-1">
                   {cont.vehicleNumber && (
                     <p className="font-mono text-[11px]">
-                      Vehicle: <strong>{cont.vehicleNumber}</strong>
+                      Vehicle: <strong className="text-[#1C1613] dark:text-white">{cont.vehicleNumber}</strong>
                     </p>
                   )}
-                  <p className="text-[11px] text-slate-400">
-                    Recent: <span className="text-slate-600 dark:text-slate-300">{cont.recentProject}</span>
+                  <p className="text-[11px] text-[#8F867C]">
+                    Recent: <span className="text-[#1C1613] dark:text-[#FAF7F2] font-medium">{cont.recentProject}</span>
                   </p>
                 </div>
 
@@ -388,7 +388,7 @@ export const TeamModule: React.FC = () => {
                   {cont.verifiedBadges.map((badge, i) => (
                     <span
                       key={i}
-                      className="px-2 py-0.5 rounded text-[10px] bg-slate-200/80 dark:bg-slate-750 text-slate-700 dark:text-slate-300 font-medium"
+                      className="px-2 py-0.5 rounded-lg text-[10px] bg-[#F4F0E8] dark:bg-[#28201A] text-[#5C5247] dark:text-[#D4CCC0] font-semibold border border-[#E8E3DA] dark:border-[#352B24]"
                     >
                       {badge}
                     </span>
@@ -396,12 +396,12 @@ export const TeamModule: React.FC = () => {
                 </div>
 
                 {/* Instant Actions: Call & Book Button */}
-                <div className="pt-2 border-t border-slate-200/60 dark:border-slate-800 flex items-center justify-between">
+                <div className="pt-2 border-t border-[#EBE7DF] dark:border-[#2D2520] flex items-center justify-between">
                   <a
                     href={`tel:${cont.phone}`}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-[#1C1613] dark:text-[#FAF7F2] hover:bg-[#EAE4D8] dark:hover:bg-[#2C231E] border border-[#EBE7DF] dark:border-[#2D2520] transition-colors"
                   >
-                    <Phone className="w-3.5 h-3.5 text-emerald-500" />
+                    <Phone className="w-3.5 h-3.5 text-emerald-600" />
                     <span>Call ({cont.phone})</span>
                   </a>
 
@@ -410,9 +410,9 @@ export const TeamModule: React.FC = () => {
                       setBookingContractor(cont);
                       setBookingProjectNote('SO-9102 Solar Dispatch Truck Bay 4');
                     }}
-                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold bg-amber-500 hover:bg-amber-600 text-white shadow-sm"
+                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#FCD34D] hover:bg-[#fbbf24] text-[#1C1613] shadow-xs transition-all"
                   >
-                    <UserCheck className="w-3.5 h-3.5" />
+                    <UserCheck className="w-3.5 h-3.5 stroke-[2.5]" />
                     <span>Book / Assign</span>
                   </button>
                 </div>
@@ -421,30 +421,29 @@ export const TeamModule: React.FC = () => {
           })}
         </div>
       </div>
-
       {/* Employee Extended Management Drawer / Modal */}
       {selectedEmployeeForModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="w-full max-w-lg bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl p-6 space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1C1613]/60 backdrop-blur-sm">
+          <div className="w-full max-w-lg bg-white dark:bg-[#1A1512] rounded-3xl border border-[#EBE7DF] dark:border-[#2D2520] shadow-2xl p-6 space-y-4">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-3">
                 <img
                   src={selectedEmployeeForModal.avatarUrl}
                   alt={selectedEmployeeForModal.name}
-                  className="w-12 h-12 rounded-2xl object-cover border-2 border-amber-500"
+                  className="w-12 h-12 rounded-2xl object-cover border-2 border-[#FCD34D]"
                 />
                 <div>
-                  <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                  <h3 className="text-base font-black text-[#1C1613] dark:text-white">
                     {selectedEmployeeForModal.name}
                   </h3>
-                  <p className="text-xs text-amber-600 font-medium">
+                  <p className="text-xs text-[#A87208] dark:text-[#FCD34D] font-bold">
                     {selectedEmployeeForModal.role} ({selectedEmployeeForModal.department})
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setSelectedEmployeeForModal(null)}
-                className="p-1 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+                className="p-1.5 rounded-xl text-[#8F867C] hover:text-[#1C1613] hover:bg-[#F4F0E8] dark:hover:bg-[#28201A] transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -452,38 +451,38 @@ export const TeamModule: React.FC = () => {
 
             {/* Compensation & Holidays Overview */}
             <div className="grid grid-cols-2 gap-3 text-xs">
-              <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-750">
-                <span className="text-slate-400 uppercase font-semibold text-[10px]">
+              <div className="p-3.5 rounded-2xl bg-[#FBF9F5] dark:bg-[#201A16] border border-[#EBE7DF] dark:border-[#2D2520]">
+                <span className="text-[#8F867C] uppercase font-bold text-[10px]">
                   Monthly Compensation
                 </span>
-                <p className="text-base font-bold text-slate-900 dark:text-white mt-0.5">
+                <p className="text-base font-black text-[#1C1613] dark:text-white mt-0.5">
                   ₹{selectedEmployeeForModal.monthlyPayoutINR.toLocaleString('en-IN')}
                 </p>
-                <p className="text-[10px] text-emerald-600 mt-0.5">PF & ESIC Compliant</p>
+                <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold mt-0.5">PF & ESIC Compliant</p>
               </div>
 
-              <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-750">
-                <span className="text-slate-400 uppercase font-semibold text-[10px]">
+              <div className="p-3.5 rounded-2xl bg-[#FBF9F5] dark:bg-[#201A16] border border-[#EBE7DF] dark:border-[#2D2520]">
+                <span className="text-[#8F867C] uppercase font-bold text-[10px]">
                   Holidays & Paid Leave Balance
                 </span>
-                <p className="text-base font-bold text-slate-900 dark:text-white mt-0.5">
+                <p className="text-base font-black text-[#1C1613] dark:text-white mt-0.5">
                   {selectedEmployeeForModal.leavesBalance} Days Available
                 </p>
-                <p className="text-[10px] text-slate-400 mt-0.5">Tenure: {selectedEmployeeForModal.tenureMonths} Months</p>
+                <p className="text-[10px] text-[#8F867C] mt-0.5">Tenure: {selectedEmployeeForModal.tenureMonths} Months</p>
               </div>
             </div>
 
             {/* Contact Details */}
-            <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-750 text-xs space-y-1">
+            <div className="p-3.5 rounded-2xl bg-[#FBF9F5] dark:bg-[#201A16] border border-[#EBE7DF] dark:border-[#2D2520] text-xs space-y-1.5">
               <div className="flex justify-between">
-                <span className="text-slate-500">Official Mobile:</span>
-                <span className="font-mono font-bold text-slate-800 dark:text-slate-200">
+                <span className="text-[#8F867C]">Official Mobile:</span>
+                <span className="font-mono font-bold text-[#1C1613] dark:text-[#FAF7F2]">
                   {selectedEmployeeForModal.phone}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500">Email:</span>
-                <span className="font-mono text-slate-800 dark:text-slate-200">
+                <span className="text-[#8F867C]">Email:</span>
+                <span className="font-mono text-[#5C5247] dark:text-[#D4CCC0]">
                   {selectedEmployeeForModal.email}
                 </span>
               </div>
@@ -493,7 +492,7 @@ export const TeamModule: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setSelectedEmployeeForModal(null)}
-                className="px-4 py-2 rounded-xl text-xs font-semibold bg-amber-500 hover:bg-amber-600 text-white shadow-sm"
+                className="px-5 py-2 rounded-2xl text-xs font-bold bg-[#FCD34D] hover:bg-[#fbbf24] text-[#1C1613] shadow-xs transition-all"
               >
                 Done
               </button>
@@ -504,18 +503,20 @@ export const TeamModule: React.FC = () => {
 
       {/* Book Contractor Modal */}
       {bookingContractor && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl p-5 space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-              Book & Dispatch Contractor ({bookingContractor.name})
-            </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Contract Daily Rate: ₹{bookingContractor.ratePerDayINR.toLocaleString('en-IN')}/day
-            </p>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1C1613]/60 backdrop-blur-sm">
+          <div className="w-full max-w-md bg-white dark:bg-[#1A1512] rounded-3xl border border-[#EBE7DF] dark:border-[#2D2520] shadow-2xl p-6 space-y-4">
+            <div>
+              <h3 className="text-sm font-black text-[#1C1613] dark:text-white">
+                Book & Dispatch Contractor ({bookingContractor.name})
+              </h3>
+              <p className="text-xs text-[#7D756D] dark:text-[#A89F95] mt-0.5">
+                Contract Daily Rate: ₹{bookingContractor.ratePerDayINR.toLocaleString('en-IN')}/day
+              </p>
+            </div>
 
             <form onSubmit={handleBookingSubmit} className="space-y-3">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-[#1C1613] dark:text-[#FAF7F2] mb-1">
                   Assignment Project & Loading Bay
                 </label>
                 <input
@@ -523,7 +524,7 @@ export const TeamModule: React.FC = () => {
                   required
                   value={bookingProjectNote}
                   onChange={(e) => setBookingProjectNote(e.target.value)}
-                  className="w-full text-xs px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200"
+                  className="w-full text-xs px-3.5 py-2.5 rounded-xl bg-[#F8F5EE] dark:bg-[#221B17] border border-[#E8E3DA] dark:border-[#352B24] text-[#1C1613] dark:text-[#FAF7F2] focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
                 />
               </div>
 
@@ -531,13 +532,13 @@ export const TeamModule: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setBookingContractor(null)}
-                  className="px-4 py-2 rounded-xl text-xs font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100"
+                  className="px-4 py-2 rounded-xl text-xs font-bold text-[#7D756D] hover:bg-[#F4F0E8] dark:hover:bg-[#28201A] transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-amber-500 hover:bg-amber-600 text-white shadow-sm"
+                  className="px-4 py-2 rounded-2xl text-xs font-bold bg-[#FCD34D] hover:bg-[#fbbf24] text-[#1C1613] shadow-xs transition-all"
                 >
                   Confirm Booking & Send SMS
                 </button>
@@ -549,20 +550,20 @@ export const TeamModule: React.FC = () => {
 
       {/* Order Reassignment Modal */}
       {showAssignModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl p-5 space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1C1613]/60 backdrop-blur-sm">
+          <div className="w-full max-w-md bg-white dark:bg-[#1A1512] rounded-3xl border border-[#EBE7DF] dark:border-[#2D2520] shadow-2xl p-6 space-y-4">
+            <h3 className="text-sm font-black text-[#1C1613] dark:text-white">
               Reassign Sales Order Staff
             </h3>
             <form onSubmit={handleAssignSubmit} className="space-y-3">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-[#1C1613] dark:text-[#FAF7F2] mb-1">
                   Sales Order
                 </label>
                 <select
                   value={assignOrderId}
                   onChange={(e) => setAssignOrderId(e.target.value)}
-                  className="w-full text-xs px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200"
+                  className="w-full text-xs px-3.5 py-2.5 rounded-xl bg-[#F8F5EE] dark:bg-[#221B17] border border-[#E8E3DA] dark:border-[#352B24] text-[#1C1613] dark:text-[#FAF7F2] focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
                 >
                   {orders.map((o) => (
                     <option key={o.id} value={o.id}>
@@ -573,13 +574,13 @@ export const TeamModule: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-[#1C1613] dark:text-[#FAF7F2] mb-1">
                   Assign Trader
                 </label>
                 <select
                   value={assignTrader}
                   onChange={(e) => setAssignTrader(e.target.value)}
-                  className="w-full text-xs px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200"
+                  className="w-full text-xs px-3.5 py-2.5 rounded-xl bg-[#F8F5EE] dark:bg-[#221B17] border border-[#E8E3DA] dark:border-[#352B24] text-[#1C1613] dark:text-[#FAF7F2] focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
                 >
                   <option value="Suresh Nair">Suresh Nair (Senior Trader)</option>
                   <option value="Ananya Reddy">Ananya Reddy (Procurement Trader)</option>
@@ -587,13 +588,13 @@ export const TeamModule: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-[#1C1613] dark:text-[#FAF7F2] mb-1">
                   Assign QC Inspector
                 </label>
                 <select
                   value={assignInspector}
                   onChange={(e) => setAssignInspector(e.target.value)}
-                  className="w-full text-xs px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200"
+                  className="w-full text-xs px-3.5 py-2.5 rounded-xl bg-[#F8F5EE] dark:bg-[#221B17] border border-[#E8E3DA] dark:border-[#352B24] text-[#1C1613] dark:text-[#FAF7F2] focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
                 >
                   <option value="Priya Patel">Priya Patel (Lead QC Engineer)</option>
                   <option value="Amit Verma">Amit Verma (Dock Inspector)</option>
@@ -605,13 +606,13 @@ export const TeamModule: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowAssignModal(false)}
-                  className="px-4 py-2 rounded-xl text-xs font-medium text-slate-600 dark:text-slate-400"
+                  className="px-4 py-2 rounded-xl text-xs font-bold text-[#7D756D] hover:bg-[#F4F0E8] dark:hover:bg-[#28201A] transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-amber-500 hover:bg-amber-600 text-white shadow-sm"
+                  className="px-4 py-2 rounded-2xl text-xs font-bold bg-[#FCD34D] hover:bg-[#fbbf24] text-[#1C1613] shadow-xs transition-all"
                 >
                   Confirm Reassignment
                 </button>

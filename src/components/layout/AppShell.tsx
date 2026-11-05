@@ -22,7 +22,7 @@ export const AppShell: React.FC<{ defaultTab?: TabType }> = ({ defaultTab }) => 
   }, [defaultTab]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50/70 dark:bg-slate-950 transition-colors duration-200">
+    <div className="min-h-screen flex flex-col bg-[#FBF9F5] dark:bg-[#120F0D] transition-colors duration-200">
       {/* Top Header */}
       <Navbar />
 
@@ -45,4 +45,3 @@ export const AppShell: React.FC<{ defaultTab?: TabType }> = ({ defaultTab }) => 
     </div>
   );
 };
-

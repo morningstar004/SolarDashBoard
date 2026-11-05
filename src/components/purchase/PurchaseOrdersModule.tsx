@@ -98,22 +98,22 @@ export const PurchaseOrdersModule: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header & Quick Action */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-5 rounded-3xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)]">
         <div>
-          <h2 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <FileInput className="w-5 h-5 text-amber-500" />
+          <h2 className="text-base font-black text-[#1C1613] dark:text-[#F7F4EF] flex items-center gap-2">
+            <FileInput className="w-5 h-5 text-[#A87208] dark:text-[#FCD34D]" />
             <span>Purchase Order (PO) & Inbound Supplier Management</span>
           </h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+          <p className="text-xs text-[#7D756D] dark:text-[#A89F95] mt-0.5">
             Procurement pipelines from Tier-1 Indian manufacturers and receiving dock replenishment.
           </p>
         </div>
 
         <button
           onClick={() => setShowCreateModal(true)}
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-amber-500 hover:bg-amber-600 text-white shadow-sm shadow-amber-500/20 transition-all"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold bg-[#FCD34D] hover:bg-[#fbbf24] text-[#1C1613] shadow-md shadow-[#FCD34D]/20 transition-all"
         >
-          <Plus className="w-3.5 h-3.5" />
+          <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
           <span>Raise New Purchase Order</span>
         </button>
       </div>
@@ -121,20 +121,20 @@ export const PurchaseOrdersModule: React.FC = () => {
       {/* Filter and Search Bar */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
         <div className="relative w-full sm:w-80">
-          <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#8F867C]" />
           <input
             type="text"
             placeholder="Search PO ID, Manufacturer, City..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl bg-white dark:bg-[#1A1512] border border-[#E8E3DA] dark:border-[#352B24] text-[#1C1613] dark:text-[#FAF7F2] focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
           />
         </div>
 
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="text-xs px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="text-xs font-semibold px-3 py-1.5 rounded-xl bg-white dark:bg-[#1A1512] border border-[#E8E3DA] dark:border-[#352B24] text-[#1C1613] dark:text-[#FAF7F2] focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
         >
           <option value="ALL">All Statuses</option>
           <option value="Draft">Draft</option>
@@ -147,7 +147,7 @@ export const PurchaseOrdersModule: React.FC = () => {
       {/* Purchase Orders List */}
       <div className="space-y-3">
         {filteredPOs.length === 0 ? (
-          <div className="p-8 text-center rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-400 text-xs">
+          <div className="p-8 text-center rounded-3xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] text-[#8F867C] text-xs">
             No purchase orders found matching this filter.
           </div>
         ) : (
@@ -155,61 +155,61 @@ export const PurchaseOrdersModule: React.FC = () => {
             const isExpanded = expandedPoId === po.id;
             const statusBg =
               po.status === 'Received & Stocked'
-                ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/70 dark:text-emerald-300 border-emerald-300'
+                ? 'bg-[#E8F8F0] text-[#168051] border-[#C6EED8] dark:bg-[#1A2D22] dark:text-[#78E0A9]'
                 : po.status === 'Partially Received'
-                ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/70 dark:text-amber-300 border-amber-300'
+                ? 'bg-[#FEF6E6] text-[#A6680C] border-[#FDE3B2] dark:bg-[#2D2115] dark:text-[#FCD34D]'
                 : po.status === 'Sent to Supplier'
-                ? 'bg-sky-100 text-sky-800 dark:bg-sky-950/70 dark:text-sky-300 border-sky-300'
-                : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border-slate-300';
+                ? 'bg-[#EEF4FF] text-[#2E5AAC] border-[#CCDDFE] dark:bg-[#1E2638] dark:text-[#93B4F5]'
+                : 'bg-[#F4F0E8] text-[#5C5247] border-[#E5DFD4] dark:bg-[#2A221C] dark:text-[#D4CCC0]';
 
             return (
               <div
                 key={po.id}
-                className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-hidden"
+                className="rounded-3xl border border-[#EBE7DF] dark:border-[#2D2520] bg-white dark:bg-[#1A1512] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] overflow-hidden"
               >
                 {/* PO Header Row */}
                 <div
                   onClick={() => setExpandedPoId(isExpanded ? null : po.id)}
-                  className="p-4 cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition-colors"
+                  className="p-5 cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-[#FBF9F5]/70 dark:hover:bg-[#201A16]/50 transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 font-mono font-bold flex items-center justify-center text-xs shrink-0 border border-amber-200 dark:border-amber-800/40">
+                    <div className="w-10 h-10 rounded-2xl bg-[#FEF6E6] dark:bg-[#2D2115] text-[#C27E0C] dark:text-[#FCD34D] font-mono font-black flex items-center justify-center text-xs shrink-0 border border-[#FDE3B2] dark:border-[#4B3722]">
                       PO
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-mono font-bold text-sm text-slate-900 dark:text-white">
+                        <span className="font-mono font-black text-sm text-[#1C1613] dark:text-white">
                           {po.id}
                         </span>
-                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold border ${statusBg}`}>
-                          {po.status}
+                        <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${statusBg}`}>
+                          ● {po.status}
                         </span>
                       </div>
-                      <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-0.5">
+                      <p className="text-xs font-bold text-[#1C1613] dark:text-[#F7F4EF] mt-0.5">
                         {po.supplierName} ({po.supplierCity})
                       </p>
                     </div>
                   </div>
 
                   <div className="flex-1 min-w-[180px]">
-                    <span className="text-[10px] text-slate-400 uppercase font-semibold">Ordered Equipment</span>
-                    <p className="text-xs text-slate-700 dark:text-slate-300 font-medium truncate mt-0.5">
+                    <span className="text-[10px] text-[#8F867C] uppercase font-bold">Ordered Equipment</span>
+                    <p className="text-xs text-[#1C1613] dark:text-[#FAF7F2] font-semibold truncate mt-0.5">
                       {po.items.map((i) => `${i.productName} (x${i.orderedQty})`).join(', ')}
                     </p>
                   </div>
 
                   <div className="min-w-[140px]">
-                    <span className="text-[10px] text-slate-400 uppercase font-semibold">Delivery Target</span>
-                    <p className="text-xs text-slate-800 dark:text-slate-200 font-medium mt-0.5">
+                    <span className="text-[10px] text-[#8F867C] uppercase font-bold">Delivery Target</span>
+                    <p className="text-xs text-[#1C1613] dark:text-[#FAF7F2] font-bold mt-0.5">
                       {po.expectedDeliveryDate}
                     </p>
-                    <p className="text-[10px] text-slate-400">Issued: {po.orderDate}</p>
+                    <p className="text-[10px] text-[#7D756D] dark:text-[#A89F95]">Issued: {po.orderDate}</p>
                   </div>
 
                   <div className="flex items-center justify-between md:justify-end gap-4 min-w-[160px]">
                     <div>
-                      <span className="text-[10px] text-slate-400 uppercase font-semibold">Total Landed</span>
-                      <p className="text-sm font-bold text-slate-900 dark:text-white">
+                      <span className="text-[10px] text-[#8F867C] uppercase font-bold">Total Landed</span>
+                      <p className="text-sm font-black text-[#1C1613] dark:text-white">
                         ₹{po.totalAmount.toLocaleString('en-IN')}
                       </p>
                     </div>
@@ -221,15 +221,15 @@ export const PurchaseOrdersModule: React.FC = () => {
                             e.stopPropagation();
                             handleOpenReceiveModal(po);
                           }}
-                          className="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition-all"
+                          className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#FCD34D] hover:bg-[#fbbf24] text-[#1C1613] shadow-xs transition-all"
                         >
                           Receive
                         </button>
                       )}
                       {isExpanded ? (
-                        <ChevronUp className="w-4 h-4 text-slate-400" />
+                        <ChevronUp className="w-4 h-4 text-[#8F867C]" />
                       ) : (
-                        <ChevronDown className="w-4 h-4 text-slate-400" />
+                        <ChevronDown className="w-4 h-4 text-[#8F867C]" />
                       )}
                     </div>
                   </div>
@@ -237,15 +237,15 @@ export const PurchaseOrdersModule: React.FC = () => {
 
                 {/* Expanded Line Items & Fulfillment Status */}
                 {isExpanded && (
-                  <div className="p-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-850/50 text-xs space-y-3">
-                    <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-slate-200 dark:border-slate-800 text-[11px] text-slate-500">
-                      <span>Payment Terms: <strong className="text-slate-800 dark:text-slate-200">{po.paymentTerms}</strong></span>
-                      <span>Supplier GSTIN: <strong className="font-mono text-slate-800 dark:text-slate-200">{po.gstNumber}</strong></span>
-                      <span>Notes: <strong className="text-slate-800 dark:text-slate-200">{po.notes}</strong></span>
+                  <div className="p-5 border-t border-[#EBE7DF] dark:border-[#2D2520] bg-[#FBF9F5] dark:bg-[#201A16] text-xs space-y-3">
+                    <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-[#EBE7DF] dark:border-[#2D2520] text-[11px] text-[#7D756D] dark:text-[#A89F95]">
+                      <span>Payment Terms: <strong className="text-[#1C1613] dark:text-[#FAF7F2]">{po.paymentTerms}</strong></span>
+                      <span>Supplier GSTIN: <strong className="font-mono text-[#1C1613] dark:text-[#FAF7F2]">{po.gstNumber}</strong></span>
+                      <span>Notes: <strong className="text-[#1C1613] dark:text-[#FAF7F2]">{po.notes}</strong></span>
                     </div>
 
                     <div className="space-y-2">
-                      <h4 className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                      <h4 className="text-[10px] font-bold uppercase tracking-wider text-[#8F867C]">
                         Line Items & Inbound Fulfillment
                       </h4>
                       {po.items.map((item) => {
@@ -253,35 +253,35 @@ export const PurchaseOrdersModule: React.FC = () => {
                         return (
                           <div
                             key={item.productId}
-                            className="flex flex-col sm:flex-row sm:items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 gap-2"
+                            className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-2xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] gap-2 shadow-xs"
                           >
                             <div>
-                              <p className="font-bold text-slate-900 dark:text-white">
+                              <p className="font-bold text-[#1C1613] dark:text-white">
                                 {item.productName}
                               </p>
-                              <p className="text-[11px] text-slate-400">
+                              <p className="text-[11px] text-[#7D756D] dark:text-[#A89F95]">
                                 {item.brand} • {item.category} • Cost: ₹{item.unitCost.toLocaleString('en-IN')}/unit
                               </p>
                             </div>
 
                             <div className="flex items-center gap-4">
                               <div className="text-left sm:text-right">
-                                <span className="font-mono font-bold text-xs text-slate-800 dark:text-slate-200">
+                                <span className="font-mono font-bold text-xs text-[#1C1613] dark:text-[#FAF7F2]">
                                   {item.receivedQty} of {item.orderedQty} units received
                                 </span>
-                                <div className="w-32 h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 mt-1 overflow-hidden">
+                                <div className="w-32 h-1.5 rounded-full bg-[#F4F0E8] dark:bg-[#28201A] mt-1 overflow-hidden">
                                   <div
-                                    className={`h-full ${isFullyReceived ? 'bg-emerald-500' : 'bg-amber-500'}`}
+                                    className={`h-full ${isFullyReceived ? 'bg-emerald-500' : 'bg-[#FCD34D]'}`}
                                     style={{ width: `${Math.min(100, (item.receivedQty / item.orderedQty) * 100)}%` }}
                                   ></div>
                                 </div>
                               </div>
 
                               <span
-                                className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${
+                                className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${
                                   isFullyReceived
-                                    ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300'
-                                    : 'bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-300'
+                                    ? 'bg-[#E8F8F0] text-[#168051] border-[#C6EED8] dark:bg-[#1A2D22] dark:text-[#78E0A9]'
+                                    : 'bg-[#FEF6E6] text-[#A6680C] border-[#FDE3B2] dark:bg-[#2D2115] dark:text-[#FCD34D]'
                                 }`}
                               >
                                 {isFullyReceived ? 'Fully Stocked' : 'Pending Dock Arrival'}
@@ -301,38 +301,38 @@ export const PurchaseOrdersModule: React.FC = () => {
 
       {/* Receive Inbound Goods Modal */}
       {receiveModalPO && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl p-5 space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1C1613]/60 backdrop-blur-sm">
+          <div className="w-full max-w-md bg-white dark:bg-[#1A1512] rounded-3xl border border-[#EBE7DF] dark:border-[#2D2520] shadow-2xl p-6 space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                  <PackageCheck className="w-4 h-4 text-emerald-500" />
+                <h3 className="text-sm font-black text-[#1C1613] dark:text-white flex items-center gap-2">
+                  <PackageCheck className="w-4 h-4 text-emerald-600" />
                   <span>Receive Inbound Shipment ({receiveModalPO.id})</span>
                 </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
+                <p className="text-xs text-[#7D756D] dark:text-[#A89F95]">
                   From: {receiveModalPO.supplierName} ({receiveModalPO.supplierCity})
                 </p>
               </div>
               <button
                 onClick={() => setReceiveModalPO(null)}
-                className="p-1 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+                className="p-1.5 rounded-xl text-[#8F867C] hover:text-[#1C1613] hover:bg-[#F4F0E8] dark:hover:bg-[#28201A] transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             <form onSubmit={handleConfirmReceive} className="space-y-3">
-              <div className="p-3 rounded-xl bg-emerald-50/60 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-xs text-emerald-800 dark:text-emerald-300">
+              <div className="p-3.5 rounded-2xl bg-[#E8F8F0] dark:bg-[#1A2D22] border border-[#C6EED8] dark:border-[#2C4837] text-xs text-[#168051] dark:text-[#78E0A9] font-medium">
                 Receiving these items will automatically increment warehouse inventory levels at Bhiwandi Depot.
               </div>
 
               {receiveModalPO.items.map((item) => (
                 <div key={item.productId} className="space-y-1">
                   <div className="flex justify-between text-xs">
-                    <span className="font-semibold text-slate-800 dark:text-slate-200">
+                    <span className="font-bold text-[#1C1613] dark:text-white">
                       {item.productName}
                     </span>
-                    <span className="text-slate-400">
+                    <span className="text-[#8F867C]">
                       Already received: {item.receivedQty} / {item.orderedQty}
                     </span>
                   </div>
@@ -348,9 +348,9 @@ export const PurchaseOrdersModule: React.FC = () => {
                           [item.productId]: parseInt(e.target.value) || 0,
                         })
                       }
-                      className="flex-1 text-xs px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-bold"
+                      className="flex-1 text-xs px-3.5 py-2.5 rounded-xl bg-[#F8F5EE] dark:bg-[#221B17] border border-[#E8E3DA] dark:border-[#352B24] text-[#1C1613] dark:text-white font-bold focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
                     />
-                    <span className="text-xs text-slate-500">units to add to stock</span>
+                    <span className="text-xs text-[#7D756D]">units to add to stock</span>
                   </div>
                 </div>
               ))}
@@ -359,13 +359,13 @@ export const PurchaseOrdersModule: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setReceiveModalPO(null)}
-                  className="px-4 py-2 rounded-xl text-xs font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  className="px-4 py-2 rounded-xl text-xs font-bold text-[#7D756D] hover:bg-[#F4F0E8] dark:hover:bg-[#28201A] transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm"
+                  className="px-4 py-2 rounded-2xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs transition-all"
                 >
                   Confirm Physical Receipt & Stock
                 </button>
@@ -377,19 +377,21 @@ export const PurchaseOrdersModule: React.FC = () => {
 
       {/* Create PO Modal */}
       {showCreateModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="w-full max-w-lg bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl p-6 space-y-4">
-            <h3 className="text-base font-bold text-slate-900 dark:text-white">
-              Raise Inbound Purchase Order (PO)
-            </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Contract order to manufacturer for inventory replenishment.
-            </p>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1C1613]/60 backdrop-blur-sm">
+          <div className="w-full max-w-lg bg-white dark:bg-[#1A1512] rounded-3xl border border-[#EBE7DF] dark:border-[#2D2520] shadow-2xl p-6 space-y-4">
+            <div>
+              <h3 className="text-base font-black text-[#1C1613] dark:text-white">
+                Raise Inbound Purchase Order (PO)
+              </h3>
+              <p className="text-xs text-[#7D756D] dark:text-[#A89F95] mt-0.5">
+                Contract order to manufacturer for inventory replenishment.
+              </p>
+            </div>
 
             <form onSubmit={handleCreatePOSubmit} className="space-y-3">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-xs font-bold text-[#1C1613] dark:text-[#FAF7F2] mb-1">
                     Solar Manufacturer
                   </label>
                   <select
@@ -402,7 +404,7 @@ export const PurchaseOrdersModule: React.FC = () => {
                       if (e.target.value === 'Luminous Power Technologies') setSupplierCity('Gurugram, Haryana');
                       if (e.target.value === 'Tata Power Solar') setSupplierCity('Bengaluru, Karnataka');
                     }}
-                    className="w-full text-xs px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200"
+                    className="w-full text-xs px-3.5 py-2.5 rounded-xl bg-[#F8F5EE] dark:bg-[#221B17] border border-[#E8E3DA] dark:border-[#352B24] text-[#1C1613] dark:text-[#FAF7F2] focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
                   >
                     <option value="Waaree Energies Ltd">Waaree Energies Ltd</option>
                     <option value="Tata Power Solar">Tata Power Solar</option>
@@ -413,26 +415,26 @@ export const PurchaseOrdersModule: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-xs font-bold text-[#1C1613] dark:text-[#FAF7F2] mb-1">
                     Supplier Facility City
                   </label>
                   <input
                     type="text"
                     value={supplierCity}
                     onChange={(e) => setSupplierCity(e.target.value)}
-                    className="w-full text-xs px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200"
+                    className="w-full text-xs px-3.5 py-2.5 rounded-xl bg-[#F8F5EE] dark:bg-[#221B17] border border-[#E8E3DA] dark:border-[#352B24] text-[#1C1613] dark:text-[#FAF7F2] focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-[#1C1613] dark:text-[#FAF7F2] mb-1">
                   Equipment Product
                 </label>
                 <select
                   value={selectedProductId}
                   onChange={(e) => setSelectedProductId(e.target.value)}
-                  className="w-full text-xs px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200"
+                  className="w-full text-xs px-3.5 py-2.5 rounded-xl bg-[#F8F5EE] dark:bg-[#221B17] border border-[#E8E3DA] dark:border-[#352B24] text-[#1C1613] dark:text-[#FAF7F2] focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
                 >
                   {products.map((p) => (
                     <option key={p.id} value={p.id}>
@@ -444,7 +446,7 @@ export const PurchaseOrdersModule: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-xs font-bold text-[#1C1613] dark:text-[#FAF7F2] mb-1">
                     Order Quantity (Units)
                   </label>
                   <input
@@ -452,32 +454,32 @@ export const PurchaseOrdersModule: React.FC = () => {
                     min={1}
                     value={poQty}
                     onChange={(e) => setPoQty(parseInt(e.target.value) || 1)}
-                    className="w-full text-xs px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-bold"
+                    className="w-full text-xs px-3.5 py-2.5 rounded-xl bg-[#F8F5EE] dark:bg-[#221B17] border border-[#E8E3DA] dark:border-[#352B24] text-[#1C1613] dark:text-white font-bold focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-xs font-bold text-[#1C1613] dark:text-[#FAF7F2] mb-1">
                     Expected Arrival Date
                   </label>
                   <input
                     type="date"
                     value={expectedDate}
                     onChange={(e) => setExpectedDate(e.target.value)}
-                    className="w-full text-xs px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200"
+                    className="w-full text-xs px-3.5 py-2.5 rounded-xl bg-[#F8F5EE] dark:bg-[#221B17] border border-[#E8E3DA] dark:border-[#352B24] text-[#1C1613] dark:text-[#FAF7F2] focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-[#1C1613] dark:text-[#FAF7F2] mb-1">
                   Procurement Notes & Allocation
                 </label>
                 <textarea
                   rows={2}
                   value={poNotes}
                   onChange={(e) => setPoNotes(e.target.value)}
-                  className="w-full text-xs p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200"
+                  className="w-full text-xs p-3.5 rounded-xl bg-[#F8F5EE] dark:bg-[#221B17] border border-[#E8E3DA] dark:border-[#352B24] text-[#1C1613] dark:text-[#FAF7F2] focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
                 />
               </div>
 
@@ -485,13 +487,13 @@ export const PurchaseOrdersModule: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="px-4 py-2 rounded-xl text-xs font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  className="px-4 py-2 rounded-xl text-xs font-bold text-[#7D756D] hover:bg-[#F4F0E8] dark:hover:bg-[#28201A] transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-amber-500 hover:bg-amber-600 text-white shadow-sm"
+                  className="px-4 py-2 rounded-2xl text-xs font-bold bg-[#FCD34D] hover:bg-[#fbbf24] text-[#1C1613] shadow-xs transition-all"
                 >
                   Issue Purchase Order
                 </button>

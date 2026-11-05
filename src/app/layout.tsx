@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased selection:bg-amber-500 selection:text-white transition-colors duration-200">
+      <body className="min-h-screen bg-[#FBF9F5] dark:bg-[#120F0D] text-[#1C1613] dark:text-[#F7F4EF] antialiased selection:bg-[#FCD34D] selection:text-[#1C1613] transition-colors duration-200">
         <AppProvider>
           {children}
           <ToastContainer />
@@ -25,4 +25,3 @@ export default function RootLayout({
     </html>
   );
 }
-

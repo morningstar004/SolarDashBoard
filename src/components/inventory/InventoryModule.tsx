@@ -77,13 +77,13 @@ export const InventoryModule: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header & Sub-Dashboard Title */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-5 rounded-3xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)]">
         <div>
-          <h2 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <Warehouse className="w-5 h-5 text-amber-500" />
+          <h2 className="text-base font-black text-[#1C1613] dark:text-[#F7F4EF] flex items-center gap-2">
+            <Warehouse className="w-5 h-5 text-[#A87208] dark:text-[#FCD34D]" />
             <span>Solar Equipment Inventory & Warehouse Bins</span>
           </h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+          <p className="text-xs text-[#7D756D] dark:text-[#A89F95] mt-0.5">
             Real-time stock quantities, commodity price trends, and aisle pallet locations at Bhiwandi Depot.
           </p>
         </div>
@@ -91,41 +91,41 @@ export const InventoryModule: React.FC = () => {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setActiveTab('purchase')}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-amber-500 hover:bg-amber-600 text-white shadow-sm shadow-amber-500/20 transition-all"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold bg-[#FCD34D] hover:bg-[#fbbf24] text-[#1C1613] shadow-md shadow-[#FCD34D]/20 transition-all"
           >
-            <Plus className="w-3.5 h-3.5" />
+            <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
             <span>Inbound Restock (PO)</span>
           </button>
         </div>
       </div>
 
-      {/* 5 Category KPI Cards (Panels, Inverters, Batteries, Racking, Cabling) */}
+      {/* 5 Category KPI Cards (Clay Themed with #FCD34D Accents) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
         {/* 1. Panels */}
         <div
           onClick={() => setActiveCategory('Panels')}
-          className={`cursor-pointer p-4 rounded-2xl border transition-all ${
+          className={`cursor-pointer p-4 rounded-3xl border transition-all ${
             activeCategory === 'Panels'
-              ? 'bg-amber-50/80 dark:bg-amber-950/40 border-amber-500 shadow-sm'
-              : 'bg-white dark:bg-slate-900 border-slate-200/80 dark:border-slate-800 hover:border-amber-400'
+              ? 'bg-[#FEF9ED] dark:bg-[#281F17] border-2 border-[#FCD34D] shadow-sm'
+              : 'bg-white dark:bg-[#1A1512] border-[#EBE7DF] dark:border-[#2D2520] hover:border-[#FCD34D]'
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+            <span className="text-xs font-bold text-[#1C1613] dark:text-[#F7F4EF] flex items-center gap-1.5">
               <span>☀️</span> Panels
             </span>
             {panelsStats.lowStockCount > 0 && (
-              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-300 font-semibold">
+              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-[#FEF6E6] text-[#A6680C] dark:bg-[#2D2115] dark:text-[#FCD34D] font-bold">
                 {panelsStats.lowStockCount} Low
               </span>
             )}
           </div>
           <div className="mt-2">
-            <div className="text-xl font-bold text-slate-900 dark:text-white">
-              {panelsStats.totalUnits} <span className="text-xs font-normal text-slate-400">units</span>
+            <div className="text-xl font-black text-[#1C1613] dark:text-[#FBF9F5]">
+              {panelsStats.totalUnits} <span className="text-xs font-normal text-[#8F867C]">units</span>
             </div>
-            <div className="flex items-center gap-1 mt-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
-              <TrendingDown className="w-3 h-3 text-emerald-500" />
+            <div className="flex items-center gap-1 mt-1 text-[11px] font-bold text-[#168051] dark:text-[#78E0A9]">
+              <TrendingDown className="w-3 h-3 text-[#168051]" />
               <span>Waaree -3.8% drop</span>
             </div>
           </div>
@@ -134,28 +134,28 @@ export const InventoryModule: React.FC = () => {
         {/* 2. Inverters */}
         <div
           onClick={() => setActiveCategory('Inverters')}
-          className={`cursor-pointer p-4 rounded-2xl border transition-all ${
+          className={`cursor-pointer p-4 rounded-3xl border transition-all ${
             activeCategory === 'Inverters'
-              ? 'bg-blue-50/80 dark:bg-blue-950/40 border-blue-500 shadow-sm'
-              : 'bg-white dark:bg-slate-900 border-slate-200/80 dark:border-slate-800 hover:border-blue-400'
+              ? 'bg-[#FEF9ED] dark:bg-[#281F17] border-2 border-[#FCD34D] shadow-sm'
+              : 'bg-white dark:bg-[#1A1512] border-[#EBE7DF] dark:border-[#2D2520] hover:border-[#FCD34D]'
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+            <span className="text-xs font-bold text-[#1C1613] dark:text-[#F7F4EF] flex items-center gap-1.5">
               <span>⚡</span> Inverters
             </span>
             {invertersStats.lowStockCount > 0 && (
-              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-300 font-semibold">
+              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-[#FEF6E6] text-[#A6680C] dark:bg-[#2D2115] dark:text-[#FCD34D] font-bold">
                 {invertersStats.lowStockCount} Low
               </span>
             )}
           </div>
           <div className="mt-2">
-            <div className="text-xl font-bold text-slate-900 dark:text-white">
-              {invertersStats.totalUnits} <span className="text-xs font-normal text-slate-400">units</span>
+            <div className="text-xl font-black text-[#1C1613] dark:text-[#FBF9F5]">
+              {invertersStats.totalUnits} <span className="text-xs font-normal text-[#8F867C]">units</span>
             </div>
-            <div className="flex items-center gap-1 mt-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
-              <TrendingDown className="w-3 h-3 text-emerald-500" />
+            <div className="flex items-center gap-1 mt-1 text-[11px] font-bold text-[#168051] dark:text-[#78E0A9]">
+              <TrendingDown className="w-3 h-3 text-[#168051]" />
               <span>Sungrow -2.4% drop</span>
             </div>
           </div>
@@ -164,28 +164,28 @@ export const InventoryModule: React.FC = () => {
         {/* 3. Batteries */}
         <div
           onClick={() => setActiveCategory('Batteries')}
-          className={`cursor-pointer p-4 rounded-2xl border transition-all ${
+          className={`cursor-pointer p-4 rounded-3xl border transition-all ${
             activeCategory === 'Batteries'
-              ? 'bg-emerald-50/80 dark:bg-emerald-950/40 border-emerald-500 shadow-sm'
-              : 'bg-white dark:bg-slate-900 border-slate-200/80 dark:border-slate-800 hover:border-emerald-400'
+              ? 'bg-[#FEF9ED] dark:bg-[#281F17] border-2 border-[#FCD34D] shadow-sm'
+              : 'bg-white dark:bg-[#1A1512] border-[#EBE7DF] dark:border-[#2D2520] hover:border-[#FCD34D]'
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+            <span className="text-xs font-bold text-[#1C1613] dark:text-[#F7F4EF] flex items-center gap-1.5">
               <span>🔋</span> Batteries
             </span>
             {batteriesStats.lowStockCount > 0 && (
-              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-300 font-semibold">
+              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-[#FEF6E6] text-[#A6680C] dark:bg-[#2D2115] dark:text-[#FCD34D] font-bold">
                 {batteriesStats.lowStockCount} Low
               </span>
             )}
           </div>
           <div className="mt-2">
-            <div className="text-xl font-bold text-slate-900 dark:text-white">
-              {batteriesStats.totalUnits} <span className="text-xs font-normal text-slate-400">units</span>
+            <div className="text-xl font-black text-[#1C1613] dark:text-[#FBF9F5]">
+              {batteriesStats.totalUnits} <span className="text-xs font-normal text-[#8F867C]">units</span>
             </div>
-            <div className="flex items-center gap-1 mt-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
-              <TrendingDown className="w-3 h-3 text-emerald-500" />
+            <div className="flex items-center gap-1 mt-1 text-[11px] font-bold text-[#168051] dark:text-[#78E0A9]">
+              <TrendingDown className="w-3 h-3 text-[#168051]" />
               <span>LFP Cell -5.6% drop</span>
             </div>
           </div>
@@ -194,28 +194,28 @@ export const InventoryModule: React.FC = () => {
         {/* 4. Racking */}
         <div
           onClick={() => setActiveCategory('Racking')}
-          className={`cursor-pointer p-4 rounded-2xl border transition-all ${
+          className={`cursor-pointer p-4 rounded-3xl border transition-all ${
             activeCategory === 'Racking'
-              ? 'bg-purple-50/80 dark:bg-purple-950/40 border-purple-500 shadow-sm'
-              : 'bg-white dark:bg-slate-900 border-slate-200/80 dark:border-slate-800 hover:border-purple-400'
+              ? 'bg-[#FEF9ED] dark:bg-[#281F17] border-2 border-[#FCD34D] shadow-sm'
+              : 'bg-white dark:bg-[#1A1512] border-[#EBE7DF] dark:border-[#2D2520] hover:border-[#FCD34D]'
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+            <span className="text-xs font-bold text-[#1C1613] dark:text-[#F7F4EF] flex items-center gap-1.5">
               <span>🏗️</span> Racking
             </span>
             {rackingStats.lowStockCount > 0 && (
-              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-300 font-semibold">
+              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-[#FEF6E6] text-[#A6680C] dark:bg-[#2D2115] dark:text-[#FCD34D] font-bold">
                 {rackingStats.lowStockCount} Low
               </span>
             )}
           </div>
           <div className="mt-2">
-            <div className="text-xl font-bold text-slate-900 dark:text-white">
-              {rackingStats.totalUnits} <span className="text-xs font-normal text-slate-400">kits</span>
+            <div className="text-xl font-black text-[#1C1613] dark:text-[#FBF9F5]">
+              {rackingStats.totalUnits} <span className="text-xs font-normal text-[#8F867C]">kits</span>
             </div>
-            <div className="flex items-center gap-1 mt-1 text-[11px] font-medium text-rose-500 dark:text-rose-400">
-              <TrendingUp className="w-3 h-3 text-rose-500" />
+            <div className="flex items-center gap-1 mt-1 text-[11px] font-bold text-[#DC2626]">
+              <TrendingUp className="w-3 h-3 text-[#DC2626]" />
               <span>Alum Rail +4.8% rise</span>
             </div>
           </div>
@@ -224,28 +224,28 @@ export const InventoryModule: React.FC = () => {
         {/* 5. Cabling */}
         <div
           onClick={() => setActiveCategory('Cabling')}
-          className={`cursor-pointer p-4 rounded-2xl border transition-all ${
+          className={`cursor-pointer p-4 rounded-3xl border transition-all ${
             activeCategory === 'Cabling'
-              ? 'bg-rose-50/80 dark:bg-rose-950/40 border-rose-500 shadow-sm'
-              : 'bg-white dark:bg-slate-900 border-slate-200/80 dark:border-slate-800 hover:border-rose-400'
+              ? 'bg-[#FEF9ED] dark:bg-[#281F17] border-2 border-[#FCD34D] shadow-sm'
+              : 'bg-white dark:bg-[#1A1512] border-[#EBE7DF] dark:border-[#2D2520] hover:border-[#FCD34D]'
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+            <span className="text-xs font-bold text-[#1C1613] dark:text-[#F7F4EF] flex items-center gap-1.5">
               <span>🔌</span> Cabling
             </span>
             {cablingStats.lowStockCount > 0 && (
-              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-300 font-semibold">
+              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-[#FEF6E6] text-[#A6680C] dark:bg-[#2D2115] dark:text-[#FCD34D] font-bold">
                 {cablingStats.lowStockCount} Low
               </span>
             )}
           </div>
           <div className="mt-2">
-            <div className="text-xl font-bold text-slate-900 dark:text-white">
-              {cablingStats.totalUnits} <span className="text-xs font-normal text-slate-400">drums/pk</span>
+            <div className="text-xl font-black text-[#1C1613] dark:text-[#FBF9F5]">
+              {cablingStats.totalUnits} <span className="text-xs font-normal text-[#8F867C]">drums/pk</span>
             </div>
-            <div className="flex items-center gap-1 mt-1 text-[11px] font-medium text-rose-500 dark:text-rose-400">
-              <TrendingUp className="w-3 h-3 text-rose-500" />
+            <div className="flex items-center gap-1 mt-1 text-[11px] font-bold text-[#DC2626]">
+              <TrendingUp className="w-3 h-3 text-[#DC2626]" />
               <span>Copper +6.4% rise</span>
             </div>
           </div>
@@ -255,15 +255,15 @@ export const InventoryModule: React.FC = () => {
       {/* Filter Tabs & Search Bar */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
         {/* Category Tabs */}
-        <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-xl bg-slate-100 dark:bg-slate-800">
+        <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-2xl bg-[#F4F0E8] dark:bg-[#241E19] border border-[#EBE7DF] dark:border-[#352B24]">
           {(['ALL', 'Panels', 'Inverters', 'Batteries', 'Racking', 'Cabling'] as const).map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
+              className={`px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all ${
                 activeCategory === cat
-                  ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                  ? 'bg-[#1C1613] dark:bg-[#FCD34D] text-white dark:text-[#1C1613] shadow-sm'
+                  : 'text-[#6B635B] dark:text-[#A89F95] hover:text-[#1C1613] dark:hover:text-white'
               }`}
             >
               {cat === 'ALL' ? 'All Equipment' : cat}
@@ -273,22 +273,22 @@ export const InventoryModule: React.FC = () => {
 
         {/* Search */}
         <div className="relative w-full sm:w-72">
-          <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#8F867C]" />
           <input
             type="text"
             placeholder="Search brand, SKU, wattage, bin..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl bg-white dark:bg-[#1A1512] border border-[#E8E3DA] dark:border-[#352B24] text-[#1C1613] dark:text-[#FAF7F2] focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
           />
         </div>
       </div>
 
       {/* Detailed Product Table */}
-      <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
+      <div className="rounded-3xl border border-[#EBE7DF] dark:border-[#2D2520] bg-white dark:bg-[#1A1512] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 dark:bg-slate-800/70 text-slate-500 dark:text-slate-400 uppercase font-semibold text-[10px] tracking-wider border-b border-slate-200 dark:border-slate-800">
+            <thead className="bg-[#FBF9F5] dark:bg-[#201A16] text-[#7D756D] dark:text-[#A89F95] uppercase font-bold text-[10px] tracking-wider border-b border-[#EBE7DF] dark:border-[#2D2520]">
               <tr>
                 <th className="px-4 py-3">Product & Brand</th>
                 <th className="px-4 py-3">Category</th>
@@ -301,10 +301,10 @@ export const InventoryModule: React.FC = () => {
                 <th className="px-4 py-3 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800 text-slate-700 dark:text-slate-300">
+            <tbody className="divide-y divide-[#F2EEE6] dark:divide-[#28211B] text-[#1C1613] dark:text-[#F7F4EF]">
               {filteredProducts.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="px-4 py-8 text-center text-slate-400">
+                  <td colSpan={9} className="px-4 py-8 text-center text-[#8F867C]">
                     No products found in this category.
                   </td>
                 </tr>
@@ -312,15 +312,15 @@ export const InventoryModule: React.FC = () => {
                 filteredProducts.map((product) => {
                   const statusBg =
                     product.status === 'In Stock'
-                      ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border-emerald-200'
+                      ? 'bg-[#E8F8F0] text-[#168051] border-[#C6EED8] dark:bg-[#1A2D22] dark:text-[#78E0A9]'
                       : product.status === 'Low Stock'
-                      ? 'bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 border-amber-200'
-                      : 'bg-rose-50 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300 border-rose-200';
+                      ? 'bg-[#FEF6E6] text-[#A6680C] border-[#FDE3B2] dark:bg-[#2D2115] dark:text-[#FCD34D]'
+                      : 'bg-[#FDF2F2] text-[#DC2626] border-[#FECACA] dark:bg-[#2F1C1C] dark:text-[#F87171]';
 
                   return (
                     <tr
                       key={product.id}
-                      className="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors"
+                      className="hover:bg-[#FBF9F5]/70 dark:hover:bg-[#201A16]/50 transition-colors"
                     >
                       {/* Product Thumbnail, Name & Brand */}
                       <td className="px-4 py-3.5">
@@ -328,14 +328,14 @@ export const InventoryModule: React.FC = () => {
                           <img
                             src={product.imageUrl}
                             alt={product.name}
-                            className="w-11 h-11 rounded-xl object-cover border border-slate-200 dark:border-slate-700 shrink-0"
+                            className="w-11 h-11 rounded-xl object-cover border border-[#E8E3DA] dark:border-[#352B24] shrink-0"
                           />
                           <div>
-                            <p className="font-bold text-slate-900 dark:text-white leading-tight">
+                            <p className="font-bold text-[#1C1613] dark:text-white leading-tight">
                               {product.name}
                             </p>
-                            <div className="flex items-center gap-2 mt-0.5 text-[11px] text-slate-500 dark:text-slate-400">
-                              <span className="font-medium text-amber-600 dark:text-amber-400">{product.brand}</span>
+                            <div className="flex items-center gap-2 mt-0.5 text-[11px] text-[#7D756D] dark:text-[#A89F95]">
+                              <span className="font-semibold text-[#A87208] dark:text-[#FCD34D]">{product.brand}</span>
                               <span>•</span>
                               <span className="font-mono text-[10px]">{product.sku}</span>
                             </div>
@@ -345,44 +345,44 @@ export const InventoryModule: React.FC = () => {
 
                       {/* Category */}
                       <td className="px-4 py-3.5">
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300">
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#F4F0E8] text-[#5C5247] dark:bg-[#2A221C] dark:text-[#D4CCC0]">
                           {product.category}
                         </span>
                       </td>
 
                       {/* Key Specs */}
                       <td className="px-4 py-3.5 text-[11px] leading-relaxed">
-                        <div className="font-semibold text-slate-800 dark:text-slate-200">
+                        <div className="font-bold text-[#1C1613] dark:text-[#FAF7F2]">
                           {product.specs.wattageOrCapacity || product.specs.efficiency}
                         </div>
-                        <div className="text-[10px] text-slate-400">
+                        <div className="text-[10px] text-[#8F867C] dark:text-[#80766B]">
                           {product.specs.voltage || product.specs.warranty}
                         </div>
                       </td>
 
                       {/* Stock Units & Badge */}
                       <td className="px-4 py-3.5 whitespace-nowrap">
-                        <div className="font-bold text-slate-900 dark:text-white text-sm">
-                          {product.inStock} <span className="text-[10px] text-slate-400 font-normal">in bay</span>
+                        <div className="font-black text-[#1C1613] dark:text-white text-sm">
+                          {product.inStock} <span className="text-[10px] text-[#8F867C] font-normal">in bay</span>
                         </div>
                         <span
-                          className={`inline-block mt-0.5 px-2 py-0.5 rounded-full text-[10px] font-semibold border ${statusBg}`}
+                          className={`inline-block mt-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold border ${statusBg}`}
                         >
-                          {product.status}
+                          ● {product.status}
                         </span>
                       </td>
 
                       {/* Ordered This Month */}
-                      <td className="px-4 py-3.5 font-semibold text-slate-800 dark:text-slate-200">
+                      <td className="px-4 py-3.5 font-bold text-[#1C1613] dark:text-[#FAF7F2]">
                         {product.orderedThisMonth} units
                       </td>
 
                       {/* Wholesale Price */}
                       <td className="px-4 py-3.5 whitespace-nowrap">
-                        <div className="font-bold text-slate-900 dark:text-white text-sm">
+                        <div className="font-black text-[#1C1613] dark:text-white text-sm">
                           ₹{product.sellingPrice.toLocaleString('en-IN')}
                         </div>
-                        <div className="text-[10px] text-slate-400">
+                        <div className="text-[10px] text-[#8F867C] dark:text-[#80766B]">
                           Cost: ₹{product.unitCost.toLocaleString('en-IN')}
                         </div>
                       </td>
@@ -390,26 +390,26 @@ export const InventoryModule: React.FC = () => {
                       {/* Market Trend */}
                       <td className="px-4 py-3.5 whitespace-nowrap">
                         {product.marketPriceChangePercent < 0 ? (
-                          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
+                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#168051] dark:text-[#78E0A9]">
                             <TrendingDown className="w-3 h-3" />
                             {product.marketPriceChangePercent}% drop
                           </span>
                         ) : product.marketPriceChangePercent > 0 ? (
-                          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-rose-500">
+                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#DC2626]">
                             <TrendingUp className="w-3 h-3" />
                             +{product.marketPriceChangePercent}% rise
                           </span>
                         ) : (
-                          <span className="text-[11px] text-slate-400">Stable</span>
+                          <span className="text-[11px] text-[#8F867C]">Stable</span>
                         )}
                       </td>
 
                       {/* Warehouse Bin Location */}
                       <td className="px-4 py-3.5 text-[11px]">
-                        <span className="font-mono font-medium text-slate-800 dark:text-slate-200">
+                        <span className="font-mono font-semibold text-[#1C1613] dark:text-[#FAF7F2]">
                           {product.warehouseLocation.zone} • {product.warehouseLocation.aisle}
                         </span>
-                        <div className="text-[10px] text-slate-400">
+                        <div className="text-[10px] text-[#8F867C] dark:text-[#80766B]">
                           {product.warehouseLocation.palletId}
                         </div>
                       </td>
@@ -419,7 +419,7 @@ export const InventoryModule: React.FC = () => {
                         <div className="flex items-center justify-end gap-1.5">
                           <button
                             onClick={() => handleAddToCart(product)}
-                            className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 hover:bg-amber-600 text-white shadow-sm transition-all"
+                            className="flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold bg-[#FCD34D] hover:bg-[#fbbf24] text-[#1C1613] shadow-xs transition-all"
                             title="Add to wholesale order or dispatch staging"
                           >
                             <ShoppingCart className="w-3.5 h-3.5" />
@@ -431,7 +431,7 @@ export const InventoryModule: React.FC = () => {
                               setAdjustModalProduct(product);
                               setAdjustmentDelta(0);
                             }}
-                            className="p-1.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-colors"
+                            className="p-1.5 rounded-xl text-[#7D756D] dark:text-[#A89F95] hover:bg-[#F4F0E8] dark:hover:bg-[#28201A] border border-[#E8E3DA] dark:border-[#352B24] transition-colors"
                             title="Stock count adjustment"
                           >
                             <SlidersHorizontal className="w-3.5 h-3.5" />
@@ -449,50 +449,50 @@ export const InventoryModule: React.FC = () => {
 
       {/* Stock Adjustment Modal */}
       {adjustModalProduct && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl p-5 space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="w-full max-w-md bg-white dark:bg-[#1A1512] rounded-3xl border border-[#EBE7DF] dark:border-[#2D2520] shadow-2xl p-6 space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+                <h3 className="text-sm font-black text-[#1C1613] dark:text-white">
                   Physical Stock Adjustment
                 </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
+                <p className="text-xs text-[#7D756D] dark:text-[#A89F95]">
                   {adjustModalProduct.brand} — {adjustModalProduct.name}
                 </p>
               </div>
               <button
                 onClick={() => setAdjustModalProduct(null)}
-                className="p-1 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+                className="p-1 rounded-lg text-[#8F867C] hover:text-[#1C1613]"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             <form onSubmit={handleAdjustSubmit} className="space-y-3">
-              <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs">
+              <div className="p-3 rounded-2xl bg-[#F8F5EE] dark:bg-[#221B17] border border-[#EBE7DF] dark:border-[#2D2520] text-xs">
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Current Logged Stock:</span>
-                  <span className="font-bold text-slate-900 dark:text-white">
+                  <span className="text-[#7D756D]">Current Logged Stock:</span>
+                  <span className="font-black text-[#1C1613] dark:text-white">
                     {adjustModalProduct.inStock} units
                   </span>
                 </div>
                 <div className="flex justify-between mt-1">
-                  <span className="text-slate-500">Warehouse Location:</span>
-                  <span className="font-mono text-slate-800 dark:text-slate-200">
+                  <span className="text-[#7D756D]">Warehouse Location:</span>
+                  <span className="font-mono font-semibold text-[#1C1613] dark:text-white">
                     {adjustModalProduct.warehouseLocation.zone} ({adjustModalProduct.warehouseLocation.palletId})
                   </span>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-[#1C1613] dark:text-[#FAF7F2] mb-1">
                   Stock Delta Adjustment (+ or -)
                 </label>
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
                     onClick={() => setAdjustmentDelta((d) => d - 1)}
-                    className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-200"
+                    className="w-10 h-10 rounded-xl bg-[#F4F0E8] dark:bg-[#28201A] font-black text-[#1C1613] dark:text-white hover:bg-[#EAE4D8]"
                   >
                     -1
                   </button>
@@ -500,29 +500,29 @@ export const InventoryModule: React.FC = () => {
                     type="number"
                     value={adjustmentDelta}
                     onChange={(e) => setAdjustmentDelta(parseInt(e.target.value) || 0)}
-                    className="flex-1 py-1.5 text-center font-bold text-sm rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="flex-1 py-2 text-center font-black text-sm rounded-xl bg-[#F8F5EE] dark:bg-[#221B17] border border-[#E8E3DA] dark:border-[#352B24] text-[#1C1613] dark:text-white"
                   />
                   <button
                     type="button"
                     onClick={() => setAdjustmentDelta((d) => d + 1)}
-                    className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-200"
+                    className="w-10 h-10 rounded-xl bg-[#F4F0E8] dark:bg-[#28201A] font-black text-[#1C1613] dark:text-white hover:bg-[#EAE4D8]"
                   >
                     +1
                   </button>
                 </div>
-                <p className="text-[11px] text-slate-400 mt-1">
+                <p className="text-[11px] text-[#8F867C] mt-1">
                   New resulting stock: <strong>{Math.max(0, adjustModalProduct.inStock + adjustmentDelta)}</strong> units
                 </p>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-[#1C1613] dark:text-[#FAF7F2] mb-1">
                   Audit / Adjustment Reason
                 </label>
                 <select
                   value={adjustmentReason}
                   onChange={(e) => setAdjustmentReason(e.target.value)}
-                  className="w-full text-xs px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200"
+                  className="w-full text-xs px-3 py-2 rounded-xl bg-[#F8F5EE] dark:bg-[#221B17] border border-[#E8E3DA] dark:border-[#352B24] text-[#1C1613] dark:text-[#FAF7F2]"
                 >
                   <option value="Cycle Count Physical Audit">Cycle Count Physical Audit</option>
                   <option value="Damaged in Forklift Handling (Quarantined)">Damaged in Forklift Handling (Quarantined)</option>
@@ -535,14 +535,14 @@ export const InventoryModule: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setAdjustModalProduct(null)}
-                  className="px-4 py-2 rounded-xl text-xs font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#7D756D] hover:bg-[#F4F0E8]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={adjustmentDelta === 0}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-amber-500 hover:bg-amber-600 disabled:opacity-50 text-white shadow-sm"
+                  className="px-4 py-2 rounded-xl text-xs font-bold bg-[#FCD34D] hover:bg-[#fbbf24] disabled:opacity-50 text-[#1C1613] shadow-xs"
                 >
                   Confirm Adjustment
                 </button>
@@ -554,4 +554,3 @@ export const InventoryModule: React.FC = () => {
     </div>
   );
 };
-
