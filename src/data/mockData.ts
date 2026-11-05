@@ -1066,3 +1066,4 @@ export const INITIAL_CONTRACTORS: NonPermanentContractor[] = [
     verifiedBadges: ['Interstate Permit Holder', 'Night Drive Certified'],
   },
 ];
+

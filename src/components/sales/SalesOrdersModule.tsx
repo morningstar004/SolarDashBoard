@@ -547,3 +547,4 @@ export const SalesOrdersModule: React.FC = () => {
     </div>
   );
 };
+

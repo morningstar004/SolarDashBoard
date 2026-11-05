@@ -213,3 +213,4 @@ npx vercel
 
 ## 📄 License
 MIT License. Created for the Solar Equipment Distributor Operational Dashboard Assessment.
+

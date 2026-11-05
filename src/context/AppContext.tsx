@@ -88,9 +88,16 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<'dark' | 'light'>('light');
-  const [activeTab, setActiveTab] = useState<TabType>('dashboard');
+  const [activeTab, setActiveTabState] = useState<TabType>('dashboard');
   const [selectedOrderIdForChecklist, setSelectedOrderIdForChecklist] = useState<string>('SO-9102');
   const [selectedOrderIdForTracking, setSelectedOrderIdForTracking] = useState<string>('SO-9102');
+
+  const setActiveTab = (tab: TabType) => {
+    setActiveTabState(tab);
+    if (typeof window !== 'undefined') {
+      window.history.pushState(null, '', `/${tab}`);
+    }
+  };
 
   const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS);
   const [orders, setOrders] = useState<Order[]>(INITIAL_ORDERS);
@@ -99,8 +106,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [contractors, setContractors] = useState<NonPermanentContractor[]>(INITIAL_CONTRACTORS);
   const [toasts, setToasts] = useState<ToastItem[]>([]);
 
-  // Initialize theme from system or saved
+  // Sync tab with URL and initialize theme
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname.replace(/^\//, '').toLowerCase();
+      const validTabs: TabType[] = ['dashboard', 'inventory', 'sales', 'checklist', 'purchase', 'team', 'tracking'];
+      if (validTabs.includes(path as TabType)) {
+        setActiveTabState(path as TabType);
+      }
+    }
+
     const savedTheme = localStorage.getItem('helios_theme') as 'dark' | 'light' | null;
     if (savedTheme) {
       setTheme(savedTheme);
@@ -533,3 +548,4 @@ export const useApp = () => {
   }
   return context;
 };
+

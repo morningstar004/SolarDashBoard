@@ -218,3 +218,4 @@ export interface ActivityStreamItem {
   status: OrderStatus;
   category: ProductCategory;
 }
+
