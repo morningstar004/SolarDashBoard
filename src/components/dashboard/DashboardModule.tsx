@@ -24,6 +24,8 @@ import {
   Battery,
   Cable,
   Warehouse,
+  Sun,
+  PackagePlus,
 } from 'lucide-react';
 import {
   ResponsiveContainer,
@@ -117,8 +119,8 @@ export const DashboardModule: React.FC = () => {
         statusFilter === 'ALL'
           ? true
           : statusFilter === 'ACTIVE'
-          ? order.status !== 'Delivered' && order.status !== 'Cancelled'
-          : order.status === statusFilter;
+            ? order.status !== 'Delivered' && order.status !== 'Cancelled'
+            : order.status === statusFilter;
 
       return matchesSearch && matchesStatus;
     });
@@ -137,55 +139,25 @@ export const DashboardModule: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Clay Dark Espresso Hero Banner (Inspired by reference banner) */}
-      <div className="relative overflow-hidden p-6 sm:p-7 rounded-3xl bg-[#231C18] dark:bg-[#1A1411] text-white border border-[#382E27] shadow-md flex flex-col md:flex-row md:items-center justify-between gap-5">
+      <div className="relative overflow-hidden p-6 sm:p-7 rounded-3xl bg-[#231C18] dark:bg-[#1A1411] text-white shadow-md flex flex-col md:flex-row md:items-center justify-between gap-5">
         <div className="max-w-2xl space-y-2">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-[#3A3027] text-[#FCD34D] border border-[#524438]">
-            <span>✨ HeliosOps Verified Solar Distributor • GST & BIS Compliant</span>
+            <span>HeliosOps Verified Solar Distributor • GST & BIS Compliant</span>
           </div>
 
           <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
-            Operational Command Hub
+            Command Hub Dashboard
           </h1>
           <p className="text-xs sm:text-sm text-[#C4BCB3] leading-relaxed">
             Centralized solar equipment distribution across Maharashtra, Gujarat & Rajasthan. Real-time fleet tracking, automated pre-dispatch QC, and inventory valuation.
           </p>
-        </div>
-
-        {/* Action Buttons in Hero Banner */}
-        <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-          <button
-            onClick={() => setActiveTab('sales')}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold bg-[#FCD34D] hover:bg-[#fbbf24] text-[#1C1613] shadow-md shadow-[#FCD34D]/20 transition-all"
-          >
-            <Plus className="w-4 h-4 stroke-[2.5]" />
-            <span>+ New Sales Order</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('purchase')}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-semibold bg-[#362C25] hover:bg-[#43372E] text-[#F7F4EF] border border-[#4D3F35] transition-all"
-          >
-            <Layers className="w-4 h-4 text-[#FCD34D]" />
-            <span>Raise Supplier PO</span>
-          </button>
-
-          <button
-            onClick={() => {
-              setSelectedOrderIdForChecklist('SO-9102');
-              setActiveTab('checklist');
-            }}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-semibold bg-[#2B231D] hover:bg-[#382E26] text-[#A3E635] border border-[#42362C] transition-all"
-          >
-            <CheckCircle2 className="w-4 h-4 text-[#A3E635]" />
-            <span>Pre-Dispatch QC</span>
-          </button>
         </div>
       </div>
 
       {/* 4 Clay Metric KPI Cards (Inspired by the 4 cards in the user image) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Card 1: Total Revenue (Replaces Total Orders) */}
-        <div className="p-5 rounded-3xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] relative overflow-hidden group">
+        <div className="p-5 rounded-3xl bg-white dark:bg-[#1A1512] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] relative overflow-hidden group">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold uppercase tracking-wider text-[#7D756D] dark:text-[#A89F95]">
               Total Revenue (Gross)
@@ -195,24 +167,21 @@ export const DashboardModule: React.FC = () => {
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-black text-[#1C1613] dark:text-[#FBF9F5]">
+            <div className="text-3xl font-black text-[#1C1613] dark:text-[#FBF9F5]">
               {formatINR(totalRevenueThisMonth)}
             </div>
-            <div className="flex items-center gap-1.5 mt-2 text-xs font-bold text-[#168051] dark:text-[#78E0A9]">
+            <div className="flex items-center gap-1.5 mt-4 text-md font-bold text-[#168051] dark:text-[#78E0A9]">
               <span className="flex items-center">
-                <ArrowUpRight className="w-3.5 h-3.5" />
+                <TrendingUp className="w-3.5 h-3.5" />
                 +{revenueGrowthPercent}%
               </span>
               <span className="text-[#8F867C] dark:text-[#80766B] font-medium">vs last month</span>
             </div>
-            <p className="text-[11px] text-[#8F867C] dark:text-[#80766B] mt-1">
-              Wholesale volume across MH & GJ corridors
-            </p>
           </div>
         </div>
 
         {/* Card 2: Combined Active Orders & Pending Dispatches */}
-        <div className="p-5 rounded-3xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] relative overflow-hidden">
+        <div className="p-5 rounded-3xl bg-white dark:bg-[#1A1512] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] relative overflow-hidden">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold uppercase tracking-wider text-[#7D756D] dark:text-[#A89F95]">
               Active Orders & Fleet
@@ -223,9 +192,9 @@ export const DashboardModule: React.FC = () => {
           </div>
           <div className="mt-3">
             <div className="flex items-baseline gap-2">
-              <span className="text-2xl font-black text-[#1C1613] dark:text-[#FBF9F5]">
+              <div className="text-3xl font-black text-[#1C1613] dark:text-[#FBF9F5]">
                 {activeOrders.length + 14}
-              </span>
+              </div>
               <span className="text-xs font-medium text-[#7D756D] dark:text-[#A89F95]">orders active</span>
             </div>
 
@@ -244,7 +213,7 @@ export const DashboardModule: React.FC = () => {
         </div>
 
         {/* Card 3: Total Inventory Valuation */}
-        <div className="p-5 rounded-3xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] relative overflow-hidden">
+        <div className="p-5 rounded-3xl bg-white dark:bg-[#1A1512] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] relative overflow-hidden">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold uppercase tracking-wider text-[#7D756D] dark:text-[#A89F95]">
               Total Inventory Valuation
@@ -254,7 +223,7 @@ export const DashboardModule: React.FC = () => {
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-black text-[#1C1613] dark:text-[#FBF9F5]">
+            <div className="text-3xl font-black text-[#1C1613] dark:text-[#FBF9F5]">
               {formatINR(totalInventoryValuation)}
             </div>
             <p className="text-xs text-[#7D756D] dark:text-[#A89F95] mt-1">
@@ -267,8 +236,8 @@ export const DashboardModule: React.FC = () => {
           </div>
         </div>
 
-        {/* Card 4: Active Low-Stock Alerts with Category Sticker Icons */}
-        <div className="p-5 rounded-3xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] relative overflow-hidden">
+        {/* Card 4: Active Low-Stock Alerts with Category Sticker SVGs */}
+        <div className="p-5 rounded-3xl bg-white dark:bg-[#1A1512] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] relative overflow-hidden">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold uppercase tracking-wider text-[#A6680C] dark:text-[#FCD34D] flex items-center gap-1.5">
               <AlertTriangle className="w-3.5 h-3.5 text-[#D99814] dark:text-[#FCD34D]" />
@@ -276,26 +245,30 @@ export const DashboardModule: React.FC = () => {
             </span>
             <button
               onClick={() => setActiveTab('inventory')}
-              className="text-[11px] font-bold text-[#A6680C] dark:text-[#FCD34D] hover:underline"
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold bg-[#FEF6E6] hover:bg-[#FDEFC4] dark:bg-[#2D2115] text-[#A6680C] dark:text-[#FCD34D] transition-colors"
             >
-              Restock
+              <PackagePlus className="w-3.5 h-3.5" />
+              <span>Restock</span>
             </button>
           </div>
 
-          <div className="mt-2.5">
-            <p className="text-[11px] text-[#7D756D] dark:text-[#A89F95] mb-2 font-medium">
-              Items below safety threshold:
-            </p>
+          <div className="mt-3">
+            <div className="flex items-baseline gap-2">
+              <div className="text-3xl font-black text-[#A6680C] dark:text-[#FCD34D]">
+                {lowStockPanels.length + lowStockInverters.length + lowStockBatteries.length + lowStockRacking.length + lowStockCabling.length}
+              </div>
+              <span className="text-xs font-medium text-[#7D756D] dark:text-[#A89F95]">items below threshold</span>
+            </div>
 
-            {/* Sticker Badges for 5 Categories (Clay Yellow #FCD34D Theme) */}
-            <div className="flex flex-wrap gap-1.5">
+            {/* Sticker Badges for 5 Categories with SVGs */}
+            <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-[#F0EBE1] dark:border-[#28201A]">
               {/* Panels */}
               <div
                 onClick={() => setActiveTab('inventory')}
-                className="cursor-pointer flex items-center gap-1 px-2.5 py-1 rounded-xl text-[11px] font-bold bg-[#FEF6E6] hover:bg-[#FDEFC4] dark:bg-[#2D2115] text-[#1C1613] dark:text-[#FCD34D] border border-[#FDE3B2] dark:border-[#4B3722] transition-colors"
+                className="cursor-pointer flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-[11px] font-bold bg-[#FEF6E6] hover:bg-[#FDEFC4] dark:bg-[#2D2115] text-[#1C1613] dark:text-[#FCD34D] transition-colors"
                 title="Panels Low Stock"
               >
-                <span>☀️</span>
+                <Sun className="w-3.5 h-3.5 text-[#C28E00] dark:text-[#FCD34D]" />
                 <span>Panels</span>
                 <span className="ml-0.5 px-1.5 py-0.2 rounded-full bg-[#FCD34D] text-[#1C1613] text-[10px]">
                   {lowStockPanels.length}
@@ -305,10 +278,10 @@ export const DashboardModule: React.FC = () => {
               {/* Inverters */}
               <div
                 onClick={() => setActiveTab('inventory')}
-                className="cursor-pointer flex items-center gap-1 px-2.5 py-1 rounded-xl text-[11px] font-bold bg-[#EEF4FF] hover:bg-[#E0EBFF] dark:bg-[#1E2638] text-[#1C1613] dark:text-[#93B4F5] border border-[#CCDDFE] dark:border-[#304163] transition-colors"
+                className="cursor-pointer flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-[11px] font-bold bg-[#EEF4FF] hover:bg-[#E0EBFF] dark:bg-[#1E2638] text-[#1C1613] dark:text-[#93B4F5] transition-colors"
                 title="Inverters Low Stock"
               >
-                <span>⚡</span>
+                <Zap className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
                 <span>Inverters</span>
                 <span className="ml-0.5 px-1.5 py-0.2 rounded-full bg-[#FCD34D] text-[#1C1613] text-[10px]">
                   {lowStockInverters.length}
@@ -318,10 +291,10 @@ export const DashboardModule: React.FC = () => {
               {/* Batteries */}
               <div
                 onClick={() => setActiveTab('inventory')}
-                className="cursor-pointer flex items-center gap-1 px-2.5 py-1 rounded-xl text-[11px] font-bold bg-[#E8F8F0] hover:bg-[#D4F3E4] dark:bg-[#1A2D22] text-[#1C1613] dark:text-[#78E0A9] border border-[#C6EED8] dark:border-[#2C4837] transition-colors"
+                className="cursor-pointer flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-[11px] font-bold bg-[#E8F8F0] hover:bg-[#D4F3E4] dark:bg-[#1A2D22] text-[#1C1613] dark:text-[#78E0A9] transition-colors"
                 title="Batteries Low Stock"
               >
-                <span>🔋</span>
+                <Battery className="w-3.5 h-3.5 text-emerald-600 fill-emerald-600" />
                 <span>Batteries</span>
                 <span className="ml-0.5 px-1.5 py-0.2 rounded-full bg-[#FCD34D] text-[#1C1613] text-[10px]">
                   {lowStockBatteries.length}
@@ -331,10 +304,10 @@ export const DashboardModule: React.FC = () => {
               {/* Racking */}
               <div
                 onClick={() => setActiveTab('inventory')}
-                className="cursor-pointer flex items-center gap-1 px-2.5 py-1 rounded-xl text-[11px] font-bold bg-[#F4F0E8] hover:bg-[#EBE5DA] dark:bg-[#2A221C] text-[#1C1613] dark:text-[#D4CCC0] border border-[#E0D8CA] dark:border-[#3D322A] transition-colors"
+                className="cursor-pointer flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-[11px] font-bold bg-[#F4F0E8] hover:bg-[#EBE5DA] dark:bg-[#2A221C] text-[#1C1613] dark:text-[#D4CCC0] transition-colors"
                 title="Racking Low Stock"
               >
-                <span>🏗️</span>
+                <Layers className="w-3.5 h-3.5 text-[#5C5247] dark:text-[#D4CCC0]" />
                 <span>Racking</span>
                 <span className="ml-0.5 px-1.5 py-0.2 rounded-full bg-[#FCD34D] text-[#1C1613] text-[10px]">
                   {lowStockRacking.length}
@@ -344,10 +317,10 @@ export const DashboardModule: React.FC = () => {
               {/* Cabling */}
               <div
                 onClick={() => setActiveTab('inventory')}
-                className="cursor-pointer flex items-center gap-1 px-2.5 py-1 rounded-xl text-[11px] font-bold bg-[#FDF2F2] hover:bg-[#FCE5E5] dark:bg-[#2F1C1C] text-[#1C1613] dark:text-[#F87171] border border-[#FECACA] dark:border-[#4B2929] transition-colors"
+                className="cursor-pointer flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-[11px] font-bold bg-[#FDF2F2] hover:bg-[#FCE5E5] dark:bg-[#2F1C1C] text-[#1C1613] dark:text-[#F87171] transition-colors"
                 title="Cabling Low Stock"
               >
-                <span>🔌</span>
+                <Cable className="w-3.5 h-3.5 text-rose-500" />
                 <span>Cabling</span>
                 <span className="ml-0.5 px-1.5 py-0.2 rounded-full bg-[#FCD34D] text-[#1C1613] text-[10px]">
                   {lowStockCabling.length}
@@ -359,16 +332,13 @@ export const DashboardModule: React.FC = () => {
       </div>
 
       {/* Interactive Analytics with Dropdown View (Clay styled) */}
-      <div className="p-6 rounded-3xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] space-y-4">
+      <div className="p-6 rounded-3xl bg-white dark:bg-[#1A1512] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] space-y-4">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div>
             <h3 className="text-base font-black text-[#1C1613] dark:text-[#F7F4EF] flex items-center gap-2">
               <Activity className="w-4 h-4 text-[#C28E00] dark:text-[#FCD34D]" />
               <span>Interactive Analytics & Comparative Insights</span>
             </h3>
-            <p className="text-xs text-[#7D756D] dark:text-[#A89F95] mt-0.5">
-              Select analytical view to compare solar panel sales, inventory margins, or delay metrics.
-            </p>
           </div>
 
           {/* Chart Dropdown Selector */}
@@ -377,11 +347,11 @@ export const DashboardModule: React.FC = () => {
             <select
               value={selectedChart}
               onChange={(e) => setSelectedChart(e.target.value as 'spline' | 'bar' | 'pie')}
-              className="text-xs font-bold px-3 py-2 rounded-xl bg-[#F8F5EE] dark:bg-[#241E19] border border-[#E8E3DA] dark:border-[#352B24] text-[#1C1613] dark:text-[#F7F4EF] focus:outline-none focus:ring-2 focus:ring-[#FCD34D] cursor-pointer"
+              className="text-xs font-bold px-3 py-2 rounded-xl bg-[#F8F5EE] dark:bg-[#241E19] text-[#1C1613] dark:text-[#F7F4EF] focus:outline-none focus:ring-2 focus:ring-[#FCD34D] cursor-pointer"
             >
-              <option value="spline">📈 Spline Chart: Solar Panel Sales (Current vs Last Month)</option>
-              <option value="bar">📊 Bar Chart: Cost Price vs Market Price & Units</option>
-              <option value="pie">🥧 Pie Chart: Order Completion & Delay Breakdown</option>
+              <option value="spline">Solar Panels Sales (Spline Comparison)</option>
+              <option value="bar">Inventory Pricing & Units (Cost vs Market Price)</option>
+              <option value="pie">Order Fulfillment & Delay Status Breakdown</option>
             </select>
           </div>
         </div>
@@ -570,7 +540,7 @@ export const DashboardModule: React.FC = () => {
       </div>
 
       {/* Real-Time Activity Stream Table (Matches the user's reference table aesthetic) */}
-      <div className="p-6 rounded-3xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] space-y-4">
+      <div className="p-6 rounded-3xl bg-white dark:bg-[#1A1512] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] space-y-4">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div>
             <h3 className="text-base font-black text-[#1C1613] dark:text-[#F7F4EF]">
@@ -582,7 +552,7 @@ export const DashboardModule: React.FC = () => {
           </div>
 
           {/* Search & Filter Controls */}
-          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+          <div className="flex flex-wrap items-center gap-2.5 w-full sm:w-auto">
             <div className="relative flex-1 sm:w-64">
               <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#8F867C]" />
               <input
@@ -590,22 +560,25 @@ export const DashboardModule: React.FC = () => {
                 placeholder="Search order ID or buyer..."
                 value={streamSearch}
                 onChange={(e) => setStreamSearch(e.target.value)}
-                className="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl bg-[#F8F5EE] dark:bg-[#221B17] border border-[#E8E3DA] dark:border-[#352B24] text-[#1C1613] dark:text-[#FAF7F2] focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
+                className="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl bg-[#F8F5EE] dark:bg-[#221B17] text-[#1C1613] dark:text-[#FAF7F2] focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
               />
             </div>
 
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="text-xs font-semibold px-3 py-1.5 rounded-xl bg-[#F8F5EE] dark:bg-[#221B17] border border-[#E8E3DA] dark:border-[#352B24] text-[#1C1613] dark:text-[#FAF7F2] focus:outline-none focus:ring-2 focus:ring-[#FCD34D] cursor-pointer"
-            >
-              <option value="ALL">All Statuses</option>
-              <option value="ACTIVE">Active Pipelines</option>
-              <option value="Ready for Inspection">Ready for QC</option>
-              <option value="In Transit">In Transit</option>
-              <option value="Processing">Processing</option>
-              <option value="Delivered">Delivered</option>
-            </select>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#F8F5EE] dark:bg-[#221B17] text-[#1C1613] dark:text-[#FAF7F2] shadow-xs">
+              <Filter className="w-3.5 h-3.5 text-[#8F867C]" />
+              <select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="bg-transparent text-xs font-semibold focus:outline-none cursor-pointer"
+              >
+                <option value="ALL">All Statuses</option>
+                <option value="ACTIVE">Active Pipelines</option>
+                <option value="Ready for Inspection">Ready for QC</option>
+                <option value="In Transit">In Transit</option>
+                <option value="Processing">Processing</option>
+                <option value="Delivered">Delivered</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -638,12 +611,12 @@ export const DashboardModule: React.FC = () => {
                     order.status === 'Delivered'
                       ? 'bg-[#E8F8F0] text-[#168051] border-[#C6EED8] dark:bg-[#1A2D22] dark:text-[#78E0A9] dark:border-[#2C4837]'
                       : order.status === 'In Transit'
-                      ? 'bg-[#EEF4FF] text-[#2E5AAC] border-[#CCDDFE] dark:bg-[#1E2638] dark:text-[#93B4F5] dark:border-[#304163]'
-                      : order.status === 'Ready for Inspection'
-                      ? 'bg-[#FEF6E6] text-[#A6680C] border-[#FDE3B2] dark:bg-[#2D2115] dark:text-[#FCD34D] dark:border-[#4B3722] animate-pulse'
-                      : order.status === 'Pre-Dispatch Approved'
-                      ? 'bg-[#E8F8F0] text-[#168051] border-[#C6EED8] dark:bg-[#1A2D22] dark:text-[#78E0A9]'
-                      : 'bg-[#F4F0E8] text-[#5C5247] border-[#E5DFD4] dark:bg-[#2A221C] dark:text-[#D4CCC0]';
+                        ? 'bg-[#EEF4FF] text-[#2E5AAC] border-[#CCDDFE] dark:bg-[#1E2638] dark:text-[#93B4F5] dark:border-[#304163]'
+                        : order.status === 'Ready for Inspection'
+                          ? 'bg-[#FEF6E6] text-[#A6680C] border-[#FDE3B2] dark:bg-[#2D2115] dark:text-[#FCD34D] dark:border-[#4B3722] animate-pulse'
+                          : order.status === 'Pre-Dispatch Approved'
+                            ? 'bg-[#E8F8F0] text-[#168051] border-[#C6EED8] dark:bg-[#1A2D22] dark:text-[#78E0A9]'
+                            : 'bg-[#F4F0E8] text-[#5C5247] border-[#E5DFD4] dark:bg-[#2A221C] dark:text-[#D4CCC0]';
 
                   const merchandiseSummary = order.items
                     .map((item) => `${item.productName.split(' ')[0]} ${item.category} (x${item.requiredQty})`)
