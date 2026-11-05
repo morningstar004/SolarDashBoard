@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '@/context/AppContext';
 import {
   TrendingUp,
@@ -141,7 +142,7 @@ export const DashboardModule: React.FC = () => {
       {/* Clay Dark Espresso Hero Banner (Inspired by reference banner) */}
       <div className="relative overflow-hidden p-6 sm:p-7 rounded-3xl bg-[#231C18] dark:bg-[#1A1411] text-white shadow-md flex flex-col md:flex-row md:items-center justify-between gap-5">
         <div className="max-w-2xl space-y-2">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-[#3A3027] text-[#FCD34D] border border-[#524438]">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-[#3A3027] text-[#FCD34D]">
             <span>HeliosOps Verified Solar Distributor • GST & BIS Compliant</span>
           </div>
 
@@ -170,7 +171,7 @@ export const DashboardModule: React.FC = () => {
             <div className="text-3xl font-black text-[#1C1613] dark:text-[#FBF9F5]">
               {formatINR(totalRevenueThisMonth)}
             </div>
-            <div className="flex items-center gap-1.5 mt-4 text-md font-bold text-[#168051] dark:text-[#78E0A9]">
+            <div className="flex items-center gap-1.5 mt-8 text-md font-bold text-[#168051] dark:text-[#78E0A9]">
               <span className="flex items-center">
                 <TrendingUp className="w-3.5 h-3.5" />
                 +{revenueGrowthPercent}%
@@ -199,7 +200,7 @@ export const DashboardModule: React.FC = () => {
             </div>
 
             {/* Sub-breakdown in the same card */}
-            <div className="grid grid-cols-2 gap-2 mt-3 pt-3 border-t border-[#F0EBE1] dark:border-[#28201A]">
+            <div className="grid grid-cols-2 gap-2 mt-3 pt-1">
               <div className="bg-[#F8F5EE] dark:bg-[#221B17] p-2 rounded-2xl">
                 <p className="text-[10px] text-[#8F867C] dark:text-[#A89F95] uppercase font-bold">In-Transit</p>
                 <p className="text-sm font-black text-[#2E5AAC] dark:text-[#93B4F5]">{inTransitCount + 7} Fleet</p>
@@ -261,7 +262,7 @@ export const DashboardModule: React.FC = () => {
             </div>
 
             {/* Sticker Badges for 5 Categories with SVGs */}
-            <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-[#F0EBE1] dark:border-[#28201A]">
+            <div className="flex flex-wrap gap-1.5 mt-3 pt-1">
               {/* Panels */}
               <div
                 onClick={() => setActiveTab('inventory')}
@@ -349,9 +350,9 @@ export const DashboardModule: React.FC = () => {
               onChange={(e) => setSelectedChart(e.target.value as 'spline' | 'bar' | 'pie')}
               className="text-xs font-bold px-3 py-2 rounded-xl bg-[#F8F5EE] dark:bg-[#241E19] text-[#1C1613] dark:text-[#F7F4EF] focus:outline-none focus:ring-2 focus:ring-[#FCD34D] cursor-pointer"
             >
-              <option value="spline">Solar Panels Sales (Spline Comparison)</option>
-              <option value="bar">Inventory Pricing & Units (Cost vs Market Price)</option>
-              <option value="pie">Order Fulfillment & Delay Status Breakdown</option>
+              <option value="spline">Solar Panels Sales</option>
+              <option value="bar">Inventory Pricing & Units</option>
+              <option value="pie">Order Fulfillment chart</option>
             </select>
           </div>
         </div>
@@ -396,7 +397,8 @@ export const DashboardModule: React.FC = () => {
                       backgroundColor: '#231C18',
                       borderRadius: '16px',
                       color: '#fff',
-                      border: '1px solid #382E27',
+                      border: 'none',
+                      boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
                       fontSize: '12px',
                     }}
                   />
@@ -468,7 +470,8 @@ export const DashboardModule: React.FC = () => {
                       backgroundColor: '#231C18',
                       borderRadius: '16px',
                       color: '#fff',
-                      border: '1px solid #382E27',
+                      border: 'none',
+                      boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
                       fontSize: '12px',
                     }}
                     formatter={(value: any, name: any) => [`₹${Number(value).toLocaleString('en-IN')}`, name]}
@@ -505,7 +508,8 @@ export const DashboardModule: React.FC = () => {
                       backgroundColor: '#231C18',
                       borderRadius: '16px',
                       color: '#fff',
-                      border: '1px solid #382E27',
+                      border: 'none',
+                      boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
                       fontSize: '12px',
                     }}
                   />
@@ -521,7 +525,7 @@ export const DashboardModule: React.FC = () => {
                 {pieStatusData.map((item) => (
                   <div
                     key={item.name}
-                    className="flex items-center justify-between p-2.5 rounded-2xl bg-[#F8F5EE] dark:bg-[#221B17] border border-[#EBE7DF] dark:border-[#2D2520] text-xs"
+                    className="flex items-center justify-between p-2.5 rounded-2xl bg-[#F8F5EE] dark:bg-[#221B17] text-xs shadow-xs"
                   >
                     <div className="flex items-center gap-2">
                       <span className="w-3 h-3 rounded-md" style={{ backgroundColor: item.color }}></span>
@@ -583,9 +587,9 @@ export const DashboardModule: React.FC = () => {
         </div>
 
         {/* Table of Orders */}
-        <div className="overflow-x-auto rounded-2xl border border-[#EBE7DF] dark:border-[#2D2520]">
+        <div className="overflow-x-auto rounded-2xl">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#FBF9F5] dark:bg-[#201A16] text-[#7D756D] dark:text-[#A89F95] uppercase font-bold text-[10px] tracking-wider border-b border-[#EBE7DF] dark:border-[#2D2520]">
+            <thead className="bg-[#FBF9F5] dark:bg-[#201A16] text-[#7D756D] dark:text-[#A89F95] uppercase font-bold text-[10px] tracking-wider">
               <tr>
                 <th className="px-4 py-3">Order ID</th>
                 <th className="px-4 py-3">Customer Name</th>
@@ -598,104 +602,117 @@ export const DashboardModule: React.FC = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-[#F2EEE6] dark:divide-[#28211B] text-[#1C1613] dark:text-[#F7F4EF]">
-              {filteredOrders.length === 0 ? (
-                <tr>
-                  <td colSpan={8} className="px-4 py-8 text-center text-[#8F867C]">
-                    No orders found matching the filter criteria.
-                  </td>
-                </tr>
-              ) : (
-                filteredOrders.map((order) => {
-                  // Beautiful status pill colors matching user's image
-                  const statusColors =
-                    order.status === 'Delivered'
-                      ? 'bg-[#E8F8F0] text-[#168051] border-[#C6EED8] dark:bg-[#1A2D22] dark:text-[#78E0A9] dark:border-[#2C4837]'
-                      : order.status === 'In Transit'
-                        ? 'bg-[#EEF4FF] text-[#2E5AAC] border-[#CCDDFE] dark:bg-[#1E2638] dark:text-[#93B4F5] dark:border-[#304163]'
-                        : order.status === 'Ready for Inspection'
-                          ? 'bg-[#FEF6E6] text-[#A6680C] border-[#FDE3B2] dark:bg-[#2D2115] dark:text-[#FCD34D] dark:border-[#4B3722] animate-pulse'
-                          : order.status === 'Pre-Dispatch Approved'
-                            ? 'bg-[#E8F8F0] text-[#168051] border-[#C6EED8] dark:bg-[#1A2D22] dark:text-[#78E0A9]'
-                            : 'bg-[#F4F0E8] text-[#5C5247] border-[#E5DFD4] dark:bg-[#2A221C] dark:text-[#D4CCC0]';
+              <AnimatePresence mode="popLayout" initial={false}>
+                {filteredOrders.length === 0 ? (
+                  <motion.tr
+                    key="empty-state"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <td colSpan={8} className="px-4 py-8 text-center text-[#8F867C]">
+                      No orders found matching the filter criteria.
+                    </td>
+                  </motion.tr>
+                ) : (
+                  filteredOrders.map((order) => {
+                    // Borderless status pills matching reference design
+                    const statusColors =
+                      order.status === 'Delivered'
+                        ? 'bg-[#E8F8F0] text-[#168051] dark:bg-[#1A2D22] dark:text-[#78E0A9]'
+                        : order.status === 'In Transit'
+                          ? 'bg-[#EEF4FF] text-[#2E5AAC] dark:bg-[#1E2638] dark:text-[#93B4F5]'
+                          : order.status === 'Ready for Inspection'
+                            ? 'bg-[#FEF6E6] text-[#A6680C] dark:bg-[#2D2115] dark:text-[#FCD34D] animate-pulse'
+                            : order.status === 'Pre-Dispatch Approved'
+                              ? 'bg-[#E8F8F0] text-[#168051] dark:bg-[#1A2D22] dark:text-[#78E0A9]'
+                              : 'bg-[#F4F0E8] text-[#5C5247] dark:bg-[#2A221C] dark:text-[#D4CCC0]';
 
-                  const merchandiseSummary = order.items
-                    .map((item) => `${item.productName.split(' ')[0]} ${item.category} (x${item.requiredQty})`)
-                    .join(', ');
+                    const merchandiseSummary = order.items
+                      .map((item) => `${item.productName.split(' ')[0]} ${item.category} (x${item.requiredQty})`)
+                      .join(', ');
 
-                  return (
-                    <tr
-                      key={order.id}
-                      className="hover:bg-[#FBF9F5]/70 dark:hover:bg-[#201A16]/50 transition-colors"
-                    >
-                      <td className="px-4 py-3.5 font-black font-mono text-[#1C1613] dark:text-[#FCD34D]">
-                        {order.id}
-                      </td>
-                      <td className="px-4 py-3.5">
-                        <div className="font-bold text-[#1C1613] dark:text-[#F7F4EF]">
-                          {order.customer.name}
-                        </div>
-                        <div className="text-[11px] text-[#7D756D] dark:text-[#A89F95]">
-                          {order.customer.company}
-                        </div>
-                      </td>
-                      <td className="px-4 py-3.5 max-w-xs">
-                        <p className="truncate text-[#1C1613] dark:text-[#F7F4EF] font-medium" title={merchandiseSummary}>
-                          {merchandiseSummary}
-                        </p>
-                        <span className="text-[10px] text-[#8F867C] dark:text-[#80766B]">
-                          {order.items.length} line items
-                        </span>
-                      </td>
-                      <td className="px-4 py-3.5">
-                        <div className="font-semibold text-[#1C1613] dark:text-[#F7F4EF]">
-                          {order.logistics.partner}
-                        </div>
-                        <div className="font-mono text-[10px] text-[#8F867C] dark:text-[#80766B]">
-                          {order.logistics.vehicleNumber}
-                        </div>
-                      </td>
-                      <td className="px-4 py-3.5 text-[#7D756D] dark:text-[#A89F95] whitespace-nowrap font-medium">
-                        {order.orderDate}
-                      </td>
-                      <td className="px-4 py-3.5 font-black text-[#1C1613] dark:text-[#F7F4EF] whitespace-nowrap">
-                        ₹{order.totalAmount.toLocaleString('en-IN')}
-                      </td>
-                      <td className="px-4 py-3.5 whitespace-nowrap">
-                        <span
-                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${statusColors}`}
-                        >
-                          ● {order.status}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3.5 text-right whitespace-nowrap">
-                        <div className="flex items-center justify-end gap-1.5">
-                          {order.status === 'Ready for Inspection' ? (
-                            <button
-                              onClick={() => {
-                                setSelectedOrderIdForChecklist(order.id);
-                                setActiveTab('checklist');
-                              }}
-                              className="px-3 py-1 rounded-xl text-[11px] font-bold bg-[#FCD34D] hover:bg-[#fbbf24] text-[#1C1613] shadow-xs transition-all"
-                            >
-                              Verify QC
-                            </button>
-                          ) : (
-                            <button
-                              onClick={() => {
-                                setSelectedOrderIdForTracking(order.id);
-                                setActiveTab('tracking');
-                              }}
-                              className="px-3 py-1 rounded-xl text-[11px] font-semibold bg-[#F4F0E8] hover:bg-[#EBE5DA] dark:bg-[#28201A] dark:hover:bg-[#342A22] text-[#1C1613] dark:text-[#FAF7F2] transition-all"
-                            >
-                              Track
-                            </button>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })
-              )}
+                    return (
+                      <motion.tr
+                        key={order.id}
+                        layout
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.98 }}
+                        transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                        className="hover:bg-[#FBF9F5]/70 dark:hover:bg-[#201A16]/50 transition-colors"
+                      >
+                        <td className="px-4 py-3.5 font-black font-mono text-[#1C1613] dark:text-[#FCD34D]">
+                          {order.id}
+                        </td>
+                        <td className="px-4 py-3.5">
+                          <div className="font-bold text-[#1C1613] dark:text-[#F7F4EF]">
+                            {order.customer.name}
+                          </div>
+                          <div className="text-[11px] text-[#7D756D] dark:text-[#A89F95]">
+                            {order.customer.company}
+                          </div>
+                        </td>
+                        <td className="px-4 py-3.5 max-w-xs">
+                          <p className="truncate text-[#1C1613] dark:text-[#F7F4EF] font-medium" title={merchandiseSummary}>
+                            {merchandiseSummary}
+                          </p>
+                          <span className="text-[10px] text-[#8F867C] dark:text-[#80766B]">
+                            {order.items.length} line items
+                          </span>
+                        </td>
+                        <td className="px-4 py-3.5">
+                          <div className="font-semibold text-[#1C1613] dark:text-[#F7F4EF]">
+                            {order.logistics.partner}
+                          </div>
+                          <div className="font-mono text-[10px] text-[#8F867C] dark:text-[#80766B]">
+                            {order.logistics.vehicleNumber}
+                          </div>
+                        </td>
+                        <td className="px-4 py-3.5 text-[#7D756D] dark:text-[#A89F95] whitespace-nowrap font-medium">
+                          {order.orderDate}
+                        </td>
+                        <td className="px-4 py-3.5 font-black text-[#1C1613] dark:text-[#F7F4EF] whitespace-nowrap">
+                          ₹{order.totalAmount.toLocaleString('en-IN')}
+                        </td>
+                        <td className="px-4 py-3.5 whitespace-nowrap">
+                          <span
+                            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold ${statusColors}`}
+                          >
+                            ● {order.status}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3.5 text-right whitespace-nowrap">
+                          <div className="flex items-center justify-end gap-1.5">
+                            {order.status === 'Ready for Inspection' ? (
+                              <button
+                                onClick={() => {
+                                  setSelectedOrderIdForChecklist(order.id);
+                                  setActiveTab('checklist');
+                                }}
+                                className="px-3 py-1 rounded-xl text-[11px] font-bold bg-[#FCD34D] hover:bg-[#fbbf24] text-[#1C1613] shadow-xs transition-all"
+                              >
+                                Verify QC
+                              </button>
+                            ) : (
+                              <button
+                                onClick={() => {
+                                  setSelectedOrderIdForTracking(order.id);
+                                  setActiveTab('tracking');
+                                }}
+                                className="px-3 py-1 rounded-xl text-[11px] font-semibold bg-[#F4F0E8] hover:bg-[#EBE5DA] dark:bg-[#28201A] dark:hover:bg-[#342A22] text-[#1C1613] dark:text-[#FAF7F2] transition-all"
+                              >
+                                Track
+                              </button>
+                            )}
+                          </div>
+                        </td>
+                      </motion.tr>
+                    );
+                  })
+                )}
+              </AnimatePresence>
             </tbody>
           </table>
         </div>
