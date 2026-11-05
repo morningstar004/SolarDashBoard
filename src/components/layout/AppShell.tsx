@@ -26,13 +26,13 @@ export const AppShell: React.FC<{ defaultTab?: TabType }> = ({ defaultTab }) => 
       {/* Top Header */}
       <Navbar />
 
-      {/* Main Container */}
-      <div className="flex-1 flex flex-col lg:flex-row max-w-7xl w-full mx-auto">
+      {/* Main Container - Full Screen Width */}
+      <div className="flex-1 flex flex-col lg:flex-row w-full">
         {/* Navigation Sidebar */}
         <Sidebar />
 
         {/* Dynamic Content Workspace */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 min-w-0 overflow-y-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 min-w-0 overflow-y-auto w-full">
           {activeTab === 'dashboard' && <DashboardModule />}
           {activeTab === 'inventory' && <InventoryModule />}
           {activeTab === 'sales' && <SalesOrdersModule />}
@@ -45,3 +45,4 @@ export const AppShell: React.FC<{ defaultTab?: TabType }> = ({ defaultTab }) => 
     </div>
   );
 };
+
