@@ -49,3 +49,19 @@ body {
     display: block !important;
   }
 }
+
+/* Sun hover rotation animation */
+@keyframes sunSpinOnce {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.hover-spin-once:hover,
+.group:hover .group-hover-spin-once {
+  animation: sunSpinOnce 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 1;
+}
+

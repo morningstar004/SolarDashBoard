@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '@/context/AppContext';
 import {
-  Sun,
   Moon,
   AlertTriangle,
   Search,
@@ -40,16 +39,20 @@ export const Navbar: React.FC = () => {
       <div className="w-full px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         {/* Left: Brand & Depot Location */}
         <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-[#FCD34D] text-[#1C1613] shadow-sm">
-            <Sun className="w-6 h-6 stroke-[2.4]" />
+          <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-[#FCD34D] text-[#1C1613] shadow-sm group cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-6 h-6 group-hover-spin-once hover-spin-once"
+            >
+              <path d="M 11 0 L 11 3 L 13 3 L 13 0 L 11 0 z M 4.2070312 2.7929688 L 2.7929688 4.2070312 L 4.8925781 6.3066406 L 6.3066406 4.8925781 L 4.2070312 2.7929688 z M 19.792969 2.7929688 L 17.693359 4.8925781 L 19.107422 6.3066406 L 21.207031 4.2070312 L 19.792969 2.7929688 z M 12 5 C 8.1545455 5 5 8.1545455 5 12 C 5 15.845455 8.1545455 19 12 19 C 15.845455 19 19 15.845455 19 12 C 19 8.1545455 15.845455 5 12 5 z M 12 7 C 14.754545 7 17 9.2454545 17 12 C 17 14.754545 14.754545 17 12 17 C 9.2454545 17 7 14.754545 7 12 C 7 9.2454545 9.2454545 7 12 7 z M 0 11 L 0 13 L 3 13 L 3 11 L 0 11 z M 21 11 L 21 13 L 24 13 L 24 11 L 21 11 z M 4.8925781 17.693359 L 2.7929688 19.792969 L 4.2070312 21.207031 L 6.3066406 19.107422 L 4.8925781 17.693359 z M 19.107422 17.693359 L 17.693359 19.107422 L 19.792969 21.207031 L 21.207031 19.792969 L 19.107422 17.693359 z M 11 21 L 11 24 L 13 24 L 13 21 L 11 21 z" />
+            </svg>
           </div>
           <div>
             <div className="flex items-center gap-2">
               <span className="text-lg font-black tracking-tight text-[#1C1613] dark:text-[#F7F4EF]">
                 Helios<span className="text-[#C28E00] dark:text-[#FCD34D]">Ops</span>
-              </span>
-              <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#F4F0E8] text-[#5C5247] dark:bg-[#28211B] dark:text-[#EAE3D8] border border-[#E5DFD4] dark:border-[#3A3027]">
-                India Distribution Hub
               </span>
             </div>
             <div className="flex items-center gap-2 text-xs text-[#7D756D] dark:text-[#A89F95]">
@@ -84,24 +87,31 @@ export const Navbar: React.FC = () => {
           {lowStockCount > 0 && (
             <button
               onClick={() => setActiveTab('inventory')}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#FEF6E6] hover:bg-[#FDEFC4] dark:bg-[#2D2115] dark:hover:bg-[#3B2B1B] text-[#A6680C] dark:text-[#FCD34D] border border-[#FDE3B2] dark:border-[#4B3722] transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 dark:hover:bg-rose-900/50 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900/60 transition-colors shadow-xs"
               title="Click to view low stock items"
             >
-              <AlertTriangle className="w-3.5 h-3.5 text-[#D99814] dark:text-[#FCD34D] animate-pulse" />
-              <span>{lowStockCount} Low Stock</span>
+              <AlertTriangle className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400 animate-pulse" />
+              <span>Low Stock</span>
             </button>
           )}
 
           {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-xl text-[#5C5247] dark:text-[#D4CCC0] bg-[#FBF9F5] dark:bg-[#221B17] hover:bg-[#F4F0E8] dark:hover:bg-[#2C231E] border border-[#E8E3DA] dark:border-[#352B24] transition-all"
+            className="group p-2 rounded-xl text-[#5C5247] dark:text-[#D4CCC0] bg-[#FBF9F5] dark:bg-[#221B17] hover:bg-[#F4F0E8] dark:hover:bg-[#2C231E] border border-[#E8E3DA] dark:border-[#352B24] transition-all"
             title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} mode`}
           >
             {theme === 'dark' ? (
-              <Sun className="w-4 h-4 text-[#FCD34D]" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="w-4 h-4 text-[#FCD34D] group-hover-spin-once hover-spin-once"
+              >
+                <path d="M 11 0 L 11 3 L 13 3 L 13 0 L 11 0 z M 4.2070312 2.7929688 L 2.7929688 4.2070312 L 4.8925781 6.3066406 L 6.3066406 4.8925781 L 4.2070312 2.7929688 z M 19.792969 2.7929688 L 17.693359 4.8925781 L 19.107422 6.3066406 L 21.207031 4.2070312 L 19.792969 2.7929688 z M 12 5 C 8.1545455 5 5 8.1545455 5 12 C 5 15.845455 8.1545455 19 12 19 C 15.845455 19 19 15.845455 19 12 C 19 8.1545455 15.845455 5 12 5 z M 12 7 C 14.754545 7 17 9.2454545 17 12 C 17 14.754545 14.754545 17 12 17 C 9.2454545 17 7 14.754545 7 12 C 7 9.2454545 9.2454545 7 12 7 z M 0 11 L 0 13 L 3 13 L 3 11 L 0 11 z M 21 11 L 21 13 L 24 13 L 24 11 L 21 11 z M 4.8925781 17.693359 L 2.7929688 19.792969 L 4.2070312 21.207031 L 6.3066406 19.107422 L 4.8925781 17.693359 z M 19.107422 17.693359 L 17.693359 19.107422 L 19.792969 21.207031 L 21.207031 19.792969 L 19.107422 17.693359 z M 11 21 L 11 24 L 13 24 L 13 21 L 11 21 z" />
+              </svg>
             ) : (
-              <Moon className="w-4 h-4 text-[#1C1613]" />
+              <Moon className="w-4 h-4 text-[#1C1613] transition-transform duration-300 group-hover:-rotate-12" />
             )}
           </button>
 
