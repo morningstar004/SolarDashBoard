@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useApp } from '@/context/AppContext';
 import { Order, OrderStatus } from '@/types';
 import {
@@ -22,6 +22,8 @@ import {
   ExternalLink,
   ShieldCheck,
   Zap,
+  Check,
+  X,
 } from 'lucide-react';
 
 export const SalesOrdersModule: React.FC = () => {
@@ -42,8 +44,25 @@ export const SalesOrdersModule: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [dateFilter, setDateFilter] = useState<string>('ALL');
   const [orderTypeFilter, setOrderTypeFilter] = useState<string>('ALL');
+  const [showFilterPopup, setShowFilterPopup] = useState(false);
+  const filterPopupRef = useRef<HTMLDivElement>(null);
   const [expandedOrderId, setExpandedOrderId] = useState<string | null>('SO-9102');
   const [showCreateModal, setShowCreateModal] = useState(false);
+
+  // Close filter popup on click outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (filterPopupRef.current && !filterPopupRef.current.contains(event.target as Node)) {
+        setShowFilterPopup(false);
+      }
+    };
+    if (showFilterPopup) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showFilterPopup]);
 
   // New Order Form state
   const [newCustomerName, setNewCustomerName] = useState('');
@@ -224,45 +243,209 @@ export const SalesOrdersModule: React.FC = () => {
             />
           </div>
 
-          {/* Date Filter Dropdown */}
-          <div className="relative flex items-center w-full sm:w-auto">
-            <Calendar className="w-3.5 h-3.5 absolute left-3 pointer-events-none text-[#8F867C]" />
-            <select
-              value={dateFilter}
-              onChange={(e) => setDateFilter(e.target.value)}
-              aria-label="Filter by order date"
-              className="appearance-none bg-white dark:bg-[#1A1512] py-2 pl-8 pr-7 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 text-[#1C1613] dark:text-[#FAF7F2] text-xs font-semibold cursor-pointer w-full sm:w-auto transition-colors hover:border-[#D4CDC1]"
+          {/* Combined Filter Button with Options Popup */}
+          <div className="relative" ref={filterPopupRef}>
+            <button
+              onClick={() => setShowFilterPopup((prev) => !prev)}
+              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all border ${
+                dateFilter !== 'ALL' || orderTypeFilter !== 'ALL' || showFilterPopup
+                  ? 'bg-[#1C1613] text-[#FCD34D] border-[#1C1613] dark:bg-[#FCD34D] dark:text-[#1C1613] dark:border-[#FCD34D] shadow-sm'
+                  : 'bg-white dark:bg-[#1A1512] text-[#5C5247] dark:text-[#D4CCC0] border-[#E8E3DA] dark:border-[#352B24] hover:border-[#D4CDC1]'
+              }`}
+              title="Filter by Date and Order Type"
             >
-              <option value="ALL">All Dates</option>
-              <option value="TODAY">Today (Nov 5-6)</option>
-              <option value="LAST_7_DAYS">Last 7 Days</option>
-              <option value="THIS_MONTH">This Month (Nov 2026)</option>
-              <option value="LAST_MONTH">Last Month (Oct 2026)</option>
-            </select>
-            <ChevronDown className="w-3.5 h-3.5 absolute right-2 pointer-events-none text-[#8F867C]" />
+              <Filter className="w-3.5 h-3.5 shrink-0" />
+              <span>Filter</span>
+              {(dateFilter !== 'ALL' || orderTypeFilter !== 'ALL') && (
+                <span className="flex items-center justify-center w-4 h-4 rounded-full text-[10px] font-black bg-[#FCD34D] text-[#1C1613] dark:bg-[#1C1613] dark:text-[#FCD34D]">
+                  {(dateFilter !== 'ALL' ? 1 : 0) + (orderTypeFilter !== 'ALL' ? 1 : 0)}
+                </span>
+              )}
+              <ChevronDown
+                className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                  showFilterPopup ? 'rotate-180' : ''
+                }`}
+              />
+            </button>
+
+            {/* Combined Options Popup */}
+            {showFilterPopup && (
+              <div className="absolute left-0 mt-2 w-80 sm:w-96 rounded-2xl bg-white dark:bg-[#1E1815] shadow-2xl border border-[#E8E3DA] dark:border-[#352B24] p-4 z-50 text-[#1C1613] dark:text-[#F7F4EF]">
+                {/* Popup Header */}
+                <div className="flex items-center justify-between pb-3 border-b border-[#F0EBE1] dark:border-[#2E251E]">
+                  <div className="flex items-center gap-2">
+                    <Filter className="w-4 h-4 text-[#A87208] dark:text-[#FCD34D]" />
+                    <span className="text-xs font-black uppercase tracking-wider">
+                      Filter Orders
+                    </span>
+                  </div>
+                  {(dateFilter !== 'ALL' || orderTypeFilter !== 'ALL') && (
+                    <button
+                      onClick={() => {
+                        setDateFilter('ALL');
+                        setOrderTypeFilter('ALL');
+                      }}
+                      className="text-[11px] font-bold text-rose-600 dark:text-rose-400 hover:underline"
+                    >
+                      Reset All
+                    </button>
+                  )}
+                </div>
+
+                {/* Option 1: Date and its sub-options */}
+                <div className="py-3 border-b border-[#F0EBE1] dark:border-[#2E251E]">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="flex items-center gap-1.5 text-xs font-bold text-[#1C1613] dark:text-[#F7F4EF]">
+                      <Calendar className="w-3.5 h-3.5 text-[#A87208] dark:text-[#FCD34D]" />
+                      Date
+                    </span>
+                    {dateFilter !== 'ALL' && (
+                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-[#FEF6E6] text-[#A6680C] dark:bg-[#2D2115] dark:text-[#FCD34D]">
+                        Active
+                      </span>
+                    )}
+                  </div>
+                  <div className="grid grid-cols-2 gap-1.5">
+                    {[
+                      { id: 'ALL', label: 'All Dates' },
+                      { id: 'TODAY', label: 'Today (Nov 5-6)' },
+                      { id: 'LAST_7_DAYS', label: 'Last 7 Days' },
+                      { id: 'THIS_MONTH', label: 'This Month (Nov)' },
+                      { id: 'LAST_MONTH', label: 'Last Month (Oct)' },
+                    ].map((option) => (
+                      <button
+                        key={option.id}
+                        onClick={() => setDateFilter(option.id)}
+                        className={`flex items-center justify-between px-2.5 py-1.5 rounded-xl text-[11px] font-semibold text-left transition-all ${
+                          dateFilter === option.id
+                            ? 'bg-[#1C1613] text-white dark:bg-[#FCD34D] dark:text-[#1C1613] font-bold shadow-xs'
+                            : 'bg-[#FBF9F5] dark:bg-[#28211B] text-[#5C5247] dark:text-[#D4CCC0] hover:bg-[#F4F0E8] dark:hover:bg-[#342B23]'
+                        }`}
+                      >
+                        <span className="truncate">{option.label}</span>
+                        {dateFilter === option.id && (
+                          <Check className="w-3 h-3 stroke-[3] shrink-0 ml-1 text-[#FCD34D] dark:text-[#1C1613]" />
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Option 2: Order Type and its sub-options */}
+                <div className="pt-3 pb-2">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="flex items-center gap-1.5 text-xs font-bold text-[#1C1613] dark:text-[#F7F4EF]">
+                      <Layers className="w-3.5 h-3.5 text-[#A87208] dark:text-[#FCD34D]" />
+                      Type of Order
+                    </span>
+                    {orderTypeFilter !== 'ALL' && (
+                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-[#FEF6E6] text-[#A6680C] dark:bg-[#2D2115] dark:text-[#FCD34D]">
+                        Active
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex flex-col gap-1 max-h-48 overflow-y-auto pr-0.5">
+                    {[
+                      { id: 'ALL', label: 'All Order Types', desc: 'Display all types' },
+                      { id: 'Tier-1 EPC', label: 'Tier-1 EPC', desc: 'Utility scale projects' },
+                      { id: 'Commercial Developer', label: 'Commercial & Industrial', desc: 'Factory & warehouse solar' },
+                      { id: 'Rooftop Installer', label: 'Rooftop Solar Installer', desc: 'Residential & SMB systems' },
+                      { id: 'CRITICAL_PRIORITY', label: 'Critical / High Priority', desc: 'Express priority dispatches' },
+                      { id: 'HAS_BATTERIES', label: 'BESS / Battery Storage', desc: 'Orders containing LiFePO4 batteries' },
+                      { id: 'HAS_INVERTERS', label: 'Inverters Only', desc: 'Inverters replacement & expansion' },
+                    ].map((option) => (
+                      <button
+                        key={option.id}
+                        onClick={() => setOrderTypeFilter(option.id)}
+                        className={`flex items-center justify-between px-3 py-1.5 rounded-xl text-left transition-all ${
+                          orderTypeFilter === option.id
+                            ? 'bg-[#1C1613] text-white dark:bg-[#FCD34D] dark:text-[#1C1613] font-bold shadow-xs'
+                            : 'bg-[#FBF9F5] dark:bg-[#28211B] text-[#5C5247] dark:text-[#D4CCC0] hover:bg-[#F4F0E8] dark:hover:bg-[#342B23]'
+                        }`}
+                      >
+                        <div className="min-w-0 pr-2">
+                          <div className="text-[11px] font-bold leading-tight truncate">
+                            {option.label}
+                          </div>
+                          <div
+                            className={`text-[10px] leading-tight truncate ${
+                              orderTypeFilter === option.id ? 'opacity-80' : 'text-[#8F867C]'
+                            }`}
+                          >
+                            {option.desc}
+                          </div>
+                        </div>
+                        {orderTypeFilter === option.id && (
+                          <Check className="w-3.5 h-3.5 stroke-[3] shrink-0 text-[#FCD34D] dark:text-[#1C1613]" />
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Footer Action inside popup */}
+                <div className="pt-3 mt-1 border-t border-[#F0EBE1] dark:border-[#2E251E]">
+                  <button
+                    onClick={() => setShowFilterPopup(false)}
+                    className="w-full py-2 px-3 rounded-xl bg-[#FCD34D] hover:bg-[#fbbf24] text-[#1C1613] font-bold text-xs shadow-xs text-center transition-all"
+                  >
+                    Apply Filters ({filteredOrders.length} results)
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
 
-          {/* Type of Order Filter Dropdown */}
-          <div className="relative flex items-center w-full sm:w-auto">
-            <Filter className="w-3.5 h-3.5 absolute left-3 pointer-events-none text-[#8F867C]" />
-            <select
-              value={orderTypeFilter}
-              onChange={(e) => setOrderTypeFilter(e.target.value)}
-              aria-label="Filter by order type"
-              className="appearance-none bg-white dark:bg-[#1A1512] py-2 pl-8 pr-7 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 text-[#1C1613] dark:text-[#FAF7F2] text-xs font-semibold cursor-pointer w-full sm:w-auto transition-colors hover:border-[#D4CDC1]"
-            >
-              <option value="ALL">All Order Types</option>
-              <option value="Tier-1 EPC">Tier-1 EPC (Utility Scale)</option>
-              <option value="Commercial Developer">Commercial & Industrial (C&I)</option>
-              <option value="Rooftop Installer">Rooftop Solar Installer</option>
-              <option value="CRITICAL_PRIORITY">Critical / High Priority</option>
-              <option value="HAS_BATTERIES">BESS / Battery Storage</option>
-              <option value="HAS_INVERTERS">Inverters Only / Replacement</option>
-            </select>
-            <ChevronDown className="w-3.5 h-3.5 absolute right-2 pointer-events-none text-[#8F867C]" />
-          </div>
+          {/* Active Filter Chips beside the Filter Button for quick dismissal */}
+          {dateFilter !== 'ALL' && (
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-[11px] font-bold bg-[#FEF6E6] text-[#A6680C] dark:bg-[#2D2115] dark:text-[#FCD34D] border border-[#FDE3B2] dark:border-[#4B3722]">
+              <span>
+                Date:{' '}
+                {dateFilter === 'TODAY'
+                  ? 'Today'
+                  : dateFilter === 'LAST_7_DAYS'
+                  ? 'Last 7 Days'
+                  : dateFilter === 'THIS_MONTH'
+                  ? 'This Month'
+                  : 'Last Month'}
+              </span>
+              <button
+                onClick={() => setDateFilter('ALL')}
+                className="hover:text-rose-600 dark:hover:text-rose-400 p-0.5 rounded-full"
+                title="Remove date filter"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </span>
+          )}
 
-          {/* Quick Clear Button when any filter is active */}
+          {orderTypeFilter !== 'ALL' && (
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-[11px] font-bold bg-[#EEF4FF] text-[#2E5AAC] dark:bg-[#1E2638] dark:text-[#93B4F5] border border-[#CCDDFE] dark:border-[#2A3752]">
+              <span>
+                Type:{' '}
+                {orderTypeFilter === 'Tier-1 EPC'
+                  ? 'Tier-1 EPC'
+                  : orderTypeFilter === 'Commercial Developer'
+                  ? 'Commercial'
+                  : orderTypeFilter === 'Rooftop Installer'
+                  ? 'Rooftop'
+                  : orderTypeFilter === 'CRITICAL_PRIORITY'
+                  ? 'Critical'
+                  : orderTypeFilter === 'HAS_BATTERIES'
+                  ? 'Batteries'
+                  : 'Inverters'}
+              </span>
+              <button
+                onClick={() => setOrderTypeFilter('ALL')}
+                className="hover:text-rose-600 dark:hover:text-rose-400 p-0.5 rounded-full"
+                title="Remove type filter"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </span>
+          )}
+
+          {/* Quick Clear All Button when filters or search are active */}
           {(dateFilter !== 'ALL' || orderTypeFilter !== 'ALL' || searchQuery.trim() !== '') && (
             <button
               onClick={() => {
@@ -272,7 +455,7 @@ export const SalesOrdersModule: React.FC = () => {
               }}
               className="px-2.5 py-1.5 text-[11px] font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg transition-colors whitespace-nowrap"
             >
-              Reset Filters
+              Reset All
             </button>
           )}
         </div>
