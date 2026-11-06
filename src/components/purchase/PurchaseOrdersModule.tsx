@@ -98,7 +98,7 @@ export const PurchaseOrdersModule: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header & Quick Action */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-5 rounded-3xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)]">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-5 rounded-3xl bg-white dark:bg-[#1A1512] dark:border dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)]">
         <div>
           <h2 className="text-base font-black text-[#1C1613] dark:text-[#F7F4EF] flex items-center gap-2">
             <FileInput className="w-5 h-5 text-[#A87208] dark:text-[#FCD34D]" />
@@ -147,8 +147,29 @@ export const PurchaseOrdersModule: React.FC = () => {
       {/* Purchase Orders List */}
       <div className="space-y-3">
         {filteredPOs.length === 0 ? (
-          <div className="p-8 text-center rounded-3xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] text-[#8F867C] text-xs">
-            No purchase orders found matching this filter.
+          <div className="p-12 text-center rounded-3xl bg-white dark:bg-[#1A1512] dark:border dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)]">
+            <div className="flex flex-col items-center justify-center max-w-sm mx-auto space-y-2.5">
+              <div className="w-10 h-10 rounded-2xl bg-[#FEF6E6] dark:bg-[#2D2115] text-[#A87208] dark:text-[#FCD34D] flex items-center justify-center">
+                <FileInput className="w-5 h-5" />
+              </div>
+              <p className="font-bold text-sm text-[#1C1613] dark:text-white">
+                No Purchase Orders Matched
+              </p>
+              <p className="text-xs text-[#8F867C] dark:text-[#A89F95]">
+                No POs found for &quot;{searchQuery || statusFilter}&quot;. Try resetting your filters.
+              </p>
+              {(searchQuery || statusFilter !== 'ALL') && (
+                <button
+                  onClick={() => {
+                    setSearchQuery('');
+                    setStatusFilter('ALL');
+                  }}
+                  className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#FCD34D] text-[#1C1613] hover:bg-[#fbbf24] transition-all"
+                >
+                  Reset Filters
+                </button>
+              )}
+            </div>
           </div>
         ) : (
           filteredPOs.map((po) => {
@@ -165,7 +186,7 @@ export const PurchaseOrdersModule: React.FC = () => {
             return (
               <div
                 key={po.id}
-                className="rounded-3xl border border-[#EBE7DF] dark:border-[#2D2520] bg-white dark:bg-[#1A1512] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] overflow-hidden"
+                className="rounded-3xl dark:border dark:border-[#2D2520] bg-white dark:bg-[#1A1512] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] overflow-hidden"
               >
                 {/* PO Header Row */}
                 <div
@@ -302,7 +323,7 @@ export const PurchaseOrdersModule: React.FC = () => {
       {/* Receive Inbound Goods Modal */}
       {receiveModalPO && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1C1613]/60 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-white dark:bg-[#1A1512] rounded-3xl border border-[#EBE7DF] dark:border-[#2D2520] shadow-2xl p-6 space-y-4">
+          <div className="w-full max-w-md max-h-[90vh] overflow-y-auto bg-white dark:bg-[#1A1512] rounded-3xl dark:border dark:border-[#2D2520] shadow-2xl p-6 space-y-4">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-sm font-black text-[#1C1613] dark:text-white flex items-center gap-2">
@@ -378,7 +399,7 @@ export const PurchaseOrdersModule: React.FC = () => {
       {/* Create PO Modal */}
       {showCreateModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1C1613]/60 backdrop-blur-sm">
-          <div className="w-full max-w-lg bg-white dark:bg-[#1A1512] rounded-3xl border border-[#EBE7DF] dark:border-[#2D2520] shadow-2xl p-6 space-y-4">
+          <div className="w-full max-w-lg max-h-[90vh] overflow-y-auto bg-white dark:bg-[#1A1512] rounded-3xl dark:border dark:border-[#2D2520] shadow-2xl p-6 space-y-4">
             <div>
               <h3 className="text-base font-black text-[#1C1613] dark:text-white">
                 Raise Inbound Purchase Order (PO)

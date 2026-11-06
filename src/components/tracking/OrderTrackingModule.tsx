@@ -130,7 +130,7 @@ export const OrderTrackingModule: React.FC = () => {
             </p>
           </div>
 
-          <div className="p-3.5 rounded-2xl bg-[#FBF9F5] dark:bg-[#201A16] border border-[#EBE7DF] dark:border-[#2D2520] text-xs space-y-1.5">
+          <div className="p-3.5 rounded-2xl bg-[#FBF9F5] dark:bg-[#201A16] dark:border dark:border-[#2D2520] shadow-2xs text-xs space-y-1.5">
             <div className="flex justify-between">
               <span className="text-[#8F867C]">Vehicle Number:</span>
               <span className="font-mono font-bold text-[#1C1613] dark:text-white">
@@ -168,7 +168,7 @@ export const OrderTrackingModule: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-[#F4F0E8] dark:bg-[#241E19] flex items-center justify-center font-bold text-[#1C1613] dark:text-white border border-[#EBE7DF] dark:border-[#352B24]">
+            <div className="w-10 h-10 rounded-2xl bg-[#F4F0E8] dark:bg-[#241E19] flex items-center justify-center font-bold text-[#1C1613] dark:text-white dark:border dark:border-[#352B24] shadow-2xs">
               <User className="w-5 h-5 text-[#A87208] dark:text-[#FCD34D]" />
             </div>
             <div>
@@ -179,7 +179,7 @@ export const OrderTrackingModule: React.FC = () => {
             </div>
           </div>
 
-          <div className="p-3.5 rounded-2xl bg-[#FBF9F5] dark:bg-[#201A16] border border-[#EBE7DF] dark:border-[#2D2520] text-xs space-y-1">
+          <div className="p-3.5 rounded-2xl bg-[#FBF9F5] dark:bg-[#201A16] dark:border dark:border-[#2D2520] shadow-2xs text-xs space-y-1">
             <p className="text-[10px] text-[#8F867C] uppercase font-bold">Security Seal Stamped:</p>
             <p className="font-mono font-bold text-[#168051] dark:text-[#78E0A9]">
               {currentOrder.checklistSignoff?.sealNumber || 'Pending Signoff Verification'}
@@ -223,10 +223,10 @@ export const OrderTrackingModule: React.FC = () => {
           {stages.map((stage, idx) => (
             <div
               key={idx}
-              className={`p-3.5 rounded-2xl border text-xs transition-all ${
+              className={`p-3.5 rounded-2xl text-xs transition-all ${
                 stage.done
-                  ? 'bg-[#E8F8F0] dark:bg-[#1A2D22] border-[#C6EED8] dark:border-[#2C4837]'
-                  : 'bg-[#FBF9F5] dark:bg-[#201A16] border-[#EBE7DF] dark:border-[#2D2520] opacity-60'
+                  ? 'bg-[#E8F8F0] dark:bg-[#1A2D22] dark:border dark:border-[#2C4837] shadow-[0_1px_4px_rgba(40,30,20,0.02)]'
+                  : 'bg-[#FBF9F5] dark:bg-[#201A16] dark:border dark:border-[#2D2520] opacity-60'
               }`}
             >
               <div className="flex items-center justify-between">
@@ -264,7 +264,7 @@ export const OrderTrackingModule: React.FC = () => {
 
           {/* Horizontal Selection Option on Top Right */}
           <div className="flex items-center gap-2.5">
-            <div className="flex items-center bg-[#F4F0E8] dark:bg-[#241E19] p-1 rounded-2xl border border-[#EBE7DF] dark:border-[#352B24]">
+            <div className="flex items-center bg-[#F4F0E8] dark:bg-[#241E19] p-1 rounded-2xl dark:border dark:border-[#352B24]">
               <button
                 type="button"
                 onClick={() => setTrackingViewMode('map')}
@@ -637,7 +637,7 @@ export const OrderTrackingModule: React.FC = () => {
             {currentOrder.timeline.map((evt, i) => (
               <div
                 key={i}
-                className="flex items-center justify-between p-3 rounded-2xl bg-[#FBF9F5] dark:bg-[#201A16] border border-[#EBE7DF] dark:border-[#2D2520] text-xs"
+                className="flex items-center justify-between p-3 rounded-2xl bg-[#FBF9F5] dark:bg-[#201A16] dark:border dark:border-[#2D2520] shadow-[0_1px_4px_rgba(40,30,20,0.02)] text-xs"
               >
                 <div className="flex items-center gap-2.5">
                   <span className="w-2 h-2 rounded-full bg-emerald-500"></span>

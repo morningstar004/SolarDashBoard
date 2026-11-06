@@ -36,7 +36,7 @@ Localized specifically for the Indian solar supply chain (Bhiwandi Central Depot
 ### 2. Team Management & Floor Operations Roster
 - **Dual View Modes**:
   - **Simple Cards View**: Employee cards with photos, designations, department, current active tasks, shift schedules, official contact (`+91 ...`), today's check-in timestamp (e.g., `08:45 AM Today`), and workload status tags (`Active on Dock`, `Reviewing POs`, `On Break`, `Offline`).
-  - **Hierarchical Org View**: Visual tree representation from Leadership (*Rajesh Sharma - Operations Head*) down to QC (*Priya Patel*), Warehouse Dock Supervisors (*Vikram Deshmukh*), Floor Packers (*Amit Verma*), and Traders (*Suresh Nair*).
+  - **Hierarchical Org Tree (Claymorphic Architecture)**: Redesigned visual tree representation with claymorphic elevation, wireframe connection stems, department color badges, and direct contact shortcuts from Leadership (*Rajesh Sharma - Operations Head*) down through Logistics (*Sunita Rao*), Warehouse Dock Supervisors (*Vikram Deshmukh*), QC (*Priya Patel*), Floor Packers (*Amit Verma*), and Technical Sales (*Suresh Nair*).
 - **Employee Extended Management Drawer**:
   - View & manage employee compensation payouts (₹ INR/mo), paid leave/holiday balances, performance ratings, and tenure.
 - **On-Demand Non-Permanent Personnel Section**:
@@ -49,6 +49,7 @@ Localized specifically for the Indian solar supply chain (Bhiwandi Central Depot
 ### 3. Solar Equipment Inventory & Warehouse Bins
 - **Dedicated Equipment Management Sub-Dashboard**:
   - **Category KPI Cards**: Real-time stock counts for Panels, Inverters, Batteries, Racking, and Cabling, accompanied by live commodity market price trends (*Waaree -3.8% drop, Polycab Copper +6.4% surge*).
+  - **Illustrated Empty States**: Smart filter recovery with an instant "Reset All Filters" action button when no SKU matches the criteria.
   - **Detailed Per-Product Catalog Table**:
     - High-resolution thumbnails.
     - Tier-1 Brands (Tata Power Solar, Waaree, Vikram, Sungrow, Havells, Luminous, Exide, Polycab, Pennar).
@@ -56,20 +57,21 @@ Localized specifically for the Indian solar supply chain (Bhiwandi Central Depot
     - In-Stock Units vs. Monthly Ordered Velocity.
     - Wholesale Selling Price vs. Cost Price.
     - Warehouse Bin & Pallet ID (Zone, Aisle, Pallet ID).
-    - **Actions**: "Add to Cart/Staging", "Stock Recount Adjustment" with reason logging, and specs modal.
+    - **Actions**: "Add to Cart/Staging", "Stock Recount Adjustment" with reason logging, and specs modal with scrollable viewport bounds.
 
 ---
 
 ### 4. Sales & Order Lifecycle Management
 - **Horizontal Pipeline Filter Bar (Top Right)**:
-  - `Ongoing Orders` | `Pending QC Inspection` | `Delivered / History` | `Cancelled` | `All Orders`.
-- **Order Listing & Expandable Timelines**:
-  - Displays Order ID, Customer, Merchandise, Transporter, Date, Amount (₹), and Status.
-  - **Expandable Row View**:
-    - Complete milestone timeline with operator signatures.
-    - **Balance of System (BOS) Section**: Detailed listing of all equipment provided other than solar panels (inverters, battery racks, mounting rails, and DC cables).
-    - One-click shortcuts to launch Pre-Dispatch QC or Live Fleet Tracking.
-- **New Order Booking Modal**: Generates sales proforma, assigns traders, and reserves warehouse stock.
+  - Combined smart popover filter integrating Order Date Range and Order Category / Type with quick presets.
+  - Status chips: `Ongoing Orders` | `Pending QC Inspection` | `Delivered / History` | `Cancelled` | `All Orders`.
+- **Order Listing & Expandable Details**:
+  - Balanced, fixed-width column table structure ensuring responsive layout stability across viewports.
+  - **Visual Product Preview**: SVG-illustrated category badges for PV Modules, String Inverters, LiFePO4 BESS, and Mounting Clamps.
+  - **Separated Quantity & Financial Totals**: Clear breakdown of line-item units, base price, GST, and total order valuation.
+  - **Inspired Milestone Progression Timeline**: 5-stage vertical timeline inspired by enterprise courier manifests with bold milestone headers, timestamps, and secondary status annotations.
+- **Enhanced Freight Delivery Booking & Dispatch Modal**:
+  - Comprehensive consignee inputs (GSTIN, dock delivery contact, gate entry notes, transit insurance, priority levels, and scheduled delivery windows).
 
 ---
 
@@ -91,7 +93,7 @@ Localized specifically for the Indian solar supply chain (Bhiwandi Central Depot
     4. *Pallet Strapped & Corner Shielded*
 - **Photo Evidence System**:
   - Capture or attach dock loading photos with stage tags (*Pallet Strapping*, *Serial Label*, *High-Voltage Crate*, *Truck Bay Loading*).
-  - Gallery of pre-loaded verified dock snapshots.
+  - Gallery of pre-loaded verified dock snapshots with full-screen preview modal (`max-h-[90vh] overflow-y-auto`).
 - **Missing / Damaged Reporting Mechanism**:
   - Flag discrepancies with severity classification (*Blocker* vs *Minor*), quantity affected, and immediate warehouse quarantine notes.
 - **Dual Verification & Supervisor Sign-Off**:
@@ -105,10 +107,10 @@ Localized specifically for the Indian solar supply chain (Bhiwandi Central Depot
 
 ### 6. Fleet Logistics & Live Order Tracking
 - **Carrier Profile**: Transporter fleet details (V-Trans, Safexpress, TCI Express, Delhivery), Vehicle plate #, Trailer specifications, Waybill / LR number.
-- **Interactive Simulated GPS Highway Map**:
-  - Animated route tracking truck progress from Bhiwandi Central Depot to installation sites (e.g., Talegaon, Sanand, Bikaner).
-  - Telemetry info: Current speed, next toll plaza waypoint, weather alerts, and ETA countdown.
-- **Carrier Check-in Logs**: Timestamped audit trail of toll plaza checkpoints and driver check-ins.
+- **Dual View Modes (Switchable via Top-Right Segmented Controller)**:
+  - 🗺️ **Live Map View**: Interactive vector GPS tracking display with animated vehicle markers, waypoint nodes (origin depot, transit hubs, customer destination site), simulated telemetry telemetry chips (speed, engine load, battery), and dynamic zoom controls.
+  - 🛣️ **Expressway Corridor Telemetry**: Progress indicator showing real-time kilometer progress along key Indian freight expressways (NH-48, Samruddhi Mahamarg, NE-1).
+- **Carrier Check-in Logs**: Timestamped audit trail of toll plaza checkpoints, driver check-ins, and automated timestamp logs.
 
 ---
 
@@ -123,26 +125,43 @@ Localized specifically for the Indian solar supply chain (Bhiwandi Central Depot
 
 ## 🎨 Design Philosophy & UX Decisions
 
-### 1. Design Inspiration & Indian Solar Market Localization
-- **Aesthetic Tone**: Clean, soothing, and high-clarity daylight palette in Light Mode; rich, deep slate in Dark Mode without harsh neon or eye-straining glows.
-- **Solar Energy Accents**: Warm solar amber (`#F59E0B`, `#D97706`) as the primary action accent, coupled with clean emerald (`#10B981`) for verified QC and intact pallets.
-- **Localization**:
-  - Currency in Indian Rupee format (`₹` Lakhs and Crores).
+### 1. Warm Clay Design System & Color Tokens
+- **Canvas & Elevation**:
+  - Light mode uses a warm, soothing eggshell/clay base (`#FBF9F5`) to prevent warehouse fluorescent glare, contrasted with deep espresso typography (`#1C1613`).
+  - Dark mode employs a rich charred espresso canvas (`#120F0D`) with subtle chocolate-tinted borders (`#2D2520`).
+  - **Borderless Light-Mode Containers**: Replaced harsh 1px borders on outer card containers with organic soft ambient shadows (`shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)]`), retaining crisp dark borders (`dark:border dark:border-[#2D2520]`) for optimal contrast.
+- **Solar Brand Accents**:
+  - Solar saffron gold (`#FCD34D`) serves as the brand hero accent for active tabs, status chips, and GPS fleet telemetry.
+  - Emerald green (`#10B981` / `#168051`) validates verified QC steps, intact seals, and completed deliveries.
+  - Terracotta and amber indicate pending stages and dock inspections.
+- **Indian Solar Market Localization**:
+  - Currency natively rendered in Indian Rupee format (`₹` Lakhs and Crores).
   - Indian mobile number conventions (`+91 98...`).
-  - Real-world Indian solar industrial corridors (Bhiwandi, Sanand, Peenya, Pune, Jaipur).
-  - Real-world logistics partners and Indian vehicle registration codes (`MH 04`, `GJ 06`, `KA 05`, `RJ 14`).
+  - Real-world Indian solar industrial corridors (Bhiwandi Central Depot, Sanand Solar Park, Peenya, Pune, Talegaon, Bikaner).
+  - Authentic logistics partners (V-Trans India, Safexpress, TCI Express, Delhivery Freight) with valid state RTO vehicle registration patterns (`MH 04`, `GJ 06`, `KA 05`, `RJ 14`).
 
-### 2. Key UX Decisions for the Pre-Dispatch Loading Checklist
+### 2. Ergonomics, Responsive Navigation & Layout Stability
+- **Responsive Navigation Architecture**:
+  - **Desktop View (`lg+`)**: Sidebar remains permanently anchored (`lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)]`) with an expandable/collapsible toggle. Navigation labels and icons have been enlarged by 10% for high legibility on dock monitors.
+  - **Mobile & Tablet View (`< lg`)**: Automatically transforms into a horizontal touch-scrollable chip strip (`overflow-x-auto scrollbar-none`), ensuring zero vertical screen occlusion on mobile devices.
+  - **Sticky Glassmorphism Navbar**: `backdrop-blur-md` sticky top navigation bar with quick theme toggle, IST warehouse clock, and full-text global search.
+- **Live Instant Global Search**:
+  - Real-time reactive search popover that indexes across Sales Orders (by ID and EPC customer), Solar Inventory (by brand, model, and wattage), and Manufacturer POs.
+  - Keyboard accessibility with `Esc` listener, click-outside dismissal, and single-click tab routing with automated entity selection.
+- **Modal Viewport Safety**:
+  - All interactive dialogs (Photo Evidence Viewer, Physical Stock Adjustment, Logistics Booking, Raise PO, Inbound Goods Receiving) are safeguarded with `max-h-[90vh] overflow-y-auto` to eliminate viewport overflow on small laptops and tablets.
+
+### 3. Key UX Decisions for the Pre-Dispatch Loading Checklist
 - **Preventing Accidental Incomplete Shipments**: The system enforces an architectural interlock — an order *cannot* be marked as "Dispatched" until the Pre-Dispatch Checklist is 100% itemized, condition-checked, and signed off by a supervisor.
 - **Tablet-Optimized Large Touch Targets**: Designed for forklift operators and QC inspectors wearing warehouse gloves; includes tactile `+` / `-` steppers and bold checkboxes.
 - **Photographic Audit Trail**: Mandatory visual evidence attached to each dispatch file to protect against transit damage disputes with logistics carriers.
 
-### 3. Rationale for Animation & Interactions
+### 4. Rationale for Animation & Interactions
 - **Subtle Pulse Indicators**: Low-stock warnings and live dock loading gates feature gentle pulses to draw immediate operator attention without being distracting.
 - **Celebratory QC Sign-Off**: Certified supervisor sign-off triggers confetti feedback (`canvas-confetti`) to provide satisfying positive reinforcement upon completing rigorous audits.
 - **Smooth Spline Curves**: Recharts monotone spline curves illustrate solar sales velocity far more naturally than rigid linear charts.
 
-### 4. Key Technical Challenges & Solutions
+### 5. Key Technical Challenges & Solutions
 - **Multi-Module Reactive State Synchronization**:
   - *Challenge*: Receiving an inbound PO or performing physical cycle counts needed to instantaneously reflect across the Inventory module, Dashboard valuation metrics, and low-stock alert badges without a heavy backend.
   - *Solution*: Designed a unified React Context store with optimistic local mutations and `localStorage` persistence, ensuring all user actions persist across page tabs.

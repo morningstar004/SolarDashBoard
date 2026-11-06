@@ -195,7 +195,7 @@ export const PreDispatchChecklistModule: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Top Header & Order Selector */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 p-5 rounded-3xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)]">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 p-5 rounded-3xl bg-white dark:bg-[#1A1512] dark:border dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)]">
         <div>
           <div className="flex items-center gap-2">
             <span className="p-2 rounded-xl bg-emerald-600 text-white shadow-xs">
@@ -232,7 +232,7 @@ export const PreDispatchChecklistModule: React.FC = () => {
 
           <button
             onClick={handlePrintManifest}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#F4F0E8] hover:bg-[#EBE5DA] dark:bg-[#28201A] dark:hover:bg-[#342A22] text-[#1C1613] dark:text-white border border-[#EBE7DF] dark:border-[#2D2520] transition-colors"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#F4F0E8] hover:bg-[#EBE5DA] dark:bg-[#28201A] dark:hover:bg-[#342A22] text-[#1C1613] dark:text-white dark:border dark:border-[#2D2520] transition-colors shadow-2xs"
             title="Print Dispatch Manifest & Gate Pass"
           >
             <Printer className="w-3.5 h-3.5" />
@@ -242,7 +242,7 @@ export const PreDispatchChecklistModule: React.FC = () => {
       </div>
 
       {/* Order Info & Transporter Dispatch Card */}
-      <div className="p-5 rounded-3xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
+      <div className="p-5 rounded-3xl bg-white dark:bg-[#1A1512] dark:border dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
         <div>
           <span className="text-[10px] text-[#8F867C] uppercase font-bold">Customer & EPC Site</span>
           <p className="font-bold text-[#1C1613] dark:text-white mt-0.5">{currentOrder.customer.name}</p>
@@ -314,8 +314,8 @@ export const PreDispatchChecklistModule: React.FC = () => {
       </div>
 
       {/* Itemized Verification Table */}
-      <div className="rounded-3xl border border-[#EBE7DF] dark:border-[#2D2520] bg-white dark:bg-[#1A1512] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] overflow-hidden">
-        <div className="p-5 border-b border-[#EBE7DF] dark:border-[#2D2520] flex items-center justify-between">
+      <div className="rounded-3xl dark:border dark:border-[#2D2520] bg-white dark:bg-[#1A1512] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] overflow-hidden">
+        <div className="p-5 border-b border-[#EBE7DF]/60 dark:border-[#2D2520] flex items-center justify-between">
           <div>
             <h3 className="text-xs font-bold uppercase tracking-wider text-[#1C1613] dark:text-[#F7F4EF] flex items-center gap-2">
               <ClipboardCheck className="w-4 h-4 text-[#A87208] dark:text-[#FCD34D]" />
@@ -547,7 +547,7 @@ export const PreDispatchChecklistModule: React.FC = () => {
       )}
 
       {/* Photo Evidence & Packing Attachments Gallery */}
-      <div className="p-6 rounded-3xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] space-y-3">
+      <div className="p-6 rounded-3xl bg-white dark:bg-[#1A1512] dark:border dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] space-y-3">
         <div className="flex items-center justify-between">
           <div>
             <h3 className="text-xs font-bold uppercase tracking-wider text-[#1C1613] dark:text-[#F7F4EF] flex items-center gap-2">
@@ -573,7 +573,7 @@ export const PreDispatchChecklistModule: React.FC = () => {
           {(currentOrder.photos || []).map((photo) => (
             <div
               key={photo.id}
-              className="rounded-2xl border border-[#EBE7DF] dark:border-[#2D2520] overflow-hidden bg-[#FBF9F5] dark:bg-[#201A16] group"
+              className="rounded-2xl dark:border dark:border-[#2D2520] overflow-hidden bg-[#FBF9F5] dark:bg-[#201A16] group shadow-2xs"
             >
               <div className="h-36 overflow-hidden relative">
                 <img
@@ -600,7 +600,7 @@ export const PreDispatchChecklistModule: React.FC = () => {
       </div>
 
       {/* Dual Verification & Final Dispatch Sign-Off Section */}
-      <div className="p-6 rounded-3xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] space-y-4">
+      <div className="p-6 rounded-3xl bg-white dark:bg-[#1A1512] dark:border dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <UserCheck className="w-5 h-5 text-[#A87208] dark:text-[#FCD34D]" />
@@ -762,7 +762,7 @@ export const PreDispatchChecklistModule: React.FC = () => {
       {/* Attach Photo Modal */}
       {showPhotoModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1C1613]/60 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-white dark:bg-[#1A1512] rounded-3xl border border-[#EBE7DF] dark:border-[#2D2520] shadow-2xl p-6 space-y-4">
+          <div className="w-full max-w-md max-h-[90vh] overflow-y-auto bg-white dark:bg-[#1A1512] rounded-3xl dark:border dark:border-[#2D2520] shadow-2xl p-6 space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-black text-[#1C1613] dark:text-white flex items-center gap-2">
                 <Camera className="w-4 h-4 text-[#A87208] dark:text-[#FCD34D]" />
@@ -843,7 +843,7 @@ export const PreDispatchChecklistModule: React.FC = () => {
       {/* Discrepancy Reporting Modal */}
       {showDiscrepancyModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1C1613]/60 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-white dark:bg-[#1A1512] rounded-3xl border border-[#EBE7DF] dark:border-[#2D2520] shadow-2xl p-6 space-y-4">
+          <div className="w-full max-w-md max-h-[90vh] overflow-y-auto bg-white dark:bg-[#1A1512] rounded-3xl dark:border dark:border-[#2D2520] shadow-2xl p-6 space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-black text-[#1C1613] dark:text-white flex items-center gap-2">
                 <AlertCircle className="w-4 h-4 text-rose-500" />

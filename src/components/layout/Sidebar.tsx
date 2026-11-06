@@ -101,13 +101,13 @@ export const Sidebar: React.FC = () => {
 
   return (
     <aside
-      className={`shrink-0 lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)] lg:self-start lg:overflow-y-auto z-30 border-r border-[#EBE7DF] dark:border-[#2D2520] bg-white/95 dark:bg-[#1A1512]/95 backdrop-blur-md p-2 flex flex-col transition-all duration-300 ease-in-out ${
-        isCollapsed ? 'w-[72px]' : 'w-full lg:w-64'
+      className={`shrink-0 lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)] lg:self-start lg:overflow-y-auto z-30 border-b lg:border-b-0 lg:border-r border-[#EBE7DF]/80 dark:border-[#2D2520] bg-white/95 dark:bg-[#1A1512]/95 backdrop-blur-md p-2 flex flex-col transition-all duration-300 ease-in-out ${
+        isCollapsed ? 'lg:w-[72px] w-full' : 'w-full lg:w-64'
       }`}
     >
-      {/* Sidebar Header with Collapse / Expand Trigger */}
+      {/* Sidebar Header with Collapse / Expand Trigger (Desktop) */}
       <div
-        className={`flex items-center pb-2.5 mb-1.5 border-b border-[#F0EBE1] dark:border-[#2D2520] ${
+        className={`hidden lg:flex items-center pb-2.5 mb-1.5 border-b border-[#F0EBE1] dark:border-[#2D2520] ${
           isCollapsed ? 'justify-center' : 'justify-between px-2.5'
         }`}
       >
@@ -130,8 +130,8 @@ export const Sidebar: React.FC = () => {
         </button>
       </div>
 
-      {/* Nav List */}
-      <nav className="flex flex-col gap-1.5 flex-1">
+      {/* Nav List (Responsive: horizontal pill scroll on mobile, vertical on desktop) */}
+      <nav className="flex flex-row lg:flex-col gap-1.5 flex-1 overflow-x-auto lg:overflow-x-visible pb-1 lg:pb-0 scrollbar-none">
         {navItems.map((item) => {
           const isActive = activeTab === item.id;
           const Icon = item.icon;
@@ -141,17 +141,17 @@ export const Sidebar: React.FC = () => {
               key={item.id}
               onClick={() => setActiveTab(item.id)}
               title={isCollapsed ? `${item.label} ${item.badge ? `(${item.badge})` : ''}` : undefined}
-              className={`group relative flex items-center rounded-xl text-left transition-all duration-150 ${
+              className={`group relative flex items-center rounded-xl text-left transition-all duration-150 shrink-0 lg:shrink ${
                 isCollapsed
-                  ? 'justify-center p-3'
+                  ? 'lg:justify-center lg:p-3 px-3 py-2 text-xs lg:text-[13.5px]'
                   : 'justify-between px-3.5 py-2.5 text-[13.5px]'
               } ${
                 isActive
-                  ? 'bg-[#F4F0E8] dark:bg-[#2A221C] text-[#1C1613] dark:text-[#FAF7F2] font-bold shadow-xs before:absolute before:left-0 before:top-2 before:bottom-2 before:w-1.5 before:rounded-r-full before:bg-[#FCD34D]'
+                  ? 'bg-[#F4F0E8] dark:bg-[#2A221C] text-[#1C1613] dark:text-[#FAF7F2] font-bold shadow-xs before:hidden lg:before:block before:absolute before:left-0 before:top-2 before:bottom-2 before:w-1.5 before:rounded-r-full before:bg-[#FCD34D]'
                   : 'text-[#6B635B] dark:text-[#A89F95] hover:text-[#1C1613] dark:hover:text-[#FAF7F2] hover:bg-[#FAF7F2] dark:hover:bg-[#221B17]'
               }`}
             >
-              <div className={`flex items-center min-w-0 ${isCollapsed ? 'justify-center' : 'gap-3'}`}>
+              <div className={`flex items-center min-w-0 ${isCollapsed ? 'lg:justify-center gap-2' : 'gap-3'}`}>
                 <Icon
                   className={`w-[18px] h-[18px] shrink-0 transition-colors ${
                     isActive
@@ -160,8 +160,8 @@ export const Sidebar: React.FC = () => {
                   }`}
                 />
 
-                {!isCollapsed && (
-                  <span className="truncate tracking-tight font-medium text-[13.5px]">
+                {(!isCollapsed || false) && (
+                  <span className="truncate tracking-tight font-medium text-[13.5px] whitespace-nowrap">
                     {item.label}
                   </span>
                 )}
@@ -172,14 +172,14 @@ export const Sidebar: React.FC = () => {
                 <>
                   {!isCollapsed ? (
                     <span
-                      className={`ml-1.5 px-2 py-0.5 text-[11px] font-bold rounded-full shrink-0 ${
+                      className={`ml-2 px-2 py-0.5 text-[11px] font-bold rounded-full shrink-0 ${
                         item.badgeColor || 'bg-[#F4F0E8] text-[#5C5247] dark:bg-[#2A221C] dark:text-[#D4CCC0]'
                       }`}
                     >
                       {item.badge}
                     </span>
                   ) : (
-                    <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full bg-[#FCD34D] ring-2 ring-white dark:ring-[#1A1512]" />
+                    <span className="hidden lg:block absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full bg-[#FCD34D] ring-2 ring-white dark:ring-[#1A1512]" />
                   )}
                 </>
               )}
@@ -188,8 +188,8 @@ export const Sidebar: React.FC = () => {
         })}
       </nav>
 
-      {/* Warehouse Status Dock Footer */}
-      <div className="pt-2 mt-auto border-t border-[#F0EBE1] dark:border-[#2D2520]">
+      {/* Warehouse Status Dock Footer (Desktop) */}
+      <div className="hidden lg:block pt-2 mt-auto border-t border-[#F0EBE1] dark:border-[#2D2520]">
         {!isCollapsed ? (
           <div className="p-2.5 rounded-xl bg-[#FBF9F5] dark:bg-[#221B17] border border-[#EBE7DF] dark:border-[#2E251E]">
             <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#1C1613] dark:text-[#F7F4EF]">

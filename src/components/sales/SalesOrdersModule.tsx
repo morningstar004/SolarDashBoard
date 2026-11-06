@@ -406,7 +406,7 @@ export const SalesOrdersModule: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Top Bar with Title & Requested Horizontal Option Bar on Top Right */}
-      <div className="flex lg:flex-row flex-col justify-between lg:items-center gap-4 bg-white dark:bg-[#1A1512] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] p-5 dark:border-[#2D2520] rounded-3xl">
+      <div className="flex lg:flex-row flex-col justify-between lg:items-center gap-4 bg-white dark:bg-[#1A1512] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] p-5 dark:border dark:border-[#2D2520] rounded-3xl">
         <div>
           <h2 className="flex items-center gap-2 font-black text-[#1C1613] dark:text-[#F7F4EF] text-base">
             <ShoppingCart className="w-5 h-5 text-[#A87208] dark:text-[#FCD34D]" />
@@ -710,8 +710,31 @@ export const SalesOrdersModule: React.FC = () => {
       {/* Orders List with Expandable Detailed Timeline & BOS Items */}
       <div className="space-y-3">
         {filteredOrders.length === 0 ? (
-          <div className="bg-white dark:bg-[#1A1512] p-8 dark:border-[#2D2520] rounded-3xl text-[#8F867C] text-xs text-center">
-            No orders match the current filter selection.
+          <div className="bg-white dark:bg-[#1A1512] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] p-12 dark:border dark:border-[#2D2520] rounded-3xl text-center">
+            <div className="flex flex-col justify-center items-center space-y-2.5 mx-auto max-w-sm">
+              <div className="flex justify-center items-center bg-[#FEF6E6] dark:bg-[#2D2115] rounded-2xl w-10 h-10 text-[#A87208] dark:text-[#FCD34D]">
+                <ShoppingCart className="w-5 h-5" />
+              </div>
+              <p className="font-bold text-[#1C1613] dark:text-white text-sm">
+                No Sales Orders Matched
+              </p>
+              <p className="text-[#8F867C] dark:text-[#A89F95] text-xs">
+                No orders match your search, date range, or pipeline filter.
+              </p>
+              {(searchQuery || pipelineFilter !== 'ALL' || dateFilter !== 'ALL' || orderTypeFilter !== 'ALL') && (
+                <button
+                  onClick={() => {
+                    setSearchQuery('');
+                    setPipelineFilter('ALL');
+                    setDateFilter('ALL');
+                    setOrderTypeFilter('ALL');
+                  }}
+                  className="bg-[#FCD34D] hover:bg-[#fbbf24] px-3.5 py-1.5 rounded-xl font-bold text-[#1C1613] text-xs transition-all"
+                >
+                  Reset All Filters
+                </button>
+              )}
+            </div>
           </div>
         ) : (
           filteredOrders.map((order) => {
@@ -733,9 +756,9 @@ export const SalesOrdersModule: React.FC = () => {
             return (
               <div
                 key={order.id}
-                className={`rounded-3xl transition-all ${isExpanded
-                  ? 'bg-white dark:bg-[#1A1512] border-[#FCD34D] shadow-md'
-                  : 'bg-white dark:bg-[#1A1512] border-[#EBE7DF] dark:border-[#2D2520] hover:border-[#DBD5C8]'
+                className={`rounded-3xl transition-all shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] ${isExpanded
+                  ? 'bg-white dark:bg-[#1A1512] ring-2 ring-[#FCD34D] shadow-md'
+                  : 'bg-white dark:bg-[#1A1512] dark:border dark:border-[#2D2520] hover:shadow-[0_4px_16px_-2px_rgba(40,30,20,0.08)]'
                   }`}
               >
                 {/* Main Order Row - Grid with Fixed Column Widths across all orders */}
@@ -950,19 +973,19 @@ export const SalesOrdersModule: React.FC = () => {
                       </div>
 
                       {/* Right: Milestone Timeline Stepper Chart */}
-                      <div className="space-y-3 bg-white dark:bg-[#1A1512] p-4 border border-[#EBE7DF] dark:border-[#2D2520] rounded-2xl flex flex-col justify-between">
+                      <div className="flex flex-col justify-between space-y-3 bg-white dark:bg-[#1A1512] p-4 border border-[#EBE7DF] dark:border-[#2D2520] rounded-2xl">
                         <div>
-                          <div className="flex items-center justify-between pb-2 mb-3 border-b border-[#F0EBE1] dark:border-[#2D2520]">
+                          <div className="flex justify-between items-center mb-3 pb-2 border-[#F0EBE1] dark:border-[#2D2520] border-b">
                             <h4 className="flex items-center gap-1.5 font-bold text-[#7D756D] dark:text-[#A89F95] text-xs uppercase tracking-wider">
                               <Clock className="w-3.5 h-3.5 text-[#2E5AAC] dark:text-[#93B4F5]" />
                               <span>Order Fulfillment & Dispatch Timeline</span>
                             </h4>
-                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#E8F8F0] dark:bg-[#1A2D22] text-[#168051] dark:text-[#78E0A9]">
+                            <span className="bg-[#E8F8F0] dark:bg-[#1A2D22] px-2 py-0.5 rounded-full font-bold text-[#168051] text-[10px] dark:text-[#78E0A9]">
                               Live Tracking
                             </span>
                           </div>
 
-                          <div className="pt-2 px-1 space-y-0 max-h-60 overflow-y-auto pr-1">
+                          <div className="space-y-0 px-1 pt-2 pr-1 max-h-60 overflow-y-auto">
                             {getOrderTimelineSteps(order).map((event, idx, arr) => {
                               const isLast = idx === arr.length - 1;
                               const isCompleted = event.completed;
@@ -973,39 +996,37 @@ export const SalesOrdersModule: React.FC = () => {
                                   {/* Vertical connecting line */}
                                   {!isLast && (
                                     <div
-                                      className={`absolute left-[17px] top-[34px] bottom-[-2px] w-[2px] transition-colors ${
-                                        isCompleted && arr[idx + 1]?.completed
+                                      className={`absolute left-[17px] top-[34px] bottom-[-2px] w-[2px] transition-colors ${isCompleted && arr[idx + 1]?.completed
                                           ? 'bg-emerald-500 dark:bg-emerald-400'
                                           : 'bg-[#E8E3DA] dark:bg-[#2D2520]'
-                                      }`}
+                                        }`}
                                     />
                                   )}
 
                                   {/* Circular Step Icon */}
                                   <div
-                                    className={`relative z-10 flex items-center justify-center w-9 h-9 rounded-full transition-all shrink-0 ${
-                                      isCompleted
+                                    className={`relative z-10 flex items-center justify-center w-9 h-9 rounded-full transition-all shrink-0 ${isCompleted
                                         ? 'bg-[#E8F8F0] dark:bg-[#1A2D22] text-[#168051] dark:text-[#78E0A9] border-2 border-[#A3E635] dark:border-[#4D7C0F]'
                                         : 'bg-[#F4F0E8] dark:bg-[#221B17] text-[#8F867C] dark:text-[#80766B] border-2 border-[#E8E3DA] dark:border-[#2D2520]'
-                                    }`}
+                                      }`}
                                   >
                                     <StepIcon className="w-4 h-4" />
                                   </div>
 
                                   {/* Content: Time (medium), Title (bold), Sub-info (lighter) */}
-                                  <div className="flex-1 min-w-0 pb-4">
+                                  <div className="flex-1 pb-4 min-w-0">
                                     {/* 1. Time in medium size */}
-                                    <div className="text-xs font-semibold text-[#8F867C] dark:text-[#A89F95] tracking-tight">
+                                    <div className="font-semibold text-[#8F867C] dark:text-[#A89F95] text-xs tracking-tight">
                                       {event.timestamp}
                                     </div>
 
                                     {/* 2. Main content similar sized in bold */}
-                                    <div className="text-xs sm:text-[13px] font-bold text-[#1C1613] dark:text-[#FAF7F2] leading-tight mt-0.5">
+                                    <div className="mt-0.5 font-bold text-[#1C1613] sm:text-[13px] dark:text-[#FAF7F2] text-xs leading-tight">
                                       {event.title}
                                     </div>
 
                                     {/* 3. Sub information in lighter tone and smaller size */}
-                                    <div className="text-[11px] text-[#7D756D] dark:text-[#A89F95] leading-relaxed mt-0.5">
+                                    <div className="mt-0.5 text-[#7D756D] text-[11px] dark:text-[#A89F95] leading-relaxed">
                                       {event.description}
                                       {event.operator && (
                                         <span className="text-[#8F867C] dark:text-[#80766B]">
@@ -1021,21 +1042,21 @@ export const SalesOrdersModule: React.FC = () => {
                         </div>
 
                         {/* Bottom Status Summary Bar */}
-                        <div className="flex items-center justify-between pt-3 mt-3 border-t border-[#EBE7DF] dark:border-[#2D2520] bg-[#FAF8F5] dark:bg-[#201915] -mx-4 -mb-4 px-4 py-2.5 rounded-b-2xl">
+                        <div className="flex justify-between items-center bg-[#FAF8F5] dark:bg-[#201915] -mx-4 mt-3 -mb-4 px-4 py-2.5 pt-3 border-[#EBE7DF] dark:border-[#2D2520] border-t rounded-b-2xl">
                           <div className="flex items-center gap-1.5">
-                            <span className="text-[10px] font-bold text-[#7D756D] dark:text-[#A89F95] uppercase">
+                            <span className="font-bold text-[#7D756D] text-[10px] dark:text-[#A89F95] uppercase">
                               Current Stage:
                             </span>
-                            <span className="font-bold text-xs px-2 py-0.5 rounded-lg bg-[#FCD34D]/20 text-[#8B6200] dark:text-[#FCD34D] border border-[#FCD34D]/30">
+                            <span className="bg-[#FCD34D]/20 px-2 py-0.5 border border-[#FCD34D]/30 rounded-lg font-bold text-[#8B6200] dark:text-[#FCD34D] text-xs">
                               {order.status}
                             </span>
                           </div>
 
                           <div className="flex items-center gap-1.5">
-                            <span className="text-[10px] font-bold text-[#7D756D] dark:text-[#A89F95] uppercase">
+                            <span className="font-bold text-[#7D756D] text-[10px] dark:text-[#A89F95] uppercase">
                               Target Delivery:
                             </span>
-                            <span className="font-mono font-bold text-xs text-[#1C1613] dark:text-[#FAF7F2]">
+                            <span className="font-mono font-bold text-[#1C1613] dark:text-[#FAF7F2] text-xs">
                               {order.logistics.estimatedDeliveryDate.split('(')[0].trim()}
                             </span>
                           </div>
@@ -1053,7 +1074,7 @@ export const SalesOrdersModule: React.FC = () => {
       {/* Redesigned Comprehensive Delivery Booking Modal */}
       {showCreateModal && (
         <div className="z-50 fixed inset-0 flex justify-center items-center bg-black/70 backdrop-blur-md p-3 sm:p-6 overflow-y-auto">
-          <div className="flex flex-col bg-white dark:bg-[#1A1411] shadow-2xl my-auto border border-[#EBE7DF] dark:border-[#2D2520] rounded-3xl w-full max-w-4xl max-h-[92vh] overflow-hidden">
+          <div className="flex flex-col bg-white dark:bg-[#1A1411] shadow-2xl my-auto dark:border dark:border-[#2D2520] rounded-3xl w-full max-w-4xl max-h-[92vh] overflow-hidden">
             {/* Modal Header */}
             <div className="flex justify-between items-center bg-[#FAF8F5] dark:bg-[#201915] px-6 py-4 border-[#F0EBE1] dark:border-[#2D2520] border-b">
               <div className="flex items-center gap-3">
@@ -1293,10 +1314,10 @@ export const SalesOrdersModule: React.FC = () => {
                         key={urg}
                         onClick={() => setNewUrgency(urg)}
                         className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all ${newUrgency === urg
-                            ? urg === 'Critical Project'
-                              ? 'bg-rose-600 text-white shadow-xs'
-                              : 'bg-[#1C1613] text-white dark:bg-[#FCD34D] dark:text-[#1C1613] shadow-xs'
-                            : 'text-[#6B635B] dark:text-[#A89F95] hover:text-[#1C1613]'
+                          ? urg === 'Critical Project'
+                            ? 'bg-rose-600 text-white shadow-xs'
+                            : 'bg-[#1C1613] text-white dark:bg-[#FCD34D] dark:text-[#1C1613] shadow-xs'
+                          : 'text-[#6B635B] dark:text-[#A89F95] hover:text-[#1C1613]'
                           }`}
                       >
                         {urg}

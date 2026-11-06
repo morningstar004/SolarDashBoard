@@ -77,7 +77,7 @@ export const InventoryModule: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header & Sub-Dashboard Title */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-5 rounded-3xl bg-white dark:bg-[#1A1512] border border-[#EBE7DF] dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)]">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-5 rounded-3xl bg-white dark:bg-[#1A1512] dark:border dark:border-[#2D2520] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)]">
         <div>
           <h2 className="text-base font-black text-[#1C1613] dark:text-[#F7F4EF] flex items-center gap-2">
             <Warehouse className="w-5 h-5 text-[#A87208] dark:text-[#FCD34D]" />
@@ -104,10 +104,10 @@ export const InventoryModule: React.FC = () => {
         {/* 1. Panels */}
         <div
           onClick={() => setActiveCategory('Panels')}
-          className={`cursor-pointer p-4 rounded-3xl border transition-all ${
+          className={`cursor-pointer p-4 rounded-3xl transition-all ${
             activeCategory === 'Panels'
-              ? 'bg-[#FEF9ED] dark:bg-[#281F17] border-2 border-[#FCD34D] shadow-sm'
-              : 'bg-white dark:bg-[#1A1512] border-[#EBE7DF] dark:border-[#2D2520] hover:border-[#FCD34D]'
+              ? 'bg-[#FEF9ED] dark:bg-[#281F17] ring-2 ring-[#FCD34D] shadow-sm'
+              : 'bg-white dark:bg-[#1A1512] dark:border dark:border-[#2D2520] shadow-[0_2px_8px_-2px_rgba(40,30,20,0.03)] hover:shadow-sm'
           }`}
         >
           <div className="flex items-center justify-between">
@@ -134,10 +134,10 @@ export const InventoryModule: React.FC = () => {
         {/* 2. Inverters */}
         <div
           onClick={() => setActiveCategory('Inverters')}
-          className={`cursor-pointer p-4 rounded-3xl border transition-all ${
+          className={`cursor-pointer p-4 rounded-3xl transition-all ${
             activeCategory === 'Inverters'
-              ? 'bg-[#FEF9ED] dark:bg-[#281F17] border-2 border-[#FCD34D] shadow-sm'
-              : 'bg-white dark:bg-[#1A1512] border-[#EBE7DF] dark:border-[#2D2520] hover:border-[#FCD34D]'
+              ? 'bg-[#FEF9ED] dark:bg-[#281F17] ring-2 ring-[#FCD34D] shadow-sm'
+              : 'bg-white dark:bg-[#1A1512] dark:border dark:border-[#2D2520] shadow-[0_2px_8px_-2px_rgba(40,30,20,0.03)] hover:shadow-sm'
           }`}
         >
           <div className="flex items-center justify-between">
@@ -164,10 +164,10 @@ export const InventoryModule: React.FC = () => {
         {/* 3. Batteries */}
         <div
           onClick={() => setActiveCategory('Batteries')}
-          className={`cursor-pointer p-4 rounded-3xl border transition-all ${
+          className={`cursor-pointer p-4 rounded-3xl transition-all ${
             activeCategory === 'Batteries'
-              ? 'bg-[#FEF9ED] dark:bg-[#281F17] border-2 border-[#FCD34D] shadow-sm'
-              : 'bg-white dark:bg-[#1A1512] border-[#EBE7DF] dark:border-[#2D2520] hover:border-[#FCD34D]'
+              ? 'bg-[#FEF9ED] dark:bg-[#281F17] ring-2 ring-[#FCD34D] shadow-sm'
+              : 'bg-white dark:bg-[#1A1512] dark:border dark:border-[#2D2520] shadow-[0_2px_8px_-2px_rgba(40,30,20,0.03)] hover:shadow-sm'
           }`}
         >
           <div className="flex items-center justify-between">
@@ -194,10 +194,10 @@ export const InventoryModule: React.FC = () => {
         {/* 4. Racking */}
         <div
           onClick={() => setActiveCategory('Racking')}
-          className={`cursor-pointer p-4 rounded-3xl border transition-all ${
+          className={`cursor-pointer p-4 rounded-3xl transition-all ${
             activeCategory === 'Racking'
-              ? 'bg-[#FEF9ED] dark:bg-[#281F17] border-2 border-[#FCD34D] shadow-sm'
-              : 'bg-white dark:bg-[#1A1512] border-[#EBE7DF] dark:border-[#2D2520] hover:border-[#FCD34D]'
+              ? 'bg-[#FEF9ED] dark:bg-[#281F17] ring-2 ring-[#FCD34D] shadow-sm'
+              : 'bg-white dark:bg-[#1A1512] dark:border dark:border-[#2D2520] shadow-[0_2px_8px_-2px_rgba(40,30,20,0.03)] hover:shadow-sm'
           }`}
         >
           <div className="flex items-center justify-between">
@@ -224,10 +224,10 @@ export const InventoryModule: React.FC = () => {
         {/* 5. Cabling */}
         <div
           onClick={() => setActiveCategory('Cabling')}
-          className={`cursor-pointer p-4 rounded-3xl border transition-all ${
+          className={`cursor-pointer p-4 rounded-3xl transition-all ${
             activeCategory === 'Cabling'
-              ? 'bg-[#FEF9ED] dark:bg-[#281F17] border-2 border-[#FCD34D] shadow-sm'
-              : 'bg-white dark:bg-[#1A1512] border-[#EBE7DF] dark:border-[#2D2520] hover:border-[#FCD34D]'
+              ? 'bg-[#FEF9ED] dark:bg-[#281F17] ring-2 ring-[#FCD34D] shadow-sm'
+              : 'bg-white dark:bg-[#1A1512] dark:border dark:border-[#2D2520] shadow-[0_2px_8px_-2px_rgba(40,30,20,0.03)] hover:shadow-sm'
           }`}
         >
           <div className="flex items-center justify-between">
@@ -285,10 +285,10 @@ export const InventoryModule: React.FC = () => {
       </div>
 
       {/* Detailed Product Table */}
-      <div className="rounded-3xl border border-[#EBE7DF] dark:border-[#2D2520] bg-white dark:bg-[#1A1512] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] overflow-hidden">
+      <div className="rounded-3xl dark:border dark:border-[#2D2520] bg-white dark:bg-[#1A1512] shadow-[0_2px_12px_-2px_rgba(40,30,20,0.04)] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#FBF9F5] dark:bg-[#201A16] text-[#7D756D] dark:text-[#A89F95] uppercase font-bold text-[10px] tracking-wider border-b border-[#EBE7DF] dark:border-[#2D2520]">
+            <thead className="bg-[#FBF9F5] dark:bg-[#201A16] text-[#7D756D] dark:text-[#A89F95] uppercase font-bold text-[10px] tracking-wider border-b border-[#EBE7DF]/60 dark:border-[#2D2520]">
               <tr>
                 <th className="px-4 py-3">Product & Brand</th>
                 <th className="px-4 py-3">Category</th>
@@ -304,8 +304,29 @@ export const InventoryModule: React.FC = () => {
             <tbody className="divide-y divide-[#F2EEE6] dark:divide-[#28211B] text-[#1C1613] dark:text-[#F7F4EF]">
               {filteredProducts.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="px-4 py-8 text-center text-[#8F867C]">
-                    No products found in this category.
+                  <td colSpan={9} className="px-4 py-12 text-center">
+                    <div className="flex flex-col items-center justify-center max-w-sm mx-auto space-y-2.5">
+                      <div className="w-10 h-10 rounded-2xl bg-[#FEF6E6] dark:bg-[#2D2115] text-[#A87208] dark:text-[#FCD34D] flex items-center justify-center">
+                        <Warehouse className="w-5 h-5" />
+                      </div>
+                      <p className="font-bold text-sm text-[#1C1613] dark:text-white">
+                        No equipment matched your filters
+                      </p>
+                      <p className="text-xs text-[#8F867C] dark:text-[#A89F95]">
+                        Try searching a different SKU, brand, or resetting the category filter.
+                      </p>
+                      {(searchQuery || activeCategory !== 'ALL') && (
+                        <button
+                          onClick={() => {
+                            setSearchQuery('');
+                            setActiveCategory('ALL');
+                          }}
+                          className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#FCD34D] text-[#1C1613] hover:bg-[#fbbf24] transition-all"
+                        >
+                          Reset Filters
+                        </button>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ) : (
@@ -450,7 +471,7 @@ export const InventoryModule: React.FC = () => {
       {/* Stock Adjustment Modal */}
       {adjustModalProduct && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-white dark:bg-[#1A1512] rounded-3xl border border-[#EBE7DF] dark:border-[#2D2520] shadow-2xl p-6 space-y-4">
+          <div className="w-full max-w-md max-h-[90vh] overflow-y-auto bg-white dark:bg-[#1A1512] rounded-3xl dark:border dark:border-[#2D2520] shadow-2xl p-6 space-y-4">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-sm font-black text-[#1C1613] dark:text-white">
