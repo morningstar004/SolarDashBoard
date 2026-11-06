@@ -9,7 +9,7 @@ Localized specifically for the Indian solar supply chain (Bhiwandi Central Depot
 
 ---
 
-## 🌟 Key Modules & Functional Overview
+## Key Modules & Functional Overview
 
 ### 1. Operational Dashboard Overview (Command Center)
 - **KPI Cards**:
