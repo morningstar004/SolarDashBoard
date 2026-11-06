@@ -60,13 +60,6 @@ export const Sidebar: React.FC = () => {
       icon: LayoutDashboard,
     },
     {
-      id: 'inventory',
-      label: 'Solar Inventory',
-      icon: Boxes,
-      badge: lowStockCount > 0 ? `${lowStockCount}` : undefined,
-      badgeColor: 'bg-[#FEF6E6] text-[#A6680C] dark:bg-[#2D2115] dark:text-[#FCD34D]',
-    },
-    {
       id: 'sales',
       label: 'Sales & Orders',
       icon: ShoppingCart,
@@ -75,19 +68,26 @@ export const Sidebar: React.FC = () => {
     },
     {
       id: 'checklist',
-      label: 'Pre-Dispatch Checklist',
+      label: 'Pre-Dispatch CheckList',
       icon: ClipboardCheck,
       badge: readyForInspectionCount > 0 ? `${readyForInspectionCount}` : undefined,
       badgeColor: 'bg-[#E8F8F0] text-[#168051] dark:bg-[#1A2D22] dark:text-[#78E0A9] font-bold',
     },
     {
       id: 'tracking',
-      label: 'Order Tracking & Fleet',
+      label: 'Order tracking',
       icon: Truck,
     },
     {
+      id: 'inventory',
+      label: 'solar Inventory',
+      icon: Boxes,
+      badge: lowStockCount > 0 ? `${lowStockCount}` : undefined,
+      badgeColor: 'bg-[#FEF6E6] text-[#A6680C] dark:bg-[#2D2115] dark:text-[#FCD34D]',
+    },
+    {
       id: 'purchase',
-      label: 'Purchase Orders',
+      label: 'Purchase Order',
       icon: FileInput,
       badge: purchaseOrders.length > 0 ? purchaseOrders.length : undefined,
       badgeColor: 'bg-[#F4F0E8] text-[#5C5247] dark:bg-[#2A221C] dark:text-[#D4CCC0]',
@@ -102,17 +102,17 @@ export const Sidebar: React.FC = () => {
   return (
     <aside
       className={`shrink-0 border-r border-[#EBE7DF] dark:border-[#2D2520] bg-white/90 dark:bg-[#1A1512]/90 backdrop-blur-md p-2 flex flex-col transition-all duration-300 ease-in-out ${
-        isCollapsed ? 'w-[68px]' : 'w-full lg:w-60'
+        isCollapsed ? 'w-[72px]' : 'w-full lg:w-64'
       }`}
     >
       {/* Sidebar Header with Collapse / Expand Trigger */}
       <div
-        className={`flex items-center pb-2 mb-1 border-b border-[#F0EBE1] dark:border-[#2D2520] ${
-          isCollapsed ? 'justify-center' : 'justify-between px-2'
+        className={`flex items-center pb-2.5 mb-1.5 border-b border-[#F0EBE1] dark:border-[#2D2520] ${
+          isCollapsed ? 'justify-center' : 'justify-between px-2.5'
         }`}
       >
         {!isCollapsed && (
-          <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#8F867C]">
+          <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#8F867C]">
             Navigation
           </span>
         )}
@@ -131,7 +131,7 @@ export const Sidebar: React.FC = () => {
       </div>
 
       {/* Nav List */}
-      <nav className="flex flex-col gap-1 flex-1">
+      <nav className="flex flex-col gap-1.5 flex-1">
         {navItems.map((item) => {
           const isActive = activeTab === item.id;
           const Icon = item.icon;
@@ -143,17 +143,17 @@ export const Sidebar: React.FC = () => {
               title={isCollapsed ? `${item.label} ${item.badge ? `(${item.badge})` : ''}` : undefined}
               className={`group relative flex items-center rounded-xl text-left transition-all duration-150 ${
                 isCollapsed
-                  ? 'justify-center p-2.5'
-                  : 'justify-between px-3 py-2 text-xs'
+                  ? 'justify-center p-3'
+                  : 'justify-between px-3.5 py-2.5 text-[13.5px]'
               } ${
                 isActive
-                  ? 'bg-[#F4F0E8] dark:bg-[#2A221C] text-[#1C1613] dark:text-[#FAF7F2] font-bold shadow-xs before:absolute before:left-0 before:top-2 before:bottom-2 before:w-1 before:rounded-r-full before:bg-[#FCD34D]'
+                  ? 'bg-[#F4F0E8] dark:bg-[#2A221C] text-[#1C1613] dark:text-[#FAF7F2] font-bold shadow-xs before:absolute before:left-0 before:top-2 before:bottom-2 before:w-1.5 before:rounded-r-full before:bg-[#FCD34D]'
                   : 'text-[#6B635B] dark:text-[#A89F95] hover:text-[#1C1613] dark:hover:text-[#FAF7F2] hover:bg-[#FAF7F2] dark:hover:bg-[#221B17]'
               }`}
             >
-              <div className={`flex items-center min-w-0 ${isCollapsed ? 'justify-center' : 'gap-2.5'}`}>
+              <div className={`flex items-center min-w-0 ${isCollapsed ? 'justify-center' : 'gap-3'}`}>
                 <Icon
-                  className={`w-4 h-4 shrink-0 transition-colors ${
+                  className={`w-[18px] h-[18px] shrink-0 transition-colors ${
                     isActive
                       ? 'text-[#A87208] dark:text-[#FCD34D] stroke-[2.4]'
                       : 'text-[#8F867C] dark:text-[#80766B] group-hover:text-[#A87208] dark:group-hover:text-[#FCD34D]'
@@ -161,7 +161,7 @@ export const Sidebar: React.FC = () => {
                 />
 
                 {!isCollapsed && (
-                  <span className="truncate tracking-tight font-medium">
+                  <span className="truncate tracking-tight font-medium text-[13.5px]">
                     {item.label}
                   </span>
                 )}
@@ -172,14 +172,14 @@ export const Sidebar: React.FC = () => {
                 <>
                   {!isCollapsed ? (
                     <span
-                      className={`ml-1.5 px-1.5 py-0.2 text-[10px] font-bold rounded-full shrink-0 ${
+                      className={`ml-1.5 px-2 py-0.5 text-[11px] font-bold rounded-full shrink-0 ${
                         item.badgeColor || 'bg-[#F4F0E8] text-[#5C5247] dark:bg-[#2A221C] dark:text-[#D4CCC0]'
                       }`}
                     >
                       {item.badge}
                     </span>
                   ) : (
-                    <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#FCD34D] ring-2 ring-white dark:ring-[#1A1512]" />
+                    <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full bg-[#FCD34D] ring-2 ring-white dark:ring-[#1A1512]" />
                   )}
                 </>
               )}
