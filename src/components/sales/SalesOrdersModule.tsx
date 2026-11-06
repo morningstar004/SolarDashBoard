@@ -27,7 +27,46 @@ import {
   Boxes,
   Building2,
   Trash2,
+  Sun,
+  Battery,
+  Cable,
 } from 'lucide-react';
+
+const getCategoryMeta = (category: string) => {
+  switch (category) {
+    case 'Panels':
+      return {
+        icon: Sun,
+        color: 'text-[#C28E00] dark:text-[#FCD34D]',
+        bg: 'bg-[#FEF6E6] dark:bg-[#2D2115] border border-[#FDE3B2] dark:border-[#4B3722]',
+      };
+    case 'Inverters':
+      return {
+        icon: Zap,
+        color: 'text-amber-500 fill-amber-500',
+        bg: 'bg-[#EEF4FF] dark:bg-[#1E2638] border border-[#CCDDFE] dark:border-[#2A3752]',
+      };
+    case 'Batteries':
+      return {
+        icon: Battery,
+        color: 'text-emerald-600 fill-emerald-600',
+        bg: 'bg-[#E8F8F0] dark:bg-[#1A2D22] border border-[#C6EED8] dark:border-[#223F2F]',
+      };
+    case 'Racking':
+      return {
+        icon: Layers,
+        color: 'text-[#5C5247] dark:text-[#D4CCC0]',
+        bg: 'bg-[#F4F0E8] dark:bg-[#2A221C] border border-[#E5DFD4] dark:border-[#382E27]',
+      };
+    case 'Cabling':
+    default:
+      return {
+        icon: Cable,
+        color: 'text-rose-500',
+        bg: 'bg-[#FDF2F2] dark:bg-[#2F1C1C] border border-[#FCD5D5] dark:border-[#4A2424]',
+      };
+  }
+};
 
 export const SalesOrdersModule: React.FC = () => {
   const {
@@ -616,22 +655,22 @@ export const SalesOrdersModule: React.FC = () => {
             return (
               <div
                 key={order.id}
-                className={`rounded-3xl border transition-all ${isExpanded
+                className={`rounded-3xl transition-all ${isExpanded
                   ? 'bg-white dark:bg-[#1A1512] border-[#FCD34D] shadow-md'
                   : 'bg-white dark:bg-[#1A1512] border-[#EBE7DF] dark:border-[#2D2520] hover:border-[#DBD5C8]'
                   }`}
               >
-                {/* Main Order Row */}
+                {/* Main Order Row - Grid with Fixed Column Widths across all orders */}
                 <div
                   onClick={() => toggleExpand(order.id)}
-                  className="flex md:flex-row flex-col justify-between md:items-center gap-4 p-5 cursor-pointer"
+                  className="grid grid-cols-1 md:grid-cols-[240px_1fr_180px_130px_160px] items-center gap-4 lg:gap-6 p-5 cursor-pointer"
                 >
-                  {/* Left Column: Order ID & Customer */}
-                  <div className="flex items-start gap-3 min-w-[220px]">
+                  {/* Column 1: Order ID & Customer (Fixed 240px) */}
+                  <div className="flex items-start gap-3 min-w-0">
                     <div className="flex justify-center items-center bg-[#FEF6E6] dark:bg-[#2D2115] border border-[#FDE3B2] dark:border-[#4B3722] rounded-2xl w-10 h-10 font-mono font-black text-[#C27E0C] dark:text-[#FCD34D] text-xs shrink-0">
                       SO
                     </div>
-                    <div>
+                    <div className="min-w-0">
                       <div className="flex items-center gap-2">
                         <span className="font-mono font-black text-[#1C1613] dark:text-white text-sm">
                           {order.id}
@@ -640,50 +679,56 @@ export const SalesOrdersModule: React.FC = () => {
                           {order.urgency}
                         </span>
                       </div>
-                      <p className="mt-0.5 font-bold text-[#1C1613] dark:text-[#F7F4EF] text-xs">
+                      <p className="mt-0.5 font-bold text-[#1C1613] dark:text-[#F7F4EF] text-xs truncate">
                         {order.customer.name}
                       </p>
-                      <p className="text-[#7D756D] text-[11px] dark:text-[#A89F95]">{order.customer.company}</p>
+                      <p className="text-[#7D756D] text-[11px] dark:text-[#A89F95] truncate">
+                        {order.customer.company}
+                      </p>
                     </div>
                   </div>
 
-                  {/* Middle Column 1: Purchased Merchandise summary */}
-                  <div className="flex-1 min-w-[200px]">
+                  {/* Column 2: Purchased Merchandise summary (Fluid 1fr) */}
+                  <div className="min-w-0">
                     <p className="font-bold text-[#8F867C] text-[10px] uppercase">Purchased Merchandise</p>
-                    <p className="mt-0.5 font-semibold text-[#1C1613] dark:text-[#FAF7F2] text-xs line-clamp-1">
+                    <p
+                      className="mt-0.5 font-semibold text-[#1C1613] dark:text-[#FAF7F2] text-xs truncate"
+                      title={order.items.map((i) => `${i.productName.split(' ')[0]} ${i.category} (x${i.requiredQty})`).join(', ')}
+                    >
                       {order.items.map((i) => `${i.productName.split(' ')[0]} ${i.category} (x${i.requiredQty})`).join(', ')}
                     </p>
-                    <p className="mt-0.5 text-[#7D756D] text-[11px] dark:text-[#A89F95]">
-                      {order.items.length} line items • Destination: {order.customer.destinationCity}
+                    <p className="mt-0.5 text-[#7D756D] text-[11px] dark:text-[#A89F95] truncate">
+                      {order.items.length} line items • To: {order.customer.destinationCity}
                     </p>
                   </div>
 
-                  {/* Middle Column 2: Logistics Partner & Vehicle */}
-                  <div className="min-w-[150px]">
+                  {/* Column 3: Logistics Partner & Vehicle (Fixed 180px) */}
+                  <div className="min-w-0">
                     <p className="font-bold text-[#8F867C] text-[10px] uppercase">Logistics Partner</p>
-                    <p className="mt-0.5 font-bold text-[#1C1613] dark:text-[#FAF7F2] text-xs">
+                    <p className="mt-0.5 font-bold text-[#1C1613] dark:text-[#FAF7F2] text-xs truncate">
                       {order.logistics.partner}
                     </p>
-                    <p className="font-mono text-[#7D756D] text-[11px] dark:text-[#A89F95]">
+                    <p className="font-mono text-[#7D756D] text-[11px] dark:text-[#A89F95] truncate">
                       {order.logistics.vehicleNumber}
                     </p>
                   </div>
 
-                  {/* Amount & Status */}
-                  <div className="flex justify-between md:justify-end items-center gap-4 min-w-[190px]">
-                    <div>
-                      <p className="font-bold text-[#8F867C] text-[10px] uppercase">Total Amount</p>
-                      <p className="font-black text-[#1C1613] dark:text-white text-sm">
-                        ₹{order.totalAmount.toLocaleString('en-IN')}
-                      </p>
-                    </div>
+                  {/* Column 4: Total Amount (Fixed 130px) */}
+                  <div className="min-w-0 md:text-right">
+                    <p className="font-bold text-[#8F867C] text-[10px] uppercase">Total Amount</p>
+                    <p className="mt-0.5 font-black text-[#1C1613] dark:text-white text-sm">
+                      ₹{order.totalAmount.toLocaleString('en-IN')}
+                    </p>
+                  </div>
 
-                    <div className="flex items-center gap-2">
-                      <span
-                        className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${statusBadgeColor}`}
-                      >
-                        ● {order.status}
-                      </span>
+                  {/* Column 5: Status & Expand Toggle (Fixed 160px) */}
+                  <div className="flex items-center justify-between md:justify-end gap-2.5 min-w-0">
+                    <span
+                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border whitespace-nowrap ${statusBadgeColor}`}
+                    >
+                      ● {order.status}
+                    </span>
+                    <div className="p-1 rounded-lg text-[#8F867C] hover:bg-[#F4F0E8] dark:hover:bg-[#28201A] shrink-0">
                       {isExpanded ? (
                         <ChevronUp className="w-4 h-4 text-[#8F867C]" />
                       ) : (
@@ -693,7 +738,7 @@ export const SalesOrdersModule: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Expanded Details Section: Extended Timeline + BOS Items */}
+                {/* Expanded Details Section: Extended Timeline + Allocated Equipment */}
                 {isExpanded && (
                   <div className="space-y-4 bg-[#FBF9F5]/70 dark:bg-[#16120F] p-5 border-[#EBE7DF] dark:border-[#2D2520] border-t rounded-b-3xl">
                     {/* Action Bar inside Expanded Row */}
@@ -741,44 +786,91 @@ export const SalesOrdersModule: React.FC = () => {
                     </div>
 
                     <div className="gap-4 grid grid-cols-1 lg:grid-cols-2">
-                      {/* Left: Extra Products provided other than solar panels */}
-                      <div className="space-y-2 bg-white dark:bg-[#1A1512] p-4 border border-[#EBE7DF] dark:border-[#2D2520] rounded-2xl">
-                        <h4 className="flex items-center gap-1.5 font-bold text-[#7D756D] dark:text-[#A89F95] text-xs uppercase tracking-wider">
-                          <Layers className="w-3.5 h-3.5 text-[#C27E0C] dark:text-[#FCD34D]" />
-                          <span>Balance of System (BOS) & Non-Panel Equipment</span>
-                        </h4>
-                        <p className="text-[#8F867C] text-[11px]">
-                          Inverters, battery energy storage, mounting structures & DC cables supplied:
-                        </p>
+                      {/* Left: Equipment Preview with Category SVGs, Separate Quantity & Amount, and Bottom Totals */}
+                      <div className="space-y-3 bg-white dark:bg-[#1A1512] p-4 border border-[#EBE7DF] dark:border-[#2D2520] rounded-2xl flex flex-col justify-between">
+                        <div>
+                          <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#F0EBE1] dark:border-[#2D2520]">
+                            <h4 className="flex items-center gap-1.5 font-bold text-[#7D756D] dark:text-[#A89F95] text-xs uppercase tracking-wider">
+                              <Boxes className="w-3.5 h-3.5 text-[#C27E0C] dark:text-[#FCD34D]" />
+                              <span>Allocated Equipment & BOS Manifest</span>
+                            </h4>
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#F4F0E8] dark:bg-[#28201A] text-[#5C5247] dark:text-[#D4CCC0]">
+                              {order.items.length} Line Items
+                            </span>
+                          </div>
 
-                        <div className="space-y-1.5 pt-1">
-                          {otherThanPanels.length === 0 ? (
-                            <p className="text-[#8F867C] text-xs italic">Only PV Modules on this order.</p>
-                          ) : (
-                            otherThanPanels.map((item) => (
-                              <div
-                                key={item.productId}
-                                className="flex justify-between items-center bg-[#F8F5EE] dark:bg-[#221B17] p-2.5 rounded-xl text-xs"
-                              >
-                                <div>
-                                  <span className="font-bold text-[#1C1613] dark:text-[#F7F4EF]">
-                                    {item.productName}
-                                  </span>
-                                  <div className="text-[#7D756D] text-[10px] dark:text-[#A89F95]">
-                                    {item.brand} • {item.category}
+                          <div className="space-y-2 pt-1 max-h-60 overflow-y-auto pr-1">
+                            {order.items.map((item) => {
+                              const meta = getCategoryMeta(item.category);
+                              const CategoryIcon = meta.icon;
+
+                              return (
+                                <div
+                                  key={item.productId}
+                                  className="flex items-center justify-between gap-3 bg-[#F8F5EE] dark:bg-[#221B17] p-2.5 rounded-xl text-xs hover:bg-[#F4EFE6] dark:hover:bg-[#28201A] transition-colors"
+                                >
+                                  {/* First: SVG visual representation of product type */}
+                                  <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                                    <div
+                                      className={`flex items-center justify-center w-8 h-8 rounded-xl ${meta.bg} shrink-0`}
+                                      title={item.category}
+                                    >
+                                      <CategoryIcon className={`w-4 h-4 ${meta.color}`} />
+                                    </div>
+                                    <div className="min-w-0">
+                                      <span className="font-bold text-[#1C1613] dark:text-[#F7F4EF] truncate block">
+                                        {item.productName}
+                                      </span>
+                                      <div className="text-[#7D756D] text-[10px] dark:text-[#A89F95] truncate">
+                                        {item.brand} • <span className="font-semibold">{item.category}</span>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  {/* Separate Quantity / Unit Section */}
+                                  <div className="text-center px-2.5 py-1 rounded-xl bg-white dark:bg-[#1A1512] border border-[#E8E3DA] dark:border-[#2D2520] shrink-0 min-w-[65px]">
+                                    <div className="font-black text-[#1C1613] dark:text-white text-xs">
+                                      {item.requiredQty}
+                                    </div>
+                                    <div className="text-[9px] text-[#7D756D] dark:text-[#A89F95] uppercase font-bold tracking-wider">
+                                      Units
+                                    </div>
+                                  </div>
+
+                                  {/* Separate Amount Section */}
+                                  <div className="text-right min-w-[95px] shrink-0">
+                                    <div className="font-mono font-black text-[#1C1613] dark:text-[#FCD34D] text-xs">
+                                      ₹{(item.requiredQty * item.unitPrice).toLocaleString('en-IN')}
+                                    </div>
+                                    <div className="text-[#8F867C] text-[10px]">
+                                      @ ₹{item.unitPrice.toLocaleString('en-IN')}/unit
+                                    </div>
                                   </div>
                                 </div>
-                                <div className="text-right">
-                                  <span className="font-black text-[#1C1613] dark:text-white">
-                                    {item.requiredQty} units
-                                  </span>
-                                  <div className="text-[#8F867C] text-[10px]">
-                                    ₹{item.unitPrice.toLocaleString('en-IN')}/unit
-                                  </div>
-                                </div>
-                              </div>
-                            ))
-                          )}
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        {/* Bottom Total Units & Price Bar */}
+                        <div className="flex items-center justify-between pt-3 mt-3 border-t border-[#EBE7DF] dark:border-[#2D2520] bg-[#FAF8F5] dark:bg-[#201915] -mx-4 -mb-4 px-4 py-2.5 rounded-b-2xl">
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-[10px] font-bold text-[#7D756D] dark:text-[#A89F95] uppercase">
+                              Total Units:
+                            </span>
+                            <span className="font-black font-mono text-xs px-2 py-0.5 rounded-lg bg-[#E8F8F0] text-[#168051] dark:bg-[#1A2D22] dark:text-[#78E0A9]">
+                              {order.items.reduce((acc, i) => acc + i.requiredQty, 0)} Units
+                            </span>
+                          </div>
+
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-[10px] font-bold text-[#7D756D] dark:text-[#A89F95] uppercase">
+                              Total Price:
+                            </span>
+                            <span className="font-black font-mono text-xs sm:text-sm text-[#1C1613] dark:text-[#FCD34D]">
+                              ₹{order.items.reduce((acc, i) => acc + i.requiredQty * i.unitPrice, 0).toLocaleString('en-IN')}
+                            </span>
+                          </div>
                         </div>
                       </div>
 
@@ -823,11 +915,11 @@ export const SalesOrdersModule: React.FC = () => {
       {/* Redesigned Comprehensive Delivery Booking Modal */}
       {showCreateModal && (
         <div className="z-50 fixed inset-0 flex justify-center items-center bg-black/70 backdrop-blur-md p-3 sm:p-6 overflow-y-auto">
-          <div className="bg-white dark:bg-[#1A1411] shadow-2xl border border-[#EBE7DF] dark:border-[#2D2520] rounded-3xl w-full max-w-4xl my-auto overflow-hidden flex flex-col max-h-[92vh]">
+          <div className="flex flex-col bg-white dark:bg-[#1A1411] shadow-2xl my-auto border border-[#EBE7DF] dark:border-[#2D2520] rounded-3xl w-full max-w-4xl max-h-[92vh] overflow-hidden">
             {/* Modal Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-[#F0EBE1] dark:border-[#2D2520] bg-[#FAF8F5] dark:bg-[#201915]">
+            <div className="flex justify-between items-center bg-[#FAF8F5] dark:bg-[#201915] px-6 py-4 border-[#F0EBE1] dark:border-[#2D2520] border-b">
               <div className="flex items-center gap-3">
-                <div className="flex items-center justify-center w-10 h-10 rounded-2xl bg-[#FEF6E6] dark:bg-[#2D2115] text-[#C27E0C] dark:text-[#FCD34D] border border-[#FDE3B2] dark:border-[#4B3722]">
+                <div className="flex justify-center items-center bg-[#FEF6E6] dark:bg-[#2D2115] border border-[#FDE3B2] dark:border-[#4B3722] rounded-2xl w-10 h-10 text-[#C27E0C] dark:text-[#FCD34D]">
                   <Truck className="w-5 h-5" />
                 </div>
                 <div>
@@ -835,7 +927,7 @@ export const SalesOrdersModule: React.FC = () => {
                     <h3 className="font-black text-[#1C1613] dark:text-white text-base">
                       Commercial Solar Delivery Booking
                     </h3>
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FCD34D]/20 text-[#8B6200] dark:text-[#FCD34D] border border-[#FCD34D]/30">
+                    <span className="bg-[#FCD34D]/20 px-2 py-0.5 border border-[#FCD34D]/30 rounded-full font-bold text-[#8B6200] text-[10px] dark:text-[#FCD34D]">
                       Bhiwandi Central Depot
                     </span>
                   </div>
@@ -846,7 +938,7 @@ export const SalesOrdersModule: React.FC = () => {
               </div>
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="p-2 rounded-xl text-[#7D756D] hover:text-[#1C1613] dark:hover:text-white hover:bg-[#F4F0E8] dark:hover:bg-[#2B221B] transition-colors"
+                className="hover:bg-[#F4F0E8] dark:hover:bg-[#2B221B] p-2 rounded-xl text-[#7D756D] hover:text-[#1C1613] dark:hover:text-white transition-colors"
                 title="Close"
               >
                 <X className="w-5 h-5" />
@@ -854,15 +946,15 @@ export const SalesOrdersModule: React.FC = () => {
             </div>
 
             {/* Scrollable Form Body */}
-            <form onSubmit={handleCreateOrder} className="overflow-y-auto p-6 space-y-6 flex-1">
+            <form onSubmit={handleCreateOrder} className="flex-1 space-y-6 p-6 overflow-y-auto">
               {/* Section 1: Consignee & Customer Details */}
               <div className="space-y-3">
-                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#A87208] dark:text-[#FCD34D]">
+                <div className="flex items-center gap-2 font-black text-[#A87208] dark:text-[#FCD34D] text-xs uppercase tracking-wider">
                   <Building2 className="w-4 h-4" />
                   <span>1. Consignee & Client Information</span>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div className="gap-3 grid grid-cols-1 md:grid-cols-3">
                   <div>
                     <label className="block mb-1 font-bold text-[#1C1613] dark:text-[#FAF7F2] text-xs">
                       Company / EPC Contractor Name *
@@ -873,7 +965,7 @@ export const SalesOrdersModule: React.FC = () => {
                       placeholder="e.g. SunGrid EPC Solutions Pvt Ltd"
                       value={newCompanyName}
                       onChange={(e) => setNewCompanyName(e.target.value)}
-                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl w-full text-[#1C1613] dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
+                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 w-full text-[#1C1613] dark:text-white text-xs"
                     />
                   </div>
 
@@ -887,7 +979,7 @@ export const SalesOrdersModule: React.FC = () => {
                       placeholder="e.g. Rameshwar Patil"
                       value={newCustomerName}
                       onChange={(e) => setNewCustomerName(e.target.value)}
-                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl w-full text-[#1C1613] dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
+                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 w-full text-[#1C1613] dark:text-white text-xs"
                     />
                   </div>
 
@@ -901,7 +993,7 @@ export const SalesOrdersModule: React.FC = () => {
                       placeholder="+91 98201 45892"
                       value={newCustomerPhone}
                       onChange={(e) => setNewCustomerPhone(e.target.value)}
-                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl w-full text-[#1C1613] dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
+                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 w-full text-[#1C1613] dark:text-white text-xs"
                     />
                   </div>
 
@@ -914,7 +1006,7 @@ export const SalesOrdersModule: React.FC = () => {
                       placeholder="procurement@sungridepc.in"
                       value={newCustomerEmail}
                       onChange={(e) => setNewCustomerEmail(e.target.value)}
-                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl w-full text-[#1C1613] dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
+                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 w-full text-[#1C1613] dark:text-white text-xs"
                     />
                   </div>
 
@@ -928,7 +1020,7 @@ export const SalesOrdersModule: React.FC = () => {
                       placeholder="27AABCS1429Q1ZX"
                       value={newCustomerGstin}
                       onChange={(e) => setNewCustomerGstin(e.target.value.toUpperCase())}
-                      className="font-mono bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl w-full text-[#1C1613] dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
+                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 w-full font-mono text-[#1C1613] dark:text-white text-xs"
                     />
                   </div>
 
@@ -939,7 +1031,7 @@ export const SalesOrdersModule: React.FC = () => {
                     <select
                       value={newCustomerTier}
                       onChange={(e) => setNewCustomerTier(e.target.value as any)}
-                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl w-full text-[#1C1613] dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
+                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 w-full text-[#1C1613] dark:text-white text-xs"
                     >
                       <option value="Tier-1 EPC">Tier-1 EPC (Utility-Scale MW)</option>
                       <option value="Commercial Developer">Commercial & Industrial (C&I)</option>
@@ -950,13 +1042,13 @@ export const SalesOrdersModule: React.FC = () => {
               </div>
 
               {/* Section 2: Delivery Site & Access Specifications */}
-              <div className="space-y-3 pt-3 border-t border-[#F0EBE1] dark:border-[#2D2520]">
-                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#A87208] dark:text-[#FCD34D]">
+              <div className="space-y-3 pt-3 border-[#F0EBE1] dark:border-[#2D2520] border-t">
+                <div className="flex items-center gap-2 font-black text-[#A87208] dark:text-[#FCD34D] text-xs uppercase tracking-wider">
                   <MapPin className="w-4 h-4" />
                   <span>2. Delivery Site Destination & Unloading Facilities</span>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+                <div className="gap-3 grid grid-cols-1 md:grid-cols-4">
                   <div className="md:col-span-2">
                     <label className="block mb-1 font-bold text-[#1C1613] dark:text-[#FAF7F2] text-xs">
                       Complete Site Delivery Address & Landmark *
@@ -967,7 +1059,7 @@ export const SalesOrdersModule: React.FC = () => {
                       placeholder="e.g. Plot 44, GIDC Industrial Corridor, Talegaon"
                       value={newSiteAddress}
                       onChange={(e) => setNewSiteAddress(e.target.value)}
-                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl w-full text-[#1C1613] dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
+                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 w-full text-[#1C1613] dark:text-white text-xs"
                     />
                   </div>
 
@@ -981,7 +1073,7 @@ export const SalesOrdersModule: React.FC = () => {
                       placeholder="e.g. Pune"
                       value={newCity}
                       onChange={(e) => setNewCity(e.target.value)}
-                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl w-full text-[#1C1613] dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
+                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 w-full text-[#1C1613] dark:text-white text-xs"
                     />
                   </div>
 
@@ -995,7 +1087,7 @@ export const SalesOrdersModule: React.FC = () => {
                       placeholder="e.g. Maharashtra"
                       value={newState}
                       onChange={(e) => setNewState(e.target.value)}
-                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl w-full text-[#1C1613] dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
+                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 w-full text-[#1C1613] dark:text-white text-xs"
                     />
                   </div>
 
@@ -1009,7 +1101,7 @@ export const SalesOrdersModule: React.FC = () => {
                       placeholder="410507"
                       value={newPincode}
                       onChange={(e) => setNewPincode(e.target.value)}
-                      className="font-mono bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl w-full text-[#1C1613] dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
+                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 w-full font-mono text-[#1C1613] dark:text-white text-xs"
                     />
                   </div>
 
@@ -1020,7 +1112,7 @@ export const SalesOrdersModule: React.FC = () => {
                     <select
                       value={newUnloadingType}
                       onChange={(e) => setNewUnloadingType(e.target.value)}
-                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl w-full text-[#1C1613] dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
+                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 w-full text-[#1C1613] dark:text-white text-xs"
                     >
                       <option value="Forklift Ramp / Loading Dock">Forklift & Dock Ramp Available</option>
                       <option value="Crane Required (Rooftop)">Crane / Boom Truck Required</option>
@@ -1038,23 +1130,23 @@ export const SalesOrdersModule: React.FC = () => {
                       placeholder="EWB-2710-994821"
                       value={newEWayBill}
                       onChange={(e) => setNewEWayBill(e.target.value)}
-                      className="font-mono bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl w-full text-[#1C1613] dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
+                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 w-full font-mono text-[#1C1613] dark:text-white text-xs"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Section 3: Equipment Manifest & Inventory Allocation */}
-              <div className="space-y-3 pt-3 border-t border-[#F0EBE1] dark:border-[#2D2520]">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                  <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#A87208] dark:text-[#FCD34D]">
+              <div className="space-y-3 pt-3 border-[#F0EBE1] dark:border-[#2D2520] border-t">
+                <div className="flex sm:flex-row flex-col justify-between sm:items-center gap-2">
+                  <div className="flex items-center gap-2 font-black text-[#A87208] dark:text-[#FCD34D] text-xs uppercase tracking-wider">
                     <Boxes className="w-4 h-4" />
                     <span>3. Equipment Allocation & Cargo Items</span>
                   </div>
 
                   {/* Dispatch Urgency Selector */}
                   <div className="flex items-center gap-1.5 bg-[#F4F0E8] dark:bg-[#241E19] p-1 rounded-xl">
-                    <span className="text-[10px] font-bold text-[#7D756D] dark:text-[#A89F95] px-2">
+                    <span className="px-2 font-bold text-[#7D756D] text-[10px] dark:text-[#A89F95]">
                       Urgency:
                     </span>
                     {(['Standard', 'High Priority', 'Critical Project'] as const).map((urg) => (
@@ -1077,16 +1169,16 @@ export const SalesOrdersModule: React.FC = () => {
                 </div>
 
                 {/* Allocated Line Items Table */}
-                <div className="border border-[#EBE7DF] dark:border-[#2E251E] rounded-2xl overflow-hidden bg-[#FAF8F5] dark:bg-[#1C1613]">
+                <div className="bg-[#FAF8F5] dark:bg-[#1C1613] border border-[#EBE7DF] dark:border-[#2E251E] rounded-2xl overflow-hidden">
                   <table className="w-full text-xs text-left">
-                    <thead className="bg-[#F0EBE1] dark:bg-[#241D18] text-[#7D756D] dark:text-[#A89F95] uppercase font-bold text-[10px]">
+                    <thead className="bg-[#F0EBE1] dark:bg-[#241D18] font-bold text-[#7D756D] text-[10px] dark:text-[#A89F95] uppercase">
                       <tr>
                         <th className="px-3.5 py-2">Product & Brand</th>
                         <th className="px-3 py-2">Category</th>
                         <th className="px-3 py-2 text-right">Unit Price</th>
                         <th className="px-3 py-2 text-center">Dispatch Qty</th>
                         <th className="px-3.5 py-2 text-right">Subtotal</th>
-                        <th className="px-2 py-2 text-center w-10"></th>
+                        <th className="px-2 py-2 w-10 text-center"></th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-[#EBE7DF] dark:divide-[#2E251E]">
@@ -1094,24 +1186,24 @@ export const SalesOrdersModule: React.FC = () => {
                         <tr key={item.productId} className="hover:bg-white/60 dark:hover:bg-[#221B17]/60">
                           <td className="px-3.5 py-2.5 font-bold text-[#1C1613] dark:text-[#FAF7F2]">
                             <div>{item.productName}</div>
-                            <span className="text-[10px] text-[#7D756D] dark:text-[#A89F95] font-normal">
+                            <span className="font-normal text-[#7D756D] text-[10px] dark:text-[#A89F95]">
                               {item.brand}
                             </span>
                           </td>
                           <td className="px-3 py-2.5">
-                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#E8E3DA] dark:bg-[#2E251E] text-[#5C5247] dark:text-[#D4CCC0]">
+                            <span className="bg-[#E8E3DA] dark:bg-[#2E251E] px-2 py-0.5 rounded-full font-bold text-[#5C5247] text-[10px] dark:text-[#D4CCC0]">
                               {item.category}
                             </span>
                           </td>
-                          <td className="px-3 py-2.5 text-right font-mono font-medium text-[#1C1613] dark:text-[#FAF7F2]">
+                          <td className="px-3 py-2.5 font-mono font-medium text-[#1C1613] dark:text-[#FAF7F2] text-right">
                             ₹{item.unitPrice.toLocaleString('en-IN')}
                           </td>
                           <td className="px-3 py-2.5">
-                            <div className="flex items-center justify-center gap-1.5">
+                            <div className="flex justify-center items-center gap-1.5">
                               <button
                                 type="button"
                                 onClick={() => handleQtyChange(item.productId, item.qty - 1)}
-                                className="w-6 h-6 rounded-lg bg-[#E8E3DA] dark:bg-[#2E251E] hover:bg-[#DDD7CC] text-[#1C1613] dark:text-white font-black text-xs flex items-center justify-center"
+                                className="flex justify-center items-center bg-[#E8E3DA] hover:bg-[#DDD7CC] dark:bg-[#2E251E] rounded-lg w-6 h-6 font-black text-[#1C1613] dark:text-white text-xs"
                               >
                                 -
                               </button>
@@ -1122,25 +1214,25 @@ export const SalesOrdersModule: React.FC = () => {
                                 onChange={(e) =>
                                   handleQtyChange(item.productId, parseInt(e.target.value) || 1)
                                 }
-                                className="w-16 px-1.5 py-0.5 text-center font-bold font-mono text-xs bg-white dark:bg-[#16120F] border border-[#E8E3DA] dark:border-[#352B24] rounded-lg"
+                                className="bg-white dark:bg-[#16120F] px-1.5 py-0.5 border border-[#E8E3DA] dark:border-[#352B24] rounded-lg w-16 font-mono font-bold text-xs text-center"
                               />
                               <button
                                 type="button"
                                 onClick={() => handleQtyChange(item.productId, item.qty + 1)}
-                                className="w-6 h-6 rounded-lg bg-[#E8E3DA] dark:bg-[#2E251E] hover:bg-[#DDD7CC] text-[#1C1613] dark:text-white font-black text-xs flex items-center justify-center"
+                                className="flex justify-center items-center bg-[#E8E3DA] hover:bg-[#DDD7CC] dark:bg-[#2E251E] rounded-lg w-6 h-6 font-black text-[#1C1613] dark:text-white text-xs"
                               >
                                 +
                               </button>
                             </div>
                           </td>
-                          <td className="px-3.5 py-2.5 text-right font-mono font-black text-[#1C1613] dark:text-[#FCD34D]">
+                          <td className="px-3.5 py-2.5 font-mono font-black text-[#1C1613] dark:text-[#FCD34D] text-right">
                             ₹{(item.qty * item.unitPrice).toLocaleString('en-IN')}
                           </td>
                           <td className="px-2 py-2.5 text-center">
                             <button
                               type="button"
                               onClick={() => handleRemoveItem(item.productId)}
-                              className="text-rose-500 hover:text-rose-700 p-1 rounded-lg"
+                              className="p-1 rounded-lg text-rose-500 hover:text-rose-700"
                               title="Remove item"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
@@ -1152,8 +1244,8 @@ export const SalesOrdersModule: React.FC = () => {
                   </table>
 
                   {/* Add Equipment Item Row */}
-                  <div className="p-3 bg-[#F4F0E8]/70 dark:bg-[#201915]/70 border-t border-[#EBE7DF] dark:border-[#2E251E] flex flex-col sm:flex-row items-center gap-2">
-                    <span className="text-xs font-bold text-[#7D756D] dark:text-[#A89F95] shrink-0">
+                  <div className="flex sm:flex-row flex-col items-center gap-2 bg-[#F4F0E8]/70 dark:bg-[#201915]/70 p-3 border-[#EBE7DF] dark:border-[#2E251E] border-t">
+                    <span className="font-bold text-[#7D756D] dark:text-[#A89F95] text-xs shrink-0">
                       Add Product from Depot Stock:
                     </span>
                     <select
@@ -1162,7 +1254,7 @@ export const SalesOrdersModule: React.FC = () => {
                         setItemToAdd(e.target.value);
                         if (e.target.value) handleAddItem(e.target.value);
                       }}
-                      className="bg-white dark:bg-[#1A1512] px-3 py-1.5 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl text-xs font-medium flex-1 text-[#1C1613] dark:text-white focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
+                      className="flex-1 bg-white dark:bg-[#1A1512] px-3 py-1.5 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 font-medium text-[#1C1613] dark:text-white text-xs"
                     >
                       <option value="">-- Select solar panel, inverter, battery or BOS item --</option>
                       {products.map((p) => (
@@ -1176,13 +1268,13 @@ export const SalesOrdersModule: React.FC = () => {
               </div>
 
               {/* Section 4: Freight Carrier & Vehicle Allocation */}
-              <div className="space-y-3 pt-3 border-t border-[#F0EBE1] dark:border-[#2D2520]">
-                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#A87208] dark:text-[#FCD34D]">
+              <div className="space-y-3 pt-3 border-[#F0EBE1] dark:border-[#2D2520] border-t">
+                <div className="flex items-center gap-2 font-black text-[#A87208] dark:text-[#FCD34D] text-xs uppercase tracking-wider">
                   <Truck className="w-4 h-4" />
                   <span>4. Freight Logistics Carrier & Driver Allocation</span>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div className="gap-3 grid grid-cols-1 md:grid-cols-3">
                   <div>
                     <label className="block mb-1 font-bold text-[#1C1613] dark:text-[#FAF7F2] text-xs">
                       Logistics Partner *
@@ -1190,7 +1282,7 @@ export const SalesOrdersModule: React.FC = () => {
                     <select
                       value={newTransporter}
                       onChange={(e) => setNewTransporter(e.target.value as any)}
-                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl w-full text-[#1C1613] dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
+                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 w-full text-[#1C1613] dark:text-white text-xs"
                     >
                       <option value="V-Trans India">V-Trans India (Dedicated Solar Fleet)</option>
                       <option value="Safexpress">Safexpress Multi-axle Heavy</option>
@@ -1210,7 +1302,7 @@ export const SalesOrdersModule: React.FC = () => {
                       placeholder="e.g. MH 04 AB 9123"
                       value={newVehicleNumber}
                       onChange={(e) => setNewVehicleNumber(e.target.value.toUpperCase())}
-                      className="font-mono bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl w-full text-[#1C1613] dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
+                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 w-full font-mono text-[#1C1613] dark:text-white text-xs"
                     />
                   </div>
 
@@ -1221,7 +1313,7 @@ export const SalesOrdersModule: React.FC = () => {
                     <select
                       value={newVehicleType}
                       onChange={(e) => setNewVehicleType(e.target.value)}
-                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl w-full text-[#1C1613] dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
+                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 w-full text-[#1C1613] dark:text-white text-xs"
                     >
                       <option value="24ft Heavy Open Bed">24ft Heavy Open Bed (Palletized)</option>
                       <option value="32ft Multi-Axle Container">32ft Multi-Axle Container (Weatherproof)</option>
@@ -1239,7 +1331,7 @@ export const SalesOrdersModule: React.FC = () => {
                       placeholder="e.g. Suresh Gaikwad"
                       value={newDriverName}
                       onChange={(e) => setNewDriverName(e.target.value)}
-                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl w-full text-[#1C1613] dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
+                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 w-full text-[#1C1613] dark:text-white text-xs"
                     />
                   </div>
 
@@ -1252,7 +1344,7 @@ export const SalesOrdersModule: React.FC = () => {
                       placeholder="+91 97110 44291"
                       value={newDriverPhone}
                       onChange={(e) => setNewDriverPhone(e.target.value)}
-                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl w-full text-[#1C1613] dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
+                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 w-full text-[#1C1613] dark:text-white text-xs"
                     />
                   </div>
 
@@ -1265,7 +1357,7 @@ export const SalesOrdersModule: React.FC = () => {
                       required
                       value={newDeliveryDate}
                       onChange={(e) => setNewDeliveryDate(e.target.value)}
-                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl w-full text-[#1C1613] dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
+                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 w-full text-[#1C1613] dark:text-white text-xs"
                     />
                   </div>
 
@@ -1278,7 +1370,7 @@ export const SalesOrdersModule: React.FC = () => {
                       placeholder="e.g. Fragile Glass Panels (Do Not Double Stack) • Waterproof Tarpaulin Required"
                       value={newHandlingInstructions}
                       onChange={(e) => setNewHandlingInstructions(e.target.value)}
-                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl w-full text-[#1C1613] dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
+                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 w-full text-[#1C1613] dark:text-white text-xs"
                     />
                   </div>
 
@@ -1289,7 +1381,7 @@ export const SalesOrdersModule: React.FC = () => {
                     <select
                       value={newPaymentTerms}
                       onChange={(e) => setNewPaymentTerms(e.target.value)}
-                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl w-full text-[#1C1613] dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-[#FCD34D]"
+                      className="bg-[#F8F5EE] dark:bg-[#221B17] px-3 py-2 border border-[#E8E3DA] dark:border-[#352B24] rounded-xl focus:outline-none focus:ring-[#FCD34D] focus:ring-2 w-full text-[#1C1613] dark:text-white text-xs"
                     >
                       <option value="100% Advance via RTGS/NEFT">100% Advance via RTGS/NEFT</option>
                       <option value="20% Advance + 80% on Dispatch">20% Advance + 80% on Dispatch</option>
@@ -1301,34 +1393,34 @@ export const SalesOrdersModule: React.FC = () => {
               </div>
 
               {/* Modal Footer with Live Valuation & Actions */}
-              <div className="pt-4 mt-4 border-t border-[#F0EBE1] dark:border-[#2D2520] flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#FAF8F5] dark:bg-[#1E1714] -mx-6 -mb-6 p-6">
+              <div className="flex sm:flex-row flex-col justify-between items-center gap-4 bg-[#FAF8F5] dark:bg-[#1E1714] -mx-6 mt-4 -mb-6 p-6 pt-4 border-[#F0EBE1] dark:border-[#2D2520] border-t">
                 <div>
-                  <span className="text-[11px] uppercase font-bold text-[#7D756D] dark:text-[#A89F95]">
+                  <span className="font-bold text-[#7D756D] text-[11px] dark:text-[#A89F95] uppercase">
                     Total Cargo Valuation (excl. GST):
                   </span>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-xl font-black text-[#1C1613] dark:text-[#FCD34D]">
+                    <span className="font-black text-[#1C1613] dark:text-[#FCD34D] text-xl">
                       ₹{totalCalculatedAmount.toLocaleString('en-IN')}
                     </span>
-                    <span className="text-xs text-[#7D756D] dark:text-[#A89F95]">
+                    <span className="text-[#7D756D] dark:text-[#A89F95] text-xs">
                       ({selectedItems.reduce((acc, i) => acc + i.qty, 0)} units • {selectedItems.length} lines)
                     </span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2.5 w-full sm:w-auto justify-end">
+                <div className="flex justify-end items-center gap-2.5 w-full sm:w-auto">
                   <button
                     type="button"
                     onClick={() => setShowCreateModal(false)}
-                    className="px-4 py-2.5 rounded-2xl font-bold text-[#7D756D] hover:text-[#1C1613] dark:hover:text-white hover:bg-[#EBE5DA] dark:hover:bg-[#2B221B] text-xs transition-colors"
+                    className="hover:bg-[#EBE5DA] dark:hover:bg-[#2B221B] px-4 py-2.5 rounded-2xl font-bold text-[#7D756D] hover:text-[#1C1613] dark:hover:text-white text-xs transition-colors"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="flex items-center justify-center gap-2 bg-[#FCD34D] hover:bg-[#fbbf24] shadow-md shadow-[#FCD34D]/20 px-6 py-2.5 rounded-2xl font-black text-[#1C1613] text-xs transition-all"
+                    className="flex justify-center items-center gap-2 bg-[#FCD34D] hover:bg-[#fbbf24] shadow-[#FCD34D]/20 shadow-md px-6 py-2.5 rounded-2xl font-black text-[#1C1613] text-xs transition-all"
                   >
-                    <CheckCircle2 className="w-4 h-4 stroke-[2.5]" />
+                    <CheckCircle2 className="stroke-[2.5] w-4 h-4" />
                     <span>Confirm & Generate Booking</span>
                   </button>
                 </div>
